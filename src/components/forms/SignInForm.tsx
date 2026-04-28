@@ -32,8 +32,8 @@ const SignInForm = ({ setRequireOtp, setEmail }: SigninFormProps) => {
         //   redirect("/dashboard")
 
         // }
-        // setRequireOtp(res.twoFARequired)
-        // setEmail(value.email)
+        setRequireOtp(true)
+        setEmail(value.email)
 
         // setMessage(res.message || "Sign in failed")
 

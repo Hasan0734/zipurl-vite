@@ -4,7 +4,7 @@ import {
   Gauge,
   ShieldCogCorner,
 } from "lucide-react"
-import SignInSection from "../SignInSection";
+import SignInSection from "../components/SignInSection";
 
 const SignIn = () => {
   return (

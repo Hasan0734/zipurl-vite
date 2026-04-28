@@ -1,16 +1,20 @@
+import "./index.css";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import "./index.css";
-import App from "./App.tsx";
-import { ThemeProvider } from "./components/theme-provider.tsx";
-
 import { createBrowserRouter, RouterProvider } from "react-router";
-import SignIn from "./components/pages/SignIn.tsx";
+
+
+import { ThemeProvider } from "./components/theme-provider.tsx";
+import SignIn from "./pages/SignIn.tsx";
+import Dashboard from "./pages/Dashboard.tsx";
+import  Home from "./pages/Home.tsx";
+import Analytics from "./pages/Analytics.tsx";
+import Settings from "./pages/Settings.tsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <Home />,
   },
   {
     path: "/sign-in",
@@ -19,6 +23,19 @@ const router = createBrowserRouter([
   {
     path: "/sign-up",
     element: <h2>sign-up page</h2>,
+  },
+  {
+    path: "/dashboard",
+    element: <Dashboard />,
+  },
+
+  {
+    path: "/analytics",
+    element: <Analytics />,
+  },
+    {
+    path: "/settings",
+    element: <Settings />,
   },
 ]);
 
