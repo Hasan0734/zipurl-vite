@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/pagination"
 import { DataTable } from "./data-table"
 import { columns, type DataLink } from "./columns"
+import { useLoaderData } from "react-router"
 
 // async function getData(): Promise<DataLink[]> {
 //   return [
@@ -46,12 +47,15 @@ import { columns, type DataLink } from "./columns"
 // }
 
 const RecentActivity =  () => {
-  // const data = await getData()
+
+  const {urls} = useLoaderData()
+
+  
   return (
     <section className="space-y-6">
       <ActivityHeader />
       <div className="glass-panel overflow-hidden rounded-xl shadow-2xl">
-        {/* <DataTable data={data} columns={columns} /> */}
+        <DataTable data={urls} columns={columns} />
         <div className="flex items-center justify-between px-8 py-4">
           <p className="text-on-surface-variant text-xs">
             Showing 1 to 10 of 1,284 links

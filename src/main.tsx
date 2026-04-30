@@ -70,10 +70,8 @@ createRoot(document.getElementById("root")!).render(
 
 async function getProfile() {
   const res = await api.get("/auth/me");
-
   return res.data;
 }
-
 
 
 async function getUrls() {

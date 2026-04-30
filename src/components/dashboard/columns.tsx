@@ -21,11 +21,11 @@ export const columns: ColumnDef<DataLink>[] = [
     )
   },
   {
-    accessorKey: "short_url",
-    header: "Short URL",
+    accessorKey: "short_code",
+    header: "Short Code",
   },
   {
-    accessorKey: "clicks",
+    accessorKey: "click_count",
     header: "Clicks",
   },
   {

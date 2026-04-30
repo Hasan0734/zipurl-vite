@@ -7,15 +7,13 @@ import { useLoaderData } from "react-router";
 
 const Dashboard = () => {
 
-  const {urls} = useLoaderData()
-  console.log({urls})
  
   return (
     <DashboardLayout>
       <div className="space-y-12 p-12">
         <PastLink />
 
-        <RecentActivity />
+        <RecentActivity  />
 
         <section className="grid grid-cols-1 gap-8 md:grid-cols-3">
           <StatsCard
