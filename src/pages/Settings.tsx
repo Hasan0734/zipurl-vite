@@ -4,7 +4,10 @@ import PreferenceAndUrl from "@/components/settings/PreferenceAndUrl";
 import ProfileSection from "@/components/settings/ProfileSection";
 import SecuritySection from "@/components/settings/SecuritySection";
 
+
 const Settings = () => {
+
+
   return (
     <DashboardLayout>
       <div className="space-y-12 p-12">

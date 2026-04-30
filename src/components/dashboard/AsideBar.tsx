@@ -7,6 +7,7 @@ import {
 } from "lucide-react"
 import { Button } from "../ui/button"
 import { cn } from "@/lib/utils"
+import { NavLink } from "react-router"
 
 const AsideBar = () => {
 
@@ -35,19 +36,19 @@ const AsideBar = () => {
       </div>
       <nav className="flex-1 space-y-2">
         {items.map((item) => (
-          <a
+          <NavLink
             key={item.title}
-            className={cn("flex items-center gap-4 rounded-xl  px-4 py-3   transition-all duration-300 hover:bg-[#192540]/50", )}
-            href={item.to}
-            // {
-            //    "border-r-4 border-primary/50 text-primary font-bold": pathname === item.to
-            // }
+            className={({isActive}) => cn("flex items-center gap-4 rounded-xl  px-4 py-3   transition-all duration-300 hover:bg-[#192540]/50",   {
+                "border-r-4 border-primary/50 text-primary font-bold bg-[#192540]/50": isActive
+          } )}
+            to={item.to}
+          
           >
             <item.icon />
             <span className="font-['Inter'] text-sm tracking-tight">
               {item.title}
             </span>
-          </a>
+          </NavLink>
         ))}
        
       </nav>

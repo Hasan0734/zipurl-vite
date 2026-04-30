@@ -3,8 +3,13 @@ import PastLink from "../components/dashboard/PastLink";
 import RecentActivity from "../components/dashboard/RecentActivity";
 import StatsCard from "../components/dashboard/StatsCard";
 import DashboardLayout from "../components/DashboardLayout";
+import { useLoaderData } from "react-router";
 
 const Dashboard = () => {
+
+  const {urls} = useLoaderData()
+  console.log({urls})
+ 
   return (
     <DashboardLayout>
       <div className="space-y-12 p-12">

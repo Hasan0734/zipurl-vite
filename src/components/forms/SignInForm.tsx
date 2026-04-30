@@ -1,19 +1,33 @@
-import { AtSign, Lock } from "lucide-react"
-import { Button } from "../ui/button"
-import { FieldError, FieldGroup } from "../ui/field"
-import { useForm } from "@tanstack/react-form"
-import { useState, useTransition } from "react"
-import { Spinner } from "../ui/spinner"
-import TextInput from "../TextInput"
+import { AtSign, Lock } from "lucide-react";
+import { Button } from "../ui/button";
+import { FieldError, FieldGroup } from "../ui/field";
+import { useForm } from "@tanstack/react-form";
+import { useState, useTransition } from "react";
+import { Spinner } from "../ui/spinner";
+import TextInput from "../TextInput";
+import {
+  loginUserSchema,
+  type LoginUserSchemaType,
+} from "@/schema/user.schema";
+import api from "@/lib/api";
+import { useNavigate } from "react-router";
+import { useAuth } from "@/hooks/use-auth";
 
 interface SigninFormProps {
-  setRequireOtp: React.Dispatch<React.SetStateAction<boolean>>
-  setEmail: React.Dispatch<React.SetStateAction<string>>
+  setRequireOtp: React.Dispatch<React.SetStateAction<boolean>>;
+  setEmail: React.Dispatch<React.SetStateAction<string>>;
 }
 
+const userLogin = async (data: LoginUserSchemaType) => {
+  const res = await api.post("/auth/sign-in", data);
+  return res.data;
+};
+
 const SignInForm = ({ setRequireOtp, setEmail }: SigninFormProps) => {
-  const [isPending, startTransition] = useTransition()
-  const [message, setMessage] = useState("")
+  const navigate = useNavigate();
+  const [isPending, startTransition] = useTransition();
+  const [message, setMessage] = useState("");
+  const { setAccessToken, setUser } = useAuth();
 
   const form = useForm({
     defaultValues: {
@@ -21,44 +35,36 @@ const SignInForm = ({ setRequireOtp, setEmail }: SigninFormProps) => {
       password: "",
     },
     validators: {
-      // onSubmit: loginUserSchema,
+      onSubmit: loginUserSchema,
     },
     onSubmit: async ({ value }) => {
       startTransition(async () => {
-        // const res = await loginAction(value)
-        // console.log(res)
+        const data = await userLogin(value);
 
-        // if (res.success && !res?.twoFARequired) {
-        //   redirect("/dashboard")
+        if (!data.success) {
+          setMessage(data.message);
+          return;
+        }
 
-        // }
-        setRequireOtp(true)
-        setEmail(value.email)
+        if (data.success && data?.twoFARequired) {
+          setRequireOtp(true);
+          setEmail(value.email);
+          return;
+        }
 
-        // setMessage(res.message || "Sign in failed")
-
-        // await authClient.signIn.email(
-        //   {
-        //     email: "test@user.com",
-        //     password: "password1234",
-        //   },
-        //   {
-        //     onSuccess(ctx) {
-        //     console.log(ctx)
-        //     },
-        //   }
-        // )
-      })
-
-      // form.reset()
+        setAccessToken(data.access_token);
+        setUser(data.user);
+        navigate("/dashboard");
+        form.reset();
+      });
     },
-  })
+  });
 
   return (
     <form
       onSubmit={(e) => {
-        e.preventDefault()
-        form.handleSubmit()
+        e.preventDefault();
+        form.handleSubmit();
       }}
       className="space-y-6"
     >
@@ -94,7 +100,7 @@ const SignInForm = ({ setRequireOtp, setEmail }: SigninFormProps) => {
         {isPending && <Spinner />} Sign In
       </Button>
     </form>
-  )
-}
+  );
+};
 
-export default SignInForm
+export default SignInForm;
