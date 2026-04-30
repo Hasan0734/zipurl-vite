@@ -1,25 +1,7 @@
-import {
-  BadgeCheckIcon,
-  BellDot,
-  BellIcon,
-  CreditCardIcon,
-  Search,
-} from "lucide-react"
-import { Button } from "../ui/button"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "../ui/dropdown-menu"
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar"
-import SignOutBtn from "./SignOutBtn"
+import { BellDot, Search } from "lucide-react";
+import UserDropDown from "../UserDropDown";
 
-
-const DashboardHeader =   () => {
-
+const DashboardHeader = () => {
   return (
     <header className="sticky top-0 z-40 flex h-20 w-full items-center justify-between bg-transparent px-12 backdrop-blur-md">
       <div className="max-w-md flex-1">
@@ -41,50 +23,10 @@ const DashboardHeader =   () => {
             <span className="absolute top-px right-0.5 h-2 w-2 rounded-full border-2 bg-red-600"></span>
           </button>
         </div>
-        <div className="flex items-center gap-3">
-          <div className="text-right">
-            <p className="text-on-surface text-sm leading-none font-semibold">
-            Jahid Hasan
-            </p>
-            <p className="text-[10px] font-bold tracking-tighter text-secondary uppercase">
-              Pro Member
-            </p>
-          </div>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon" className="rounded-full">
-                <Avatar>
-                  <AvatarImage
-                    src="https://github.com/shadcn.png"
-                    alt="harry"
-                  />
-                  <AvatarFallback>LR</AvatarFallback>
-                </Avatar>
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-40 bg-background">
-              <DropdownMenuGroup>
-                <DropdownMenuItem>
-                  <BadgeCheckIcon />
-                  Account
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <CreditCardIcon />
-                  Billing
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <BellIcon />
-                  Notifications
-                </DropdownMenuItem>
-              </DropdownMenuGroup>
-              <DropdownMenuSeparator />
-              <SignOutBtn />
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
+       <UserDropDown/>
       </div>
     </header>
-  )
-}
+  );
+};
 
-export default DashboardHeader
+export default DashboardHeader;

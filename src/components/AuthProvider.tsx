@@ -16,13 +16,13 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       try {
         const res = await api.post("/auth/refresh");
         const data = res.data;
-        console.log(data)
+        console.log(data);
         if (isMounted) {
           setAccessToken(data.access_token);
           setUser(data.user);
         }
       } catch (error) {
-        console.log(error)
+        console.log(error);
         if (isMounted) {
           setUser(null);
           setAccessToken(null);
@@ -62,16 +62,16 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   //   return () => controller.abort();
   // }, []);
 
-  const logout = () => {
+  const logout = async () => {
     setUser(null);
     setAccessToken(null);
+
+    await api.post("/auth/sign-out");
   };
 
-
-  if(isLoading) {
-   return  null;
+  if (isLoading) {
+    return null;
   }
-
 
   return (
     <AuthContext.Provider

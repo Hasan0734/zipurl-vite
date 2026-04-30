@@ -1,7 +1,11 @@
-import { FolderArchiveIcon } from "lucide-react"
-import { Button } from "./ui/button"
+import { FolderArchiveIcon } from "lucide-react";
+import { Button } from "./ui/button";
+import UserDropDown from "./UserDropDown";
+import { useAuth } from "@/hooks/use-auth";
 
 const Navbar = () => {
+  const auth = useAuth()
+
   return (
     <nav className="sticky top-0 z-50 bg-[#060e20]/70 shadow-[0_20px_40px_rgba(0,0,0,0.4),0_0_20px_rgba(105,246,184,0.05)] backdrop-blur-xl">
       <nav className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-4">
@@ -34,20 +38,24 @@ const Navbar = () => {
             Ready to start
           </a>
         </div>
-        <div className="flex items-center gap-4">
-          <a href="/sign-in">
-            <Button className="font-semibold font-manrope" variant={'link'}>Sign In</Button>
-          </a>
-          {/* <div className="bg-surface-container-high h-10 w-10 overflow-hidden rounded-full ring-2 ring-primary/20">
-            <img
-              alt="User profile"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCIdQFRdNcUf7YzQVJiEjJR19JUd_jXHQh4240g5a5HF7Y8OTwP7wD5LXpBMFUVb0eijD9iBLEt6QZ_USLPjr8uJSqsqQPLnQXE0sNgzRkAvPsrPiZlXjCRchK12KEA8euVk1mmll76CXEDkRNYVtvyd49ks0Ut5YTXr2yyERDcR3XDRyOR1e3DZ3OTAOHh_l8MN-Ida6EXO_hb2pPXlSHHgMVgqC6VfsPrBeZ0uXkPRhxETaEiRCqm13NzL-70HrdrcXmBxAyOo8E"
-            />
-          </div> */}
+        <div className="flex items-center gap-2">
+          {!auth.accessToken && <div className="flex items-center gap-2">
+            <a href="/sign-in">
+              <Button className="font-semibold font-manrope" variant={"link"}>
+                Sign In
+              </Button>
+            </a>
+            <a href="/sign-in">
+              <Button className="font-semibold font-manrope" variant={"link"}>
+                Sign Out
+              </Button>
+            </a>
+          </div>}
+         {auth.accessToken &&  <UserDropDown />}
         </div>
       </nav>
     </nav>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;
