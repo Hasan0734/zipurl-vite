@@ -119,7 +119,9 @@ function CopyButton({
         >
           <Icon />
         </motion.span>
+        
       </AnimatePresence>
+      
     </motion.button>
   )
 }

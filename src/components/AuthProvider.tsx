@@ -10,33 +10,33 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  // useEffect(() => {
-  //   let isMounted = true;
-  //   const rehydrate = async () => {
-  //     try {
-  //       const res = await api.post("/auth/refresh");
-  //       const data = res.data;
-  //       console.log(data);
-  //       if (isMounted) {
-  //         setAccessToken(data.access_token);
-  //         setUser(data.user);
-  //       }
-  //     } catch (error) {
-  //       console.log(error);
-  //       if (isMounted) {
-  //         setUser(null);
-  //         setAccessToken(null);
-  //       }
-  //     } finally {
-  //       if (isMounted) setIsLoading(false);
-  //     }
-  //   };
+  useEffect(() => {
+    let isMounted = true;
+    const rehydrate = async () => {
+      try {
+        const res = await api.post("/auth/refresh");
+        const data = res.data;
+        console.log(data);
+        if (isMounted) {
+          setAccessToken(data.access_token);
+          setUser(data.user);
+        }
+      } catch (error) {
+        console.log(error);
+        if (isMounted) {
+          setUser(null);
+          setAccessToken(null);
+        }
+      } finally {
+        if (isMounted) setIsLoading(false);
+      }
+    };
 
-  //   rehydrate();
-  //   return () => {
-  //     isMounted = false;
-  //   };
-  // }, []);
+    rehydrate();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   useEffect(() => {
     const interceptor = api.interceptors.response.use(
@@ -73,9 +73,13 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     await api.post("/auth/sign-out");
   };
 
-  // if (isLoading) {
-  //   return null;
-  // }
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex justify-center items-center">
+        <Spinner /> Loading...
+      </div>
+    );
+  }
 
   return (
     <AuthContext.Provider

@@ -10,7 +10,7 @@ const HeroSection = () => {
           Reach Further
         </span>
         <h1 className="display-lg text-on-surface mb-6 text-5xl leading-tight font-extrabold tracking-tighter md:text-7xl">
-          Shorten Your Links, <br />
+          Shorten Your Links and <br />
           <span className="bg-linear-to-r from-[#10b981]/50 to-[#69f6b8] bg-clip-text text-transparent">
             Expand Your Reach
           </span>

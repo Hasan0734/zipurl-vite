@@ -1,7 +1,5 @@
-import { useState, type Dispatch, type SetStateAction } from "react";
-import SignInForm from "./forms/SignInForm";
-import { Dialog, DialogContent, DialogHeader } from "./ui/dialog";
-import OtpForm from "./forms/OtpForm";
+import {  type Dispatch, type SetStateAction } from "react";
+import { Dialog, DialogContent } from "./ui/dialog";
 import SignInSection from "./SignInSection";
 
 interface LoginDialogProps {
@@ -16,6 +14,7 @@ const LoginDialog = ({ open, setOpen }: LoginDialogProps) => {
       <DialogContent
         showCloseButton={false}
         className="p-0 bg-transparent! ring-0"
+        aria-describedby={undefined}
       >
         <SignInSection className="p-6!" />
       </DialogContent>

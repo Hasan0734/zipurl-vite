@@ -7,14 +7,28 @@ import {
 } from "lucide-react";
 import { Button } from "./ui/button";
 import HeroForm from "./forms/HeroForm";
-import LoginDialog from "./LoginDialog";
+import { useState } from "react";
+import { SHORT_URL } from "@/lib/utils";
+import CopyButton from "./ui/copy-button";
 const HeroFormSection = () => {
+  const [shortCode, setShortCode] = useState("");
+  const [customAlias, setCustomAlias] = useState("");
+
+  const url = () => {
+    const code = customAlias ? customAlias : shortCode;
+    const fullUrl = SHORT_URL + (code ? code : "example");
+    return fullUrl;
+  };
+
+  console.log(!(!!customAlias || !!shortCode))
   return (
     <>
-      <LoginDialog />
       <div className="relative z-10 w-full max-w-3xl">
         <div className="rounded-xl border border-[#192540]/15 bg-[#192540]/40 p-8 shadow-[0_20px_40px_rgba(16,185,129,0.08)] backdrop-blur-xl">
-          <HeroForm />
+          <HeroForm
+            setShortCode={setShortCode}
+            setCustomAlias={setCustomAlias}
+          />
         </div>
       </div>
       <div className="relative z-10 mt-12 w-full max-w-3xl">
@@ -31,12 +45,18 @@ const HeroFormSection = () => {
               </div>
               <div className="group mb-6 flex items-center justify-between rounded-full bg-black px-4 py-2">
                 <span className="text-xl font-medium tracking-tight text-secondary">
-                  zip.url/spring-24
+                  {url() ? url() : "example"}
                 </span>
-                <button className="flex items-center gap-2 rounded-full bg-secondary px-4 py-2 text-sm font-bold text-white transition-colors hover:bg-primary/30">
+                <CopyButton
+                  disabled={!(!!customAlias || !!shortCode)}
+                  content={url()}
+                  className="border-0"
+                  variant={"outline"}
+                />
+                {/* <button className="flex items-center gap-2 rounded-full bg-secondary px-4 py-2 text-sm font-bold text-white transition-colors hover:bg-primary/30">
                   <CopyIcon size={18} />
                   Copy
-                </button>
+                </button> */}
               </div>
               <div className="flex gap-4">
                 <Button

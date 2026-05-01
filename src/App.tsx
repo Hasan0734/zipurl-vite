@@ -7,7 +7,9 @@ import { Toaster } from "react-hot-toast";
 export default function App() {
   return (
     <AuthProvider >
-        <Toaster/>
+        <Toaster containerStyle={{
+            
+        }}/>
       <Outlet /> 
     </AuthProvider>
   );
