@@ -3,24 +3,28 @@ import { Button } from "@/components/ui/button"
 
 import { useState } from "react"
 import OtpForm from "./forms/OtpForm"
+import { cn } from "@/lib/utils"
 
+interface SectionProps {
+  className?: string
+}
 
-const SignInSection = () => {
+const SignInSection = ({className}: SectionProps) => {
   const [requireOtp, setRequireOtp] = useState(false);
   const [email, setEmail] = useState('')
   return (
     <div>
       {!requireOtp ? (
-        <div className="glass-card emerald-glow w-full max-w-120 rounded-[2rem] bg-background! p-10 md:p-12">
+        <div className={cn("glass-card emerald-glow w-full max-w-120 rounded-[2rem] bg-background! p-10 md:p-12", className)}>
           <div>
-            <header className="mb-10">
+            <div className="mb-10">
               <h1 className="mb-2 text-xl font-bold tracking-tight sm:text-3xl">
                 Welcome Back
               </h1>
               <p className="text-md text-muted-foreground">
                 Enter your credentials to manage your digital echoes.
               </p>
-            </header>
+            </div>
             <SignInForm setRequireOtp={setRequireOtp} setEmail={setEmail}/>
             <div className="relative my-10">
               <div className="absolute inset-0 flex items-center">
@@ -51,7 +55,7 @@ const SignInSection = () => {
                 You don't have account?
                 <a
                   className="ml-1 font-bold text-primary underline-offset-4 hover:underline"
-                  href="/signup"
+                  href="/sign-up"
                 >
                   Sign up
                 </a>

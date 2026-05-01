@@ -10,7 +10,7 @@ import {
   type LoginUserSchemaType,
 } from "@/schema/user.schema";
 import api from "@/lib/api";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { useAuth } from "@/hooks/use-auth";
 
 interface SigninFormProps {
@@ -28,6 +28,9 @@ const SignInForm = ({ setRequireOtp, setEmail }: SigninFormProps) => {
   const [isPending, startTransition] = useTransition();
   const [message, setMessage] = useState("");
   const { setAccessToken, setUser } = useAuth();
+  const location = useLocation();
+
+  const from = location.state?.from?.pathname || "/dashboard";
 
   const form = useForm({
     defaultValues: {
@@ -54,7 +57,7 @@ const SignInForm = ({ setRequireOtp, setEmail }: SigninFormProps) => {
 
         setAccessToken(data.access_token);
         setUser(data.user);
-        navigate("/dashboard");
+        navigate(from, { replace: true });
         form.reset();
       });
     },

@@ -12,6 +12,7 @@ import Settings from "./pages/Settings.tsx";
 import App from "./App.tsx";
 import ProtectedRoutes from "./lib/ProtectedRoutes.tsx";
 import api from "./lib/api.ts";
+import SignUp from "./pages/SignUp.tsx";
 
 const router = createBrowserRouter([
   {
@@ -29,7 +30,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/sign-up",
-        element: <h2>sign-up page</h2>,
+        Component: SignUp,
       },
       {
         element: <ProtectedRoutes />,

@@ -4,7 +4,7 @@ import UserDropDown from "./UserDropDown";
 import { useAuth } from "@/hooks/use-auth";
 
 const Navbar = () => {
-  const auth = useAuth()
+  const auth = useAuth();
 
   return (
     <nav className="sticky top-0 z-50 bg-[#060e20]/70 shadow-[0_20px_40px_rgba(0,0,0,0.4),0_0_20px_rgba(105,246,184,0.05)] backdrop-blur-xl">
@@ -39,19 +39,21 @@ const Navbar = () => {
           </a>
         </div>
         <div className="flex items-center gap-2">
-          {!auth.accessToken && <div className="flex items-center gap-2">
-            <a href="/sign-in">
-              <Button className="font-semibold font-manrope" variant={"link"}>
-                Sign In
-              </Button>
-            </a>
-            <a href="/sign-in">
-              <Button className="font-semibold font-manrope" variant={"link"}>
-                Sign Out
-              </Button>
-            </a>
-          </div>}
-         {auth.accessToken &&  <UserDropDown />}
+          {!auth.accessToken && (
+            <div className="flex items-center gap-2">
+              <a href="/sign-in">
+                <Button className="font-semibold font-manrope" variant={"link"}>
+                  Sign In
+                </Button>
+              </a>
+              <a href="/sign-up">
+                <Button className="font-semibold font-manrope" variant={"link"}>
+                  Sign Up
+                </Button>
+              </a>
+            </div>
+          )}
+          {auth.accessToken && <UserDropDown />}
         </div>
       </nav>
     </nav>

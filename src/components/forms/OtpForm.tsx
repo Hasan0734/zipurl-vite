@@ -25,7 +25,6 @@ import * as z from "zod"
 import { REGEXP_ONLY_DIGITS } from "input-otp"
 import { useForm } from "@tanstack/react-form"
 import { useState, useTransition } from "react"
-import toast from "react-hot-toast"
 import { Spinner } from "../ui/spinner"
 
 const otpSchema = z.object({
@@ -74,7 +73,7 @@ const OtpForm = ({ email }: OtpFormProps) => {
   }
 
   return (
-    <Card className="glass-card emerald-glow">
+    <Card className="glass-card emerald-glow rounded-[2rem] bg-background!">
       <form
         onSubmit={(e) => {
           e.preventDefault()
@@ -118,6 +117,7 @@ const OtpForm = ({ email }: OtpFormProps) => {
                     id={field.name}
                     name={field.name}
                     pattern={REGEXP_ONLY_DIGITS}
+                    containerClassName="justify-center"
                   >
                     <InputOTPGroup className="*:data-[slot=input-otp-slot]:h-12 *:data-[slot=input-otp-slot]:w-11 *:data-[slot=input-otp-slot]:text-xl">
                       <InputOTPSlot index={0} />
