@@ -1,4 +1,8 @@
-import { BadgeCheckIcon, BellIcon, CreditCardIcon } from "lucide-react";
+import {
+  ChartNoAxesCombinedIcon,
+  LayoutDashboardIcon,
+  UserIcon,
+} from "lucide-react";
 import { Button } from "./ui/button";
 import {
   DropdownMenu,
@@ -11,10 +15,17 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import SignOutBtn from "./dashboard/SignOutBtn";
 import { useAuth } from "@/hooks/use-auth";
+import { useNavigate } from "react-router";
 
 const UserDropDown = () => {
   const auth = useAuth();
+  const navigate = useNavigate()
 
+  const items = [
+    { label: "Dashboard", to: "/dashboard", icon: LayoutDashboardIcon },
+    { label: "Analytics", to: "/analytics", icon: ChartNoAxesCombinedIcon },
+    { label: "Profile", to: "/profile", icon: UserIcon },
+  ];
 
   const user = auth.user;
   return (
@@ -38,18 +49,12 @@ const UserDropDown = () => {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-40 bg-background">
           <DropdownMenuGroup>
-            <DropdownMenuItem>
-              <BadgeCheckIcon />
-              Account
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <CreditCardIcon />
-              Billing
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <BellIcon />
-              Notifications
-            </DropdownMenuItem>
+            {items.map((item) => (
+              <DropdownMenuItem onClick={() => navigate(item.to)}>
+                <item.icon />
+                {item.label}
+              </DropdownMenuItem>
+            ))}
           </DropdownMenuGroup>
           <DropdownMenuSeparator />
           <SignOutBtn />

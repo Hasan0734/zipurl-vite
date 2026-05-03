@@ -19,8 +19,12 @@ interface SigninFormProps {
 }
 
 const userLogin = async (data: LoginUserSchemaType) => {
-  const res = await api.post("/auth/sign-in", data);
-  return res.data;
+  try {
+    const res = await api.post("/auth/sign-in", data);
+    return res.data;
+  } catch (err:any) {
+    return err.response.data
+  }
 };
 
 const SignInForm = ({ setRequireOtp, setEmail }: SigninFormProps) => {

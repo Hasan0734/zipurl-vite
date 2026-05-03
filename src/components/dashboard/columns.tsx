@@ -1,24 +1,25 @@
-
-import { type ColumnDef } from "@tanstack/react-table"
-import { Button } from "../ui/button"
-import { Copy, Edit, Edit2, Trash } from "lucide-react"
-import moment from 'moment'
+import { type ColumnDef } from "@tanstack/react-table";
+import { Button } from "../ui/button";
+import { Copy, Edit, Edit2, Trash } from "lucide-react";
+import { format } from "date-fns";
 
 export type DataLink = {
-  id: number
-  original_url: string
-  short_url: string
-  clicks: number
-  created_at: string
-}
+  id: number;
+  original_url: string;
+  short_url: string;
+  clicks: number;
+  created_at: string;
+};
 
 export const columns: ColumnDef<DataLink>[] = [
   {
     accessorKey: "original_url",
     header: "Original URL",
-    cell: ({row}) => (
-        <div className="max-w-xs overflow-hidden truncate">{row.getValue('original_url')}</div>
-    )
+    cell: ({ row }) => (
+      <div className="max-w-xs overflow-hidden truncate">
+        {row.getValue("original_url")}
+      </div>
+    ),
   },
   {
     accessorKey: "short_code",
@@ -29,11 +30,11 @@ export const columns: ColumnDef<DataLink>[] = [
     header: "Clicks",
   },
   {
-    accessorKey: "created_at",
+    accessorKey: "createdAt",
     header: "Created At",
-    cell: ({row}) => (
-        <div>{moment(row.getValue('created_at')).format("DD MMM YYYY")}</div>
-    )
+    cell: ({ row }) => (
+      <div>{format(row.getValue("createdAt"), "dd-MM-yyyy")}</div>
+    ),
   },
   {
     accessorKey: "actions",
@@ -52,4 +53,4 @@ export const columns: ColumnDef<DataLink>[] = [
       </div>
     ),
   },
-]
+];

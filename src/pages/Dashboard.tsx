@@ -3,7 +3,6 @@ import PastLink from "../components/dashboard/PastLink";
 import RecentActivity from "../components/dashboard/RecentActivity";
 import StatsCard from "../components/dashboard/StatsCard";
 import DashboardLayout from "../components/DashboardLayout";
-import { useLoaderData } from "react-router";
 
 const Dashboard = () => {
 

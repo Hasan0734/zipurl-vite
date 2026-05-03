@@ -39,12 +39,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   useEffect(() => {
-    const interceptor = api.interceptors.response.use(
+    const responseInterceptor = api.interceptors.response.use(
       (res) => res,
       async (error) => {
         const originalReq = error.config;
-
-        if (error.response.status === 401 && !originalReq._retry) {
+        if (error.response?.status === 401 && !originalReq._retry) {
           originalReq._retry = true;
           try {
             const res = await api.post("/auth/refresh");
@@ -52,18 +51,25 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             setAccessToken(data.access_token);
             setUser(data.user);
 
+            api.defaults.headers.common["Authorization"] =
+              `Bearer ${data.access_token}`;
+
             originalReq.headers["Authorization"] =
               `Bearer ${data.access_token}`;
-          } catch (error) {
+
+            return api(originalReq);
+          } catch (refreshError) {
             logout();
-            return Promise.reject(error);
+            return Promise.reject(refreshError);
           }
         }
         return Promise.reject(error);
       },
     );
 
-    return () => api.interceptors.response.eject(interceptor);
+    return () => {
+      api.interceptors.response.eject(responseInterceptor);
+    };
   }, [accessToken]);
 
   const logout = async () => {
@@ -76,7 +82,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   if (isLoading) {
     return (
       <div className="min-h-screen flex justify-center items-center">
-        <Spinner /> Loading...
+        <div className="flex gap-2 items-center">
+          <Spinner /> Loading...
+        </div>
       </div>
     );
   }

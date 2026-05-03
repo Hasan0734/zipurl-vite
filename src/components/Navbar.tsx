@@ -2,6 +2,7 @@ import { FolderArchiveIcon } from "lucide-react";
 import { Button } from "./ui/button";
 import UserDropDown from "./UserDropDown";
 import { useAuth } from "@/hooks/use-auth";
+import { Link } from "react-router";
 
 const Navbar = () => {
   const auth = useAuth();
@@ -10,13 +11,13 @@ const Navbar = () => {
     <nav className="sticky top-0 z-50 bg-[#060e20]/70 shadow-[0_20px_40px_rgba(0,0,0,0.4),0_0_20px_rgba(105,246,184,0.05)] backdrop-blur-xl">
       <nav className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-4">
         <div className="flex items-center gap-2">
-          <a
-            href={"/"}
+          <Link
+            to={"/"}
             className=" flex items-center gap-2 text-2xl font-bold tracking-tighter text-primary"
           >
             <FolderArchiveIcon />
             ZipUrl
-          </a>
+          </Link>
         </div>
         <div className="hidden items-center gap-8 md:flex">
           <a
