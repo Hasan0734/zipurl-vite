@@ -63,8 +63,8 @@ const HeroForm = ({ setShortCode, setCustomAlias }: HeroFormProps) => {
           toast.success(data.message);
           form.reset();
           return;
-        } catch (err: any) {
-          return err.response.data;
+        } catch {
+          toast.error("Something is wrong!")
         }
       });
     },

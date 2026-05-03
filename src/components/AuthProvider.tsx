@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { AuthContext } from "../lib/context";
 import type { User } from "@/lib/types";
 import AxiosInterceptor from "./AxiosInterceptor";
@@ -11,66 +11,71 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    let isMounted = true;
     const rehydrate = async () => {
       try {
         const res = await api.post("/auth/refresh");
         const data = res.data;
-        console.log(data);
-        if (isMounted) {
-          setAccessToken(data.access_token);
-          setUser(data.user);
-        }
-      } catch (error) {
-        console.log(error);
-        if (isMounted) {
-          setUser(null);
-          setAccessToken(null);
-        }
+        setAccessToken(data.access_token);
+        setUser(data.user);
+      } catch {
+        setUser(null);
+        setAccessToken(null);
       } finally {
-        if (isMounted) setIsLoading(false);
+        setIsLoading(false);
       }
     };
 
     rehydrate();
-    return () => {
-      isMounted = false;
-    };
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
+    const authInterceptor = api.interceptors.request.use((config) => {
+      const isRetry = (config as any)._retry;
+      config.headers.Authorization =
+        !isRetry && accessToken
+          ? `Bearer ${accessToken}`
+          : config.headers.Authorization;
+
+      return config;
+    });
+    return () => {
+      api.interceptors.request.eject(authInterceptor);
+    };
+  }, [accessToken]);
+
+  useLayoutEffect(() => {
     const responseInterceptor = api.interceptors.response.use(
       (res) => res,
       async (error) => {
         const originalReq = error.config;
-        if (error.response?.status === 401 && !originalReq._retry) {
-          originalReq._retry = true;
+
+        if (
+          error.response.status === 401 &&
+          error.response.data.message === "Unauthorized"
+        ) {
           try {
             const res = await api.post("/auth/refresh");
-            const data = res.data;
-            setAccessToken(data.access_token);
-            setUser(data.user);
+            const { access_token, user } = res.data;
 
-            api.defaults.headers.common["Authorization"] =
-              `Bearer ${data.access_token}`;
+            setAccessToken(access_token);
+            if (user) setUser(user);
 
-            originalReq.headers["Authorization"] =
-              `Bearer ${data.access_token}`;
-
+            originalReq.headers.Authorization = `Bearer ${access_token}`;
+            originalReq._retry = true;
             return api(originalReq);
-          } catch (refreshError) {
-            logout();
-            return Promise.reject(refreshError);
+          } catch {
+            setAccessToken(null);
+            setUser(null);
           }
         }
+
         return Promise.reject(error);
       },
     );
-
     return () => {
       api.interceptors.response.eject(responseInterceptor);
     };
-  }, [accessToken]);
+  });
 
   const logout = async () => {
     setUser(null);
