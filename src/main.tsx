@@ -13,6 +13,7 @@ import App from "./App.tsx";
 import ProtectedRoutes from "./lib/ProtectedRoutes.tsx";
 import api from "./lib/api.ts";
 import SignUp from "./pages/SignUp.tsx";
+import URLs from "./pages/Urls.tsx";
 
 const router = createBrowserRouter([
   {
@@ -38,11 +39,17 @@ const router = createBrowserRouter([
           {
             path: "/dashboard",
             Component: Dashboard,
-             loader: async () => {
+            loader: async () => {
               return { urls: await getUrls() };
             },
           },
-
+          {
+            path: "/urls",
+            Component: URLs,
+            loader: async () => {
+              return { urls: await getUrls() };
+            },
+          },
           {
             path: "/analytics",
             Component: Analytics,
@@ -68,15 +75,16 @@ createRoot(document.getElementById("root")!).render(
   </StrictMode>,
 );
 
-
 async function getProfile() {
-  const res = await api.get("/auth/me");
-  return res.data;
+  try {
+    const res = await api.get("/auth/me");
+    return res.data;
+  } catch (error) {}
 }
 
-
 async function getUrls() {
-  const res = await api.get("/urls");
-
-  return res.data;
+  try {
+    const res = await api.get("/urls");
+    return res.data;
+  } catch (error) {}
 }

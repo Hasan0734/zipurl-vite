@@ -24,13 +24,13 @@ import { Spinner } from "../ui/spinner";
 import LoginDialog from "../LoginDialog";
 import { useAuth } from "@/hooks/use-auth";
 import api from "@/lib/api";
-import toast from "react-hot-toast";
 import DatePicker from "../ui/date-picker";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from "../ui/collapsible";
+import { toast } from "sonner";
 
 interface HeroFormProps {
   setShortCode: Dispatch<SetStateAction<string>>;
@@ -64,7 +64,7 @@ const HeroForm = ({ setShortCode, setCustomAlias }: HeroFormProps) => {
           form.reset();
           return;
         } catch {
-          toast.error("Something is wrong!")
+          toast.error("Something is wrong!");
         }
       });
     },
@@ -105,10 +105,12 @@ const HeroForm = ({ setShortCode, setCustomAlias }: HeroFormProps) => {
             validators={{
               onChangeAsyncDebounceMs: 500,
               onChangeAsync: async ({ value, fieldApi }) => {
-                const originalUrlValid = fieldApi.form.getFieldMeta("original_url")?.isValid;
+                const originalUrlValid =
+                  fieldApi.form.getFieldMeta("original_url")?.isValid;
                 const isValid = fieldApi.state.meta.isValid;
-                const originalUrlValue = fieldApi.form.getFieldValue("original_url");
-                 
+                const originalUrlValue =
+                  fieldApi.form.getFieldValue("original_url");
+
                 if (
                   !value ||
                   value.length <= 8 ||
@@ -181,7 +183,6 @@ const HeroForm = ({ setShortCode, setCustomAlias }: HeroFormProps) => {
               );
             }}
           />
-      
 
           <Collapsible className="md:col-span-6 grid gap-3">
             <CollapsibleTrigger type="button" asChild>

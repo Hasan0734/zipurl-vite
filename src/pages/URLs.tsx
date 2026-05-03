@@ -4,16 +4,11 @@ import RecentActivity from "../components/dashboard/RecentActivity";
 import StatsCard from "../components/dashboard/StatsCard";
 import DashboardLayout from "../components/DashboardLayout";
 
-const Dashboard = () => {
-
- 
+const URLs = () => {
   return (
     <DashboardLayout>
       <div className="space-y-12 p-12">
         <PastLink />
-
-        <RecentActivity  />
-
         <section className="grid grid-cols-1 gap-8 md:grid-cols-3">
           <StatsCard
             title="Total Impressions"
@@ -35,9 +30,11 @@ const Dashboard = () => {
             total="London"
           />
         </section>
+
+        <RecentActivity />
       </div>
     </DashboardLayout>
   );
 };
 
-export default Dashboard;
+export default URLs;

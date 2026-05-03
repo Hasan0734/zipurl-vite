@@ -2,6 +2,7 @@ import {
   ChartNoAxesCombined,
   FolderArchiveIcon,
   LayoutDashboard,
+  Link2Icon,
   Plus,
   Settings,
 } from "lucide-react"
@@ -14,6 +15,7 @@ const AsideBar = () => {
 
   const items = [
     { title: "Dashboard", to: "/dashboard", icon: LayoutDashboard },
+    { title: "URLs", to: "/urls", icon: Link2Icon },
     { title: "Analytics", to: "/analytics", icon: ChartNoAxesCombined },
     { title: "Settings", to: "/settings", icon: Settings },
   ]

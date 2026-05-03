@@ -1,15 +1,13 @@
 import {Outlet } from "react-router";
 import { AuthProvider } from "./components/AuthProvider";
-import { Toaster } from "react-hot-toast";
+import { Toaster } from "./components/ui/sonner";
 
 
 
 export default function App() {
   return (
     <AuthProvider >
-        <Toaster containerStyle={{
-            
-        }}/>
+          <Toaster position="top-center" />
       <Outlet /> 
     </AuthProvider>
   );

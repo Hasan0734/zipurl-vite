@@ -10,6 +10,7 @@ import { useState } from "react";
 import { SHORT_URL } from "@/lib/utils";
 import CopyButton from "./ui/copy-button";
 import { motion } from "motion/react";
+import { Link } from "react-router";
 const HeroFormSection = () => {
   const [shortCode, setShortCode] = useState("");
   const [customAlias, setCustomAlias] = useState("");
@@ -71,6 +72,7 @@ const HeroFormSection = () => {
                   <Share2Icon size={20} />
                   Share
                 </Button>
+               <Link to="/analytics">
                 <Button
                   variant={"outline"}
                   size={"lg"}
@@ -78,7 +80,7 @@ const HeroFormSection = () => {
                 >
                   <ChartNoAxesColumnIcon size={20} />
                   Analytics
-                </Button>
+                </Button></Link>
               </div>
             </div>
             <div className="relative flex h-48 w-48 shrink-0 flex-col items-center justify-center rounded-lg bg-white/70 p-4">
