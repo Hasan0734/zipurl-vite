@@ -1,7 +1,6 @@
 import { useEffect, useLayoutEffect, useState } from "react";
 import { AuthContext } from "../lib/context";
 import type { User } from "@/lib/types";
-import AxiosInterceptor from "./AxiosInterceptor";
 import api from "@/lib/api";
 import { Spinner } from "./ui/spinner";
 
@@ -98,7 +97,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     <AuthContext.Provider
       value={{ user, accessToken, setAccessToken, setUser, logout, isLoading }}
     >
-      <AxiosInterceptor>{children}</AxiosInterceptor>
+      {children}
     </AuthContext.Provider>
   );
 };

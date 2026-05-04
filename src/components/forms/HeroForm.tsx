@@ -241,7 +241,7 @@ const HeroForm = ({ setShortCode, setCustomAlias }: HeroFormProps) => {
           </Collapsible>
         </FieldGroup>
         <Button
-          className="h-16 w-full rounded-md bg-primary text-lg font-bold transition-all hover:scale-[1.02] active:scale-95"
+          className="h-16 w-full rounded-md bg-primary text-lg font-bold"
           type="submit"
         >
           {isPending && <Spinner />} Shorten URL

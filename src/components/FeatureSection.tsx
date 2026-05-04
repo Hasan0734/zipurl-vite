@@ -1,31 +1,14 @@
 import {
-  ChartScatterIcon,
   GlobeIcon,
   MonitorSmartphoneIcon,
   ShieldCheckIcon,
 } from "lucide-react";
+import FeatureCard from "./FeatureCard";
+
 const FeatureSection = () => {
   return (
     <section className="max-w-6xl mx-auto relative z-10 mt-32 grid w-full grid-cols-1 gap-6 md:grid-cols-12 px-6 pb-12">
-      <div className="flex min-h-75 flex-col justify-between rounded-xl bg-[#091328] p-10 md:col-span-8">
-        <div>
-          <span>
-            <ChartScatterIcon size={26} className="mb-6 text-primary" />
-          </span>
-          <h3 className="text-on-surface mb-4 text-3xl font-bold">
-            Advanced Analytics
-          </h3>
-          <p className="text-on-surface-variant text-lg">
-            Track every click in real-time. Understand your audience with
-            detailed geographical, device, and referral data insights.
-          </p>
-        </div>
-        <div className="mt-8 flex gap-2">
-          <div className="h-2 w-12 rounded-full bg-primary"></div>
-          <div className="h-2 w-4 rounded-full bg-input"></div>
-          <div className="h-2 w-4 rounded-full bg-input"></div>
-        </div>
-      </div>
+      <FeatureCard />
       <div className="rounded-xl border border-[#192540]/10 bg-[#192540]/40 p-10 backdrop-blur-xl md:col-span-4">
         <span className="">
           <ShieldCheckIcon size={26} className="mb-6 text-primary" />

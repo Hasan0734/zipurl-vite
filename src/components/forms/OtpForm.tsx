@@ -1,5 +1,5 @@
-import { RefreshCwIcon } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { RefreshCwIcon } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -7,39 +7,65 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-import {
-  Field,
-  FieldError,
-  FieldLabel,
-} from "@/components/ui/field"
+} from "@/components/ui/card";
+import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import {
   InputOTP,
   InputOTPGroup,
   InputOTPSeparator,
   InputOTPSlot,
-} from "@/components/ui/input-otp"
+} from "@/components/ui/input-otp";
 
-import * as z from "zod"
+import * as z from "zod";
 
-import { REGEXP_ONLY_DIGITS } from "input-otp"
-import { useForm } from "@tanstack/react-form"
-import { useState, useTransition } from "react"
-import { Spinner } from "../ui/spinner"
+import { REGEXP_ONLY_DIGITS } from "input-otp";
+import { useForm } from "@tanstack/react-form";
+import { useState, useTransition } from "react";
+import { Spinner } from "../ui/spinner";
+import api from "@/lib/api";
+import { toast } from "sonner";
+import { useLocation, useNavigate } from "react-router";
+import { useAuth } from "@/hooks/use-auth";
 
 const otpSchema = z.object({
   otp: z.string("OTP is required.").min(6, "OTP minimum 6 digits."),
-})
+});
 
 interface OtpFormProps {
-  email: string
+  email: string;
 }
 
-const OtpForm = ({ email }: OtpFormProps) => {
-  const [isPending, startTransition] = useTransition()
-  const [isResending, startResendTransition] = useTransition()
+interface OtpDataType extends OtpFormProps {
+  otp: string;
+}
+const verifyOtp = async (data: OtpDataType) => {
+  try {
+    const res = await api.post("/auth/verify-otp", data);
+    return res.data;
+  } catch (err: any) {
+    return err.response.data;
+  }
+};
 
-  const [message, setMessage] = useState("")
+const resendOtp = async (email: string) => {
+  try {
+    const res = await api.post("/auth/resend-otp", { email });
+    return res.data;
+  } catch (err: any) {
+    return err.response.data;
+  }
+};
+
+const OtpForm = ({ email }: OtpFormProps) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [isPending, startTransition] = useTransition();
+  const [isResending, startResendTransition] = useTransition();
+  const { setAccessToken, setUser } = useAuth();
+
+  const from = location.state?.from?.pathname || "/";
+
+  const [message, setMessage] = useState("");
   const form: any = useForm({
     defaultValues: {
       otp: "",
@@ -49,35 +75,38 @@ const OtpForm = ({ email }: OtpFormProps) => {
     },
     onSubmit: async ({ value }) => {
       startTransition(async () => {
-        // const res = await verifyOtp({ email, ...value })
+        const data = await verifyOtp({ email, ...value });
 
-        // if (!res.success) {
-        //   setMessage(res.message || "OTP verify failed")
-        //   return
-        // }
-        // toast.success(res.message)
-
-      })
+        if (!data.success) {
+          setMessage(data.message || "Failed to veriify OTP");
+          return;
+        }
+        setAccessToken(data.access_token);
+        setUser(data.user);
+        toast.success(data.message, { duration: 500 });
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        navigate(from, { replace: true });
+      });
     },
-  })
+  });
 
   const handleResendOtp = async () => {
     startResendTransition(async () => {
-      // const res = await resendOtp(email)
-
-      // if (!res.success) {
-      //   setMessage(res.message || "OTP resend failed")
-      //   return
-      // }
-    })
-  }
+      const res = await resendOtp(email);
+      if (!res.success) {
+        setMessage(res.message || "OTP resend failed");
+        return;
+      }
+      toast.success(res.message);
+    });
+  };
 
   return (
     <Card className="glass-card emerald-glow rounded-[2rem] bg-background!">
       <form
         onSubmit={(e) => {
-          e.preventDefault()
-          form.handleSubmit()
+          e.preventDefault();
+          form.handleSubmit();
         }}
       >
         <CardHeader>
@@ -93,7 +122,7 @@ const OtpForm = ({ email }: OtpFormProps) => {
             control={form.control}
             children={(field: any) => {
               const isInvalid =
-                field.state.meta.isTouched && !field.state.meta.isValid
+                field.state.meta.isTouched && !field.state.meta.isValid;
               return (
                 <Field className="pb-2">
                   <div className="flex items-center justify-between">
@@ -135,7 +164,7 @@ const OtpForm = ({ email }: OtpFormProps) => {
 
                   {message && <FieldError>{message}</FieldError>}
                 </Field>
-              )
+              );
             }}
           />
         </CardContent>
@@ -162,7 +191,7 @@ const OtpForm = ({ email }: OtpFormProps) => {
         </CardFooter>
       </form>
     </Card>
-  )
-}
+  );
+};
 
-export default OtpForm
+export default OtpForm;
