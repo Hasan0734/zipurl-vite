@@ -242,6 +242,7 @@ const HeroForm = ({ setShortCode, setCustomAlias }: HeroFormProps) => {
         <Button
           className="h-16 w-full rounded-md bg-primary text-lg font-bold"
           type="submit"
+          disabled={isPending}
         >
           {isPending && <Spinner />} Shorten URL
         </Button>

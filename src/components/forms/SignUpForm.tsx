@@ -63,7 +63,7 @@ const SignUpForm = () => {
         toast.success(res.message, {
           duration: 500,
         });
-        await new Promise((resolve) => setTimeout(() => resolve, 1000));
+        await new Promise((resolve) => setTimeout(resolve, 1000));
         navigate("/sign-in", { replace: true });
         form.reset();
       });
@@ -85,6 +85,7 @@ const SignUpForm = () => {
           placeholder="Alex"
           form={form}
           className="col-span-2 md:col-span-1"
+          autoComplete="true"
         />
         <TextInput
           label="Last Name"
@@ -93,6 +94,7 @@ const SignUpForm = () => {
           placeholder="Revra"
           form={form}
           className="col-span-2 md:col-span-1"
+            autoComplete="true"
         />
         <TextInput
           label="Email"
@@ -103,6 +105,7 @@ const SignUpForm = () => {
           type="email"
           form={form}
           className="col-span-2"
+          autoComplete="true"
         />
 
         <TextInput
@@ -114,6 +117,7 @@ const SignUpForm = () => {
           type="password"
           form={form}
           className="col-span-2"
+            autoComplete="true"
         />
         <TextInput
           label="Confirm Password"
@@ -124,6 +128,7 @@ const SignUpForm = () => {
           type="password"
           form={form}
           className="col-span-2"
+            autoComplete="true"
         />
         <form.Field
           name="agree_to_terms"
@@ -169,7 +174,7 @@ const SignUpForm = () => {
         />
       </FieldGroup>
 
-      <Button size={"lg"} className="w-full h-11!" type="submit">
+      <Button size={"lg"} className="w-full h-11!" type="submit" disabled={isPending}>
         {isPending && <Spinner />} Create account
       </Button>
     </form>

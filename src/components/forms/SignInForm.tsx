@@ -5,34 +5,25 @@ import { useForm } from "@tanstack/react-form";
 import { useState, useTransition } from "react";
 import { Spinner } from "../ui/spinner";
 import TextInput from "../TextInput";
-import {
-  loginUserSchema,
-  type LoginUserSchemaType,
-} from "@/schema/user.schema";
-import api from "@/lib/api";
+import { loginUserSchema } from "@/schema/user.schema";
 import { useLocation, useNavigate } from "react-router";
 import { useAuth } from "@/hooks/use-auth";
+import { resendVerifyEmail, userLogin } from "@/lib/request";
+import { toast } from "sonner";
 
 interface SigninFormProps {
   setRequireOtp: React.Dispatch<React.SetStateAction<boolean>>;
   setEmail: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const userLogin = async (data: LoginUserSchemaType) => {
-  try {
-    const res = await api.post("/auth/sign-in", data);
-    return res.data;
-  } catch (err:any) {
-    return err.response.data
-  }
-};
-
 const SignInForm = ({ setRequireOtp, setEmail }: SigninFormProps) => {
   const navigate = useNavigate();
   const [isPending, startTransition] = useTransition();
+  const [isResending, startResendTransition] = useTransition();
   const [message, setMessage] = useState("");
   const { setAccessToken, setUser } = useAuth();
   const location = useLocation();
+  // const [resendEmail, setResendEmail] = useState(false);
 
   const from = location.state?.from?.pathname || "/";
 
@@ -48,6 +39,23 @@ const SignInForm = ({ setRequireOtp, setEmail }: SigninFormProps) => {
       startTransition(async () => {
         const data = await userLogin(value);
 
+        if (data.statusCode === 403) {
+          // setResendEmail(true);
+          toast(data.message, {
+            description:
+              "Email verification is required. Check your email inbox or spam folder.",
+            action: {
+              label: "Resend",
+              onClick: () => handleResendEmail(),
+            },
+            duration: 3000,
+            classNames: {
+              toast: "flex flex-col",
+            },
+          });
+
+          return;
+        }
         if (!data.success) {
           setMessage(data.message);
           return;
@@ -66,6 +74,17 @@ const SignInForm = ({ setRequireOtp, setEmail }: SigninFormProps) => {
       });
     },
   });
+
+  const handleResendEmail = () => {
+    startResendTransition(async () => {
+      const res = await resendVerifyEmail(form.getFieldValue("email"));
+      if (!res.success) {
+        toast.error(res.message);
+        return;
+      }
+      toast.success(res.message);
+    });
+  };
 
   return (
     <form
@@ -97,9 +116,23 @@ const SignInForm = ({ setRequireOtp, setEmail }: SigninFormProps) => {
           form={form}
         />
       </FieldGroup>
-      {message && <FieldError>{message}</FieldError>}
+      <div className="space-y-3">
+        {message && <FieldError>{message}</FieldError>}
+        {/* {resendEmail && (
+          <Button
+            type="button"
+            disabled={isPending ? true : isResending}
+            onClick={handleResendEmail}
+            variant="outline"
+            size="xs"
+          >
+            {isResending ? <Spinner /> : <RefreshCwIcon />}
+            Resend Email
+          </Button>
+        )} */}
+      </div>
       <Button
-        disabled={isPending}
+        disabled={isResending ? true : isPending}
         size={"lg"}
         className="h-11! w-full"
         type="submit"

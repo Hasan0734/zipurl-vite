@@ -62,7 +62,7 @@ const PastLink = () => {
               type="text"
             />
           </div>
-          <Button type="submit" size={"lg"} className=" rounded-xl h-11 px-4">
+          <Button type="submit" size={"lg"} className=" rounded-xl h-11 px-4" disabled={isPending}>
             {isPending && <Spinner />} Shortner
           </Button>
         </div>

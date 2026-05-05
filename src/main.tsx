@@ -13,7 +13,8 @@ import App from "./App.tsx";
 import ProtectedRoutes from "./lib/ProtectedRoutes.tsx";
 import api from "./lib/api.ts";
 import SignUp from "./pages/SignUp.tsx";
-import URLs from "./pages/Urls.tsx";
+import URLs from "./pages/URLs.tsx";
+import VerifyEmail from "./pages/VerifyEmail.tsx";
 
 const router = createBrowserRouter([
   {
@@ -34,12 +35,17 @@ const router = createBrowserRouter([
         Component: SignUp,
       },
       {
+        path: "/verify-email",
+        Component: VerifyEmail,
+      },
+      {
         element: <ProtectedRoutes />,
         children: [
           {
             path: "/dashboard",
             Component: Dashboard,
             loader: async () => {
+            
               return { urls: await getUrls() };
             },
           },
@@ -79,12 +85,16 @@ async function getProfile() {
   try {
     const res = await api.get("/auth/me");
     return res.data;
-  } catch (error) {}
+  } catch (error) {
+    return [];
+  }
 }
 
 async function getUrls() {
   try {
     const res = await api.get("/urls");
     return res.data;
-  } catch (error) {}
+  } catch (error) {
+    return []
+  }
 }
