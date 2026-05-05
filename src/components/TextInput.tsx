@@ -1,27 +1,23 @@
-import {
-  Eye,
-  EyeOff,
-  type LucideIcon,
-} from "lucide-react"
-import  { type InputHTMLAttributes, useState } from "react"
-import { Field, FieldError, FieldLabel } from "./ui/field"
+import { Eye, EyeOff, type LucideIcon } from "lucide-react";
+import { type InputHTMLAttributes, useState } from "react";
+import { Field, FieldError, FieldLabel } from "./ui/field";
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupButton,
   InputGroupInput,
-} from "./ui/input-group"
+} from "./ui/input-group";
 
 interface TextInputProps extends InputHTMLAttributes<HTMLInputElement> {
-  label: string
-  id: string
-  icon: LucideIcon
-  className?: string
-  forgot_password?: boolean
-  form: any
-  placeholder: string
-  type?: string
-  [key: string]: any
+  label: string;
+  id: string;
+  icon: LucideIcon;
+  className?: string;
+  forgot_password?: boolean;
+  form: any;
+  placeholder: string;
+  type?: string;
+  [key: string]: any;
 }
 
 const TextInput = ({
@@ -35,7 +31,7 @@ const TextInput = ({
   type,
   ...props
 }: TextInputProps) => {
-  const [showPassword, setShowPassword] = useState(false)
+  const [showPassword, setShowPassword] = useState(false);
 
   return (
     <form.Field
@@ -43,7 +39,7 @@ const TextInput = ({
       control={form.control}
       children={(field: any) => {
         const isInvalid =
-          field.state.meta.isTouched && !field.state.meta.isValid
+          field.state.meta.isTouched && !field.state.meta.isValid;
         return (
           <Field className={className} data-invalid={isInvalid}>
             <div className="flex items-center justify-between">
@@ -60,6 +56,7 @@ const TextInput = ({
             </div>
             <InputGroup className="h-11!">
               <InputGroupInput
+                aria-invalid={isInvalid}
                 type={showPassword ? "text" : type}
                 id={field.name}
                 name={field.name}
@@ -81,17 +78,17 @@ const TextInput = ({
                     size="icon-xs"
                     onClick={() => setShowPassword(!showPassword)}
                   >
-                    {showPassword ?  <EyeOff /> : <Eye />}
+                    {showPassword ? <EyeOff /> : <Eye />}
                   </InputGroupButton>
                 </InputGroupAddon>
               )}
             </InputGroup>
             {isInvalid && <FieldError errors={field.state.meta.errors} />}
           </Field>
-        )
+        );
       }}
     />
-  )
-}
+  );
+};
 
-export default TextInput
+export default TextInput;

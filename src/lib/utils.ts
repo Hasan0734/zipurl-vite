@@ -23,13 +23,9 @@ export const urlFormOptions = formOptions({
   validators: {
 
     onBlur: ({ value }) => {
-
       const result = urlSchema.safeParse(value);
       if (result.success) return undefined;
-
-
       const fieldErrors: Record<string, z.core.$ZodIssue> = {};
-
       result.error.issues.forEach((issue) => {
         const fieldName = issue.path[0] as string;
         fieldErrors[fieldName] = issue;
@@ -37,40 +33,9 @@ export const urlFormOptions = formOptions({
 
       return { form: "hero-form", fields: fieldErrors };
     },
-    // onChangeAsyncDebounceMs: 500,
-    // onChangeAsync: async ({ value, formApi }) => {
-    //    await new Promise((resolve) => setTimeout(resolve, 5000))
-
-    //   const isOriginalUrl = formApi.state.fieldMeta.original_url?.isValid;
-
-    //   if (value.custom_alias && value.custom_alias.length >= 8 && isOriginalUrl) {
-    //     try {
-    //       const res = await api.post("/urls/check/custom-alias", {
-    //         custom_alias: value.custom_alias,
-    //       });
-
-    //       const data = res.data;
-    //       if (!data.success) {
-    //         return {
-    //           form: "hero-form",
-    //           fields: {
-    //             custom_alias: {
-               
-    //               message: data.message,
-    //             },
-    //           },
-    //         };
-    //       }
-
-    //     } catch (error: any) {
-
-    //       return undefined;
-    //     }
-    //   }
-    // },
 
   },
-  onSubmitInvalid({ formApi }) {
+  onSubmitInvalid() {
     const firstInvalid = document.querySelector(
       '[aria-invalid="true"]',
     ) as HTMLElement;

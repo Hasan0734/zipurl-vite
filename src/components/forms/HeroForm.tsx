@@ -45,7 +45,6 @@ const HeroForm = ({ setShortCode, setCustomAlias }: HeroFormProps) => {
   const form = useForm({
     ...urlFormOptions,
     onSubmit: async ({ value }) => {
-      console.log(value);
       if (!auth.accessToken) {
         setOpen(true);
         return;
