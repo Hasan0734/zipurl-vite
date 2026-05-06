@@ -5,29 +5,28 @@ import { FieldGroup } from "../ui/field";
 import TextInput from "../TextInput";
 import { Button } from "../ui/button";
 import { Spinner } from "../ui/spinner";
-import { passwordResetRequest, resetPassword } from "@/lib/request";
+import { resetPassword } from "@/lib/request";
 import { toast } from "sonner";
-import * as z from "zod";
+import { passwordSchema } from "@/schema/user.schema";
 
-const formSchema = z.object({
-  email: z.email("Enter valid password.").toLowerCase(),
-});
 
-const ResetPasswordForm = () => {
+const ResetPasswordForm = ({token}: {token:string}) => {
   const [isPending, startTransition] = useTransition();
+
 
   const form = useForm({
     defaultValues: {
-      passsword: "",
-      confirm_password: ''
+      new_password: "",
+      confirm_password: "",
     },
 
     validators: {
-      onChange: formSchema,
+      onChange: passwordSchema,
     },
     onSubmit: ({ value }) => {
+      if (!token) return;
       startTransition(async () => {
-        const res = await resetPassword();
+        const res = await resetPassword(value, token);
 
         if (!res.success) {
           toast.error(res.message);
@@ -38,6 +37,8 @@ const ResetPasswordForm = () => {
       });
     },
   });
+
+
   return (
     <form
       onSubmit={(e) => {
@@ -48,14 +49,12 @@ const ResetPasswordForm = () => {
     >
       <FieldGroup>
         <TextInput
-          label="Password"
-          name="password"
-          id="password"
+          label="New Password"
+          name="new_password"
+          id="new_password"
           icon={LockIcon}
           placeholder="••••••••"
-          forgotPassword
           type="password"
-          forgotPasswordPath="/forgot-password"
           form={form}
         />
 

@@ -4,17 +4,27 @@ import { Spinner } from "@/components/ui/spinner";
 import { verifyEmail } from "@/lib/request";
 import { CircleCheckIcon, CircleXIcon, FolderArchiveIcon } from "lucide-react";
 import { useEffect, useRef, useState, useTransition } from "react";
-import { Link, useSearchParams } from "react-router";
+import { Link, useNavigate, useSearchParams } from "react-router";
 
 const VerifyEmail = () => {
   const [searchParams] = useSearchParams();
-  const [isPending, startTransition] = useTransition();
   const token = searchParams.get("token");
+  const [isPending, startTransition] = useTransition();
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
   const initialized = useRef(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (!token || initialized.current) return;
+    if (!token) {
+      navigate("/", { replace: true });
+      return;
+    }
+  }, [token]);
+
+  useEffect(() => {
+    if (!token || initialized.current) {
+      return;
+    }
     initialized.current = true;
     startTransition(async () => {
       const res = await verifyEmail(token);

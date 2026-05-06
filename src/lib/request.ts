@@ -1,4 +1,4 @@
-import type { LoginUserSchemaType } from "@/schema/user.schema";
+import type { LoginUserSchemaType, PasswordSchemaType } from "@/schema/user.schema";
 import api from "./api";
 
 export const userLogin = async (data: LoginUserSchemaType) => {
@@ -40,9 +40,9 @@ export const passwordResetRequest = async (email: string) => {
     return err.response.data;
   }
 }
-export const resetPassword = async () => {
+export const resetPassword = async (data: PasswordSchemaType, token: string) => {
   try {
-    const res = await api.post(`/auth/reset-password`);
+    const res = await api.post(`/auth/reset-password`, { token, ...data });
     return res.data;
   } catch (err: any) {
     return err.response.data;
