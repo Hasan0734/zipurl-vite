@@ -1,20 +1,14 @@
 import api from "@/lib/api";
-import {  Link2, } from "lucide-react";
-import {
-  useState,
-  useTransition,
-  type SubmitEvent,
-} from "react";
+import { Link2 } from "lucide-react";
+import { useState, useTransition, type SubmitEvent } from "react";
 import { Button } from "../ui/button";
 import { Spinner } from "../ui/spinner";
 import * as motion from "motion/react-client";
 import CopyButton from "../ui/copy-button";
 import { toast } from "sonner";
+import { addNewUrl } from "@/lib/request";
 
-const addNewUrl = async (data: { original_url: string }) => {
-  const res = api.post("/urls", data);
-  return (await res).data;
-};
+
 
 const PastLink = () => {
   const [isPending, startTransition] = useTransition();
@@ -36,7 +30,6 @@ const PastLink = () => {
       setOriginalUrl("");
     });
   };
-
 
   return (
     <section className="max-w-4xl">
@@ -62,7 +55,12 @@ const PastLink = () => {
               type="text"
             />
           </div>
-          <Button type="submit" size={"lg"} className=" rounded-xl h-11 px-4" disabled={isPending}>
+          <Button
+            type="submit"
+            size={"lg"}
+            className=" rounded-xl h-11 px-4"
+            disabled={isPending}
+          >
             {isPending && <Spinner />} Shortner
           </Button>
         </div>
@@ -98,4 +96,3 @@ const PastLink = () => {
 };
 
 export default PastLink;
-

@@ -13,3 +13,18 @@ export type User = {
     updatedAt: Date
 }
 
+
+
+export type UrlType = {
+    _id: string;
+    original_url: string;
+    short_code: string;
+    custom_alias?: string;
+    password?: string;
+    is_active: boolean;
+    expires_at: Date;
+    click_count: number;
+    owner_id: string;
+    createdAt: Date;
+    updatedAt: Date
+}

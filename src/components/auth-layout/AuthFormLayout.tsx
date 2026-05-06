@@ -25,9 +25,8 @@ const AuthFormLayout = ({
   formAreaClass,
   containerClass,
 }: AuthFormLayoutProps) => {
-  console.log(tags);
   return (
-    <div className="relative flex min-h-screen items-center justify-center overflow-hidden p-6">
+    <div className="relative flex min-h-screen items-center justify-center overflow-hidden">
       <div className="fixed inset-0 z-0">
         <div className="absolute top-[-10%] left-[-10%] h-[50%] w-[50%] rounded-full bg-primary/10 blur-[120px]"></div>
         <div className="absolute right-[-10%] bottom-[-10%] h-[40%] w-[40%] rounded-full bg-primary/5 blur-[100px]"></div>

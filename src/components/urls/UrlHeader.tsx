@@ -1,5 +1,10 @@
+import { useState } from "react";
+import { Button } from "../ui/button";
+import { Download, Funnel } from "lucide-react";
+import AddNewUrl from "./AddNewUrl";
 
-const ActivityHeader = () => {
+const UrlHeader = () => {
+  const [isOpen, setIsOpen] = useState(false);
   return (
     <div className="flex items-end justify-between">
       <div>
@@ -8,7 +13,7 @@ const ActivityHeader = () => {
           Managing 1,284 active redirects
         </p>
       </div>
-      {/* <div className="flex gap-2">
+      <div className="flex gap-2">
         <Button size={"lg"} variant={"outline"} className="rounded-full">
           <Funnel />
           Filter
@@ -17,9 +22,11 @@ const ActivityHeader = () => {
           <Download />
           Export
         </Button>
-      </div> */}
+        <Button size={'lg'} onClick={() => setIsOpen(true)}>Add New</Button>
+      </div>
+      <AddNewUrl isOpen={isOpen} setIsOpen={setIsOpen} />
     </div>
-  )
-}
+  );
+};
 
-export default ActivityHeader
+export default UrlHeader;

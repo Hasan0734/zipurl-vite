@@ -31,6 +31,7 @@ import {
   CollapsibleTrigger,
 } from "../ui/collapsible";
 import { toast } from "sonner";
+import { addNewUrl } from "@/lib/request";
 
 interface HeroFormProps {
   setShortCode: Dispatch<SetStateAction<string>>;
@@ -51,15 +52,15 @@ const HeroForm = ({ setShortCode, setCustomAlias }: HeroFormProps) => {
       }
       startTransition(async () => {
         try {
-          const { data } = await api.post("/urls", value);
+          const res = await addNewUrl(value);
 
-          if (!data?.success) {
-            toast.error(data.message);
+          if (!res?.success) {
+            toast.error(res.message);
             return;
           }
-          setShortCode(data.url.short_code);
-          if (data.url?.custom_alias) setCustomAlias(data.url.custom_alias);
-          toast.success(data.message);
+          setShortCode(res.url.short_code);
+          if (res.url?.custom_alias) setCustomAlias(res.url.custom_alias);
+          toast.success(res.message);
           form.reset();
           return;
         } catch {
@@ -104,6 +105,8 @@ const HeroForm = ({ setShortCode, setCustomAlias }: HeroFormProps) => {
             validators={{
               onChangeAsyncDebounceMs: 500,
               onChangeAsync: async ({ value, fieldApi }) => {
+
+              
                 const originalUrlValid =
                   fieldApi.form.getFieldMeta("original_url")?.isValid;
                 const isValid = fieldApi.state.meta.isValid;
@@ -161,7 +164,7 @@ const HeroForm = ({ setShortCode, setCustomAlias }: HeroFormProps) => {
                     placeholder="Custom alias"
                     autoComplete="false"
                   />
-                  {isChecking && (
+                  {auth.accessToken && isChecking && (
                     <div className="flex gap-1 items-center text-center text-sm text-muted-foreground">
                       <Spinner />
                       <p>Checking...</p>

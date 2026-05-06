@@ -51,3 +51,23 @@ export const resetPassword = async (data: PasswordSchemaType, token: string) => 
 
 
 
+export const addNewUrl = async (data: { original_url: string }) => {
+  try {
+    const res = await api.post("/urls", data);
+    return res.data;
+  } catch (err: any) {
+    return err.response.data;
+  }
+};
+
+export const getUrls = async (query: string) => {
+  try {
+    const res = await api.get("/urls?" + query);
+    return res.data;
+  } catch (error) {
+    return {
+      urls: [],
+      total: 0
+    };
+  }
+}

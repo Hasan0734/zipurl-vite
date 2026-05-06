@@ -1,6 +1,7 @@
 import {
   ChartNoAxesCombinedIcon,
   LayoutDashboardIcon,
+  Link2Icon,
   UserIcon,
 } from "lucide-react";
 import { Button } from "./ui/button";
@@ -23,6 +24,7 @@ const UserDropDown = () => {
 
   const items = [
     { label: "Dashboard", to: "/dashboard", icon: LayoutDashboardIcon },
+    { label: "URLs", to: "/urls", icon: Link2Icon },
     { label: "Analytics", to: "/analytics", icon: ChartNoAxesCombinedIcon },
     { label: "Profile", to: "/profile", icon: UserIcon },
   ];

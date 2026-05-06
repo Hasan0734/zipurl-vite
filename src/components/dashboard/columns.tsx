@@ -2,16 +2,10 @@ import { type ColumnDef } from "@tanstack/react-table";
 import { Button } from "../ui/button";
 import { Copy, Edit, Edit2, Trash } from "lucide-react";
 import { format } from "date-fns";
+import type { UrlType } from "@/lib/types";
+import { SHORT_URL } from "@/lib/utils";
 
-export type DataLink = {
-  id: number;
-  original_url: string;
-  short_url: string;
-  clicks: number;
-  created_at: string;
-};
-
-export const columns: ColumnDef<DataLink>[] = [
+export const columns: ColumnDef<UrlType>[] = [
   {
     accessorKey: "original_url",
     header: "Original URL",
@@ -24,6 +18,11 @@ export const columns: ColumnDef<DataLink>[] = [
   {
     accessorKey: "short_code",
     header: "Short Code",
+    cell: ({row}) => (
+      <a href={SHORT_URL + row.getValue("short_code")} target="_blank" className="hover:text-primary hover:underline">
+        {row.getValue("short_code")}
+      </a>
+    )
   },
   {
     accessorKey: "click_count",

@@ -53,10 +53,7 @@ const router = createBrowserRouter([
         children: [
           {
             path: "/dashboard",
-            Component: Dashboard,
-            loader: async () => {
-              return { urls: await getUrls() };
-            },
+            Component: Dashboard
           },
           {
             path: "/urls",

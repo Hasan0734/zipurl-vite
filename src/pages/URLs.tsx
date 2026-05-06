@@ -1,14 +1,19 @@
 import { Link2, TrendingUp, Map } from "lucide-react";
-import PastLink from "../components/forms/PastLinkForm";
-import RecentActivity from "../components/dashboard/RecentActivity";
 import StatsCard from "../components/dashboard/StatsCard";
 import DashboardLayout from "../components/DashboardLayout";
+import UrlTable from "@/components/urls/UrlTable";
+import { useQuery } from "@tanstack/react-query";
+import { getUrls } from "@/lib/request";
 
 const URLs = () => {
+  const { isLoading, data, isSuccess } = useQuery({
+    queryKey: ["urls"],
+    queryFn: async () => await getUrls("limit=10&sort=desc"),
+  });
+
   return (
     <DashboardLayout>
       <div className="space-y-12 p-12">
-        <PastLink />
         <section className="grid grid-cols-1 gap-8 md:grid-cols-3">
           <StatsCard
             title="Total Impressions"
@@ -31,7 +36,7 @@ const URLs = () => {
           />
         </section>
 
-        <RecentActivity />
+        <UrlTable isLoading={isLoading} data={data} isSuccess={isSuccess}/>
       </div>
     </DashboardLayout>
   );
