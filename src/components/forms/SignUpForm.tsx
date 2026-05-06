@@ -1,5 +1,5 @@
 import { AtSign, Lock, User } from "lucide-react";
-import { useState, useTransition } from "react";
+import {  useTransition } from "react";
 import TextInput from "../TextInput";
 import { Button } from "../ui/button";
 import { Checkbox } from "../ui/checkbox";
@@ -36,12 +36,10 @@ const userRegister = async (data: RegisterUserSchemaType) => {
 const SignUpForm = () => {
   const [isPending, startTransition] = useTransition();
   const navigate = useNavigate();
-  const [message, setMessage] = useState();
 
   const form = useForm({
     defaultValues,
     validators: {
-      // onSubmit: registerUserSchema,
       onChange: registerUserSchema,
     },
     onSubmitInvalid() {
@@ -94,7 +92,7 @@ const SignUpForm = () => {
           placeholder="Revra"
           form={form}
           className="col-span-2 md:col-span-1"
-            autoComplete="true"
+          autoComplete="true"
         />
         <TextInput
           label="Email"
@@ -117,7 +115,7 @@ const SignUpForm = () => {
           type="password"
           form={form}
           className="col-span-2"
-            autoComplete="true"
+          autoComplete="true"
         />
         <TextInput
           label="Confirm Password"
@@ -128,7 +126,7 @@ const SignUpForm = () => {
           type="password"
           form={form}
           className="col-span-2"
-            autoComplete="true"
+          autoComplete="true"
         />
         <form.Field
           name="agree_to_terms"
@@ -174,7 +172,12 @@ const SignUpForm = () => {
         />
       </FieldGroup>
 
-      <Button size={"lg"} className="w-full h-11!" type="submit" disabled={isPending}>
+      <Button
+        size={"lg"}
+        className="w-full h-11!"
+        type="submit"
+        disabled={isPending}
+      >
         {isPending && <Spinner />} Create account
       </Button>
     </form>

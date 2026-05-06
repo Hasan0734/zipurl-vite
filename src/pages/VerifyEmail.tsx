@@ -1,7 +1,8 @@
+import AuthFormLayout from "@/components/auth-layout/AuthFormLayout";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
 import { verifyEmail } from "@/lib/request";
-import { CircleCheckIcon, CircleXIcon } from "lucide-react";
+import { CircleCheckIcon, CircleXIcon, FolderArchiveIcon } from "lucide-react";
 import { useEffect, useRef, useState, useTransition } from "react";
 import { Link, useSearchParams } from "react-router";
 
@@ -26,18 +27,18 @@ const VerifyEmail = () => {
   }, [token]);
 
   return (
-    <div className="flex min-h-screen items-center justify-center overflow-hidden">
-      {isPending && (
-        <div className="flex flex-col items-center gap-4">
-          <Spinner className="h-8 w-8 text-primary" />
-          <p className="animate-pulse text-sm font-medium">
-            Verifying your account...
-          </p>
-        </div>
-      )}
+    <AuthFormLayout>
+      <div>
+        {isPending && (
+          <div className="flex flex-col items-center gap-4">
+            <Spinner className="h-8 w-8 text-primary" />
+            <p className="animate-pulse text-sm font-medium">
+              Verifying your account...
+            </p>
+          </div>
+        )}
 
-      {!isPending && status === "success" && (
-        <div className="w-full max-w-md rounded-[2rem] border border-secondary/40 bg-background p-8 shadow-xl md:p-10">
+        {!isPending && status === "success" && (
           <div className="space-y-4 text-center">
             <div className="flex justify-center text-green-500">
               <CircleCheckIcon size={32} />
@@ -46,15 +47,13 @@ const VerifyEmail = () => {
             <p className="text-muted-foreground">
               Your account is now fully active.
             </p>
-            <Button className="w-full" asChild>
+            <Button className="" asChild>
               <Link to="/dashboard">Go to Dashboard</Link>
             </Button>
           </div>
-        </div>
-      )}
+        )}
 
-      {!isPending && status === "error" && (
-        <div className="w-full max-w-md rounded-[2rem] border border-destructive/20 bg-background p-8 shadow-xl">
+        {!isPending && status === "error" && (
           <div className="space-y-4 text-center">
             <div className="flex justify-center text-destructive">
               <CircleXIcon size={32} />
@@ -63,11 +62,13 @@ const VerifyEmail = () => {
             <p className="text-muted-foreground">
               The link is invalid or has expired.
             </p>
-          
+            <Button variant={"outline"} asChild>
+              <Link to={"/sign-in"}>Sign in</Link>
+            </Button>
           </div>
-        </div>
-      )}
-    </div>
+        )}
+      </div>
+    </AuthFormLayout>
   );
 };
 

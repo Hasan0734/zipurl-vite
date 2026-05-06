@@ -42,16 +42,16 @@ const Navbar = () => {
         <div className="flex items-center gap-2">
           {!auth.accessToken && (
             <div className="flex items-center gap-2">
-              <a href="/sign-in">
-                <Button className="font-semibold font-manrope" variant={"link"}>
-                  Sign In
-                </Button>
-              </a>
-              <a href="/sign-up">
-                <Button className="font-semibold font-manrope" variant={"link"}>
-                  Sign Up
-                </Button>
-              </a>
+              <Button className="font-semibold font-manrope" variant={"link"}>
+                <Link to="/sign-up">Sign Up</Link>
+              </Button>
+              <Button
+                className="font-semibold font-manrope"
+                variant={"outline"}
+                asChild
+              >
+                <Link to="/sign-in">Sign In</Link>
+              </Button>
             </div>
           )}
           {auth.accessToken && <UserDropDown />}

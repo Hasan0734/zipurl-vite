@@ -7,13 +7,14 @@ import {
   InputGroupButton,
   InputGroupInput,
 } from "./ui/input-group";
+import { Link } from "react-router";
 
 interface TextInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
   id: string;
   icon: LucideIcon;
   className?: string;
-  forgot_password?: boolean;
+  forgotPassword?: boolean;
   form: any;
   placeholder: string;
   type?: string;
@@ -25,10 +26,11 @@ const TextInput = ({
   id,
   icon: Icon,
   className,
-  forgot_password,
+  forgotPassword,
   form,
   placeholder,
   type,
+  forgotPasswordPath,
   ...props
 }: TextInputProps) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -44,14 +46,14 @@ const TextInput = ({
           <Field className={className} data-invalid={isInvalid}>
             <div className="flex items-center justify-between">
               <FieldLabel htmlFor={field.name}>{label}</FieldLabel>
-              {forgot_password && (
-                <a
+              {forgotPassword && (
+                <Link
                   tabIndex={-1}
                   className="text-xs font-semibold text-white transition-colors hover:text-primary"
-                  href="/forgot-password"
+                  to={forgotPasswordPath}
                 >
                   Forgot password?
-                </a>
+                </Link>
               )}
             </div>
             <InputGroup className="h-11!">

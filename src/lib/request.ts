@@ -13,7 +13,6 @@ export const userLogin = async (data: LoginUserSchemaType) => {
 export const resendVerifyEmail = async (email: string) => {
   try {
     const res = await api.post("/auth/resend-verification", { email });
-
     const data = res.data;
     return data;
   } catch (err: any) {
@@ -30,3 +29,25 @@ export const verifyEmail = async (token: string) => {
     return err.response.data;
   }
 };
+
+
+
+export const passwordResetRequest = async (email: string) => {
+  try {
+    const res = await api.post(`/auth/request-password-reset`, { email });
+    return res.data;
+  } catch (err: any) {
+    return err.response.data;
+  }
+}
+export const resetPassword = async () => {
+  try {
+    const res = await api.post(`/auth/reset-password`);
+    return res.data;
+  } catch (err: any) {
+    return err.response.data;
+  }
+}
+
+
+

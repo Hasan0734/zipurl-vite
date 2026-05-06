@@ -15,6 +15,8 @@ import api from "./lib/api.ts";
 import SignUp from "./pages/SignUp.tsx";
 import URLs from "./pages/URLs.tsx";
 import VerifyEmail from "./pages/VerifyEmail.tsx";
+import ForgotPassword from "./pages/ForgotPassword.tsx";
+import ResetPassword from "./pages/ResetPassword.tsx";
 
 const router = createBrowserRouter([
   {
@@ -39,13 +41,20 @@ const router = createBrowserRouter([
         Component: VerifyEmail,
       },
       {
+        path: "/forgot-password",
+        Component: ForgotPassword,
+      },
+      {
+        path: "/reset-password",
+        Component: ResetPassword,
+      },
+      {
         element: <ProtectedRoutes />,
         children: [
           {
             path: "/dashboard",
             Component: Dashboard,
             loader: async () => {
-            
               return { urls: await getUrls() };
             },
           },
@@ -95,6 +104,6 @@ async function getUrls() {
     const res = await api.get("/urls");
     return res.data;
   } catch (error) {
-    return []
+    return [];
   }
 }

@@ -102,95 +102,85 @@ const OtpForm = ({ email }: OtpFormProps) => {
   };
 
   return (
-    <Card className="glass-card emerald-glow rounded-[2rem] bg-background!">
+    <>
       <form
         onSubmit={(e) => {
           e.preventDefault();
           form.handleSubmit();
         }}
+        className="space-y-4"
       >
-        <CardHeader>
-          <CardTitle>Verify your login</CardTitle>
-          <CardDescription>
-            Enter the verification code we sent to your email address:{" "}
-            <span className="font-medium">{email}</span>.
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form.Field
-            name="otp"
-            control={form.control}
-            children={(field: any) => {
-              const isInvalid =
-                field.state.meta.isTouched && !field.state.meta.isValid;
-              return (
-                <Field className="pb-2">
-                  <div className="flex items-center justify-between">
-                    <FieldLabel htmlFor={field.name}>
-                      Verification code
-                    </FieldLabel>
-                    <Button
-                      type="button"
-                      disabled={isResending}
-                      onClick={handleResendOtp}
-                      variant="outline"
-                      size="xs"
-                    >
-                      {isResending ? <Spinner /> : <RefreshCwIcon />}
-                      Resend Code
-                    </Button>
-                  </div>
-                  <InputOTP
-                    onChange={(value) => field.handleChange(value)}
-                    maxLength={6}
-                    id={field.name}
-                    name={field.name}
-                    pattern={REGEXP_ONLY_DIGITS}
-                    containerClassName="justify-center"
+        <form.Field
+          name="otp"
+          control={form.control}
+          children={(field: any) => {
+            const isInvalid =
+              field.state.meta.isTouched && !field.state.meta.isValid;
+            return (
+              <Field className="pb-2 space-y-3">
+                <div className="flex items-center justify-between">
+                  <FieldLabel htmlFor={field.name}>
+                    Verification code
+                  </FieldLabel>
+                  <Button
+                    type="button"
+                    disabled={isResending}
+                    onClick={handleResendOtp}
+                    variant="outline"
+                    size="xs"
                   >
-                    <InputOTPGroup className="*:data-[slot=input-otp-slot]:h-12 *:data-[slot=input-otp-slot]:w-11 *:data-[slot=input-otp-slot]:text-xl">
-                      <InputOTPSlot index={0} />
-                      <InputOTPSlot index={1} />
-                      <InputOTPSlot index={2} />
-                    </InputOTPGroup>
-                    <InputOTPSeparator className="mx-2" />
-                    <InputOTPGroup className="*:data-[slot=input-otp-slot]:h-12 *:data-[slot=input-otp-slot]:w-11 *:data-[slot=input-otp-slot]:text-xl">
-                      <InputOTPSlot index={3} />
-                      <InputOTPSlot index={4} />
-                      <InputOTPSlot index={5} />
-                    </InputOTPGroup>
-                  </InputOTP>
-                  {isInvalid && <FieldError errors={field.state.meta.errors} />}
+                    {isResending ? <Spinner /> : <RefreshCwIcon />}
+                    Resend Code
+                  </Button>
+                </div>
+                <InputOTP
+                  onChange={(value) => field.handleChange(value)}
+                  maxLength={6}
+                  id={field.name}
+                  name={field.name}
+                  pattern={REGEXP_ONLY_DIGITS}
+                  containerClassName="justify-center"
+                >
+                  <InputOTPGroup className="*:data-[slot=input-otp-slot]:h-12 *:data-[slot=input-otp-slot]:w-11 *:data-[slot=input-otp-slot]:text-xl">
+                    <InputOTPSlot index={0} />
+                    <InputOTPSlot index={1} />
+                    <InputOTPSlot index={2} />
+                  </InputOTPGroup>
+                  <InputOTPSeparator className="mx-2" />
+                  <InputOTPGroup className="*:data-[slot=input-otp-slot]:h-12 *:data-[slot=input-otp-slot]:w-11 *:data-[slot=input-otp-slot]:text-xl">
+                    <InputOTPSlot index={3} />
+                    <InputOTPSlot index={4} />
+                    <InputOTPSlot index={5} />
+                  </InputOTPGroup>
+                </InputOTP>
+                {isInvalid && <FieldError errors={field.state.meta.errors} />}
 
-                  {message && <FieldError>{message}</FieldError>}
-                </Field>
-              );
-            }}
-          />
-        </CardContent>
-        <CardFooter>
-          <Field>
-            <Button
-              disabled={isPending}
-              size={"lg"}
-              type="submit"
-              className="h-11! w-full"
+                {message && <FieldError>{message}</FieldError>}
+              </Field>
+            );
+          }}
+        />
+        <Field>
+          <Button
+            disabled={isPending}
+            size={"lg"}
+            type="submit"
+            className="h-11! w-full"
+          >
+            {isPending && <Spinner />} Verify
+          </Button>
+          <div className="text-sm text-muted-foreground">
+            Having trouble signing in?{" "}
+            <a
+              href="#"
+              className="underline underline-offset-4 transition-colors hover:text-primary"
             >
-              {isPending && <Spinner />} Verify
-            </Button>
-            <div className="text-sm text-muted-foreground">
-              Having trouble signing in?{" "}
-              <a
-                href="#"
-                className="underline underline-offset-4 transition-colors hover:text-primary"
-              >
-                Contact support
-              </a>
-            </div>
-          </Field>
-        </CardFooter>
+              Contact support
+            </a>
+          </div>
+        </Field>
       </form>
-    </Card>
+    </>
   );
 };
 
