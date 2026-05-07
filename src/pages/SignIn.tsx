@@ -27,7 +27,6 @@ const SignIn = () => {
     <AuthFormLayout
       title={title}
       description={description}
-      formAreaClass="max-w-md"
       tags={tags}
     >
       {!requireOtp ? (

@@ -26,7 +26,7 @@ const AuthFormLayout = ({
   containerClass,
 }: AuthFormLayoutProps) => {
   return (
-    <div className="relative flex min-h-screen items-center justify-center overflow-hidden">
+    <div className="relative flex min-h-screen items-center justify-center overflow-hidden py-10">
       <div className="fixed inset-0 z-0">
         <div className="absolute top-[-10%] left-[-10%] h-[50%] w-[50%] rounded-full bg-primary/10 blur-[120px]"></div>
         <div className="absolute right-[-10%] bottom-[-10%] h-[40%] w-[40%] rounded-full bg-primary/5 blur-[100px]"></div>
@@ -44,7 +44,7 @@ const AuthFormLayout = ({
         <LogoHeader />
         <section
           className={cn(
-            "glass-card emerald-glow w-full max-w-120 rounded-[2rem] bg-background! p-10 md:p-12",
+            "glass-card emerald-glow w-full max-w-122 rounded-[2rem] bg-background! p-10 md:p-12",
             formAreaClass,
           )}
         >
