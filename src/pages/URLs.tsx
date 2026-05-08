@@ -4,12 +4,10 @@ import DashboardLayout from "../components/DashboardLayout";
 import UrlTable from "@/components/urls/UrlTable";
 import { useQuery } from "@tanstack/react-query";
 import { getUrls } from "@/lib/request";
+import { useState } from "react";
 
 const URLs = () => {
-  const { isLoading, data, isSuccess } = useQuery({
-    queryKey: ["urls"],
-    queryFn: async () => await getUrls("limit=10&sort=desc"),
-  });
+
 
   return (
     <DashboardLayout>
@@ -36,7 +34,7 @@ const URLs = () => {
           />
         </section>
 
-        <UrlTable isLoading={isLoading} data={data} isSuccess={isSuccess}/>
+        <UrlTable  />
       </div>
     </DashboardLayout>
   );

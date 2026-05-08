@@ -2,8 +2,9 @@ import {
   type ColumnDef,
   flexRender,
   getCoreRowModel,
+  getPaginationRowModel,
   useReactTable,
-} from "@tanstack/react-table"
+} from "@tanstack/react-table";
 
 import {
   Table,
@@ -12,40 +13,59 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
+} from "@/components/ui/table";
+import TablePagination from "./TablePagination";
 
 interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[]
-  data: TData[]
+  columns: ColumnDef<TData, TValue>[];
+  data: TData[];
+  pagination: {
+    pageIndex: number;
+    pageSize: number;
+  };
+  setPagination: any;
+  totalData: number;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
+  pagination,
+  setPagination,
+  totalData,
 }: DataTableProps<TData, TValue>) {
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
-  })
+    getPaginationRowModel: getPaginationRowModel(),
+    manualPagination: true,
+    state: { pagination },
+    onPaginationChange: setPagination,
+    rowCount: totalData,
+
+  });
 
   return (
-    <div className="overflow-hidden rounded-md glass-panel">
+    <div className="overflow-hidden rounded-md ">
       <Table className="">
-        <TableHeader >
+        <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id} className="border-b-0!">
               {headerGroup.headers.map((header) => {
                 return (
-                  <TableHead key={header.id} className="px-8 h-14 bg-primary/10">
+                  <TableHead
+                    key={header.id}
+                    className="px-8 h-14 bg-primary/10"
+                  >
                     {header.isPlaceholder
                       ? null
                       : flexRender(
                           header.column.columnDef.header,
-                          header.getContext()
+                          header.getContext(),
                         )}
                   </TableHead>
-                )
+                );
               })}
             </TableRow>
           ))}
@@ -74,6 +94,7 @@ export function DataTable<TData, TValue>({
           )}
         </TableBody>
       </Table>
+      <TablePagination table={table} limit={10} data={{ total: totalData }} />
     </div>
-  )
+  );
 }

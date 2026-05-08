@@ -1,11 +1,11 @@
-import React, { type Dispatch, type SetStateAction } from "react";
+import { type Dispatch, type SetStateAction } from "react";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
+ 
 } from "../ui/dialog";
 import AddNewUrlForm from "../forms/AddNewUrlForm";
 

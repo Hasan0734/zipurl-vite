@@ -7,25 +7,34 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-
+import type { Table } from "@tanstack/react-table";
+import { Button } from "../ui/button";
 
 interface TablePaginationProps {
-    data: {
-        total: number,
-        
-    }
+  data: {
+    total: number;
+  };
+  limit: number;
+  table: Table<any>;
 }
 
-const TablePagination = ({data}: TablePaginationProps) => {
+const TablePagination = ({ data, limit = 10, table }: TablePaginationProps) => {
   return (
-    <div className="flex items-center justify-between px-8 py-4">
+    <div className="flex items-center justify-between px-8 py-4 bg-primary/10">
       <p className="text-on-surface-variant text-xs">
-        Showing 1 to 10 of {data.total} links
+        Showing 1 to {limit} of {data.total} links
       </p>
       <Pagination className="mx-0 w-auto justify-end">
         <PaginationContent>
           <PaginationItem>
-            <PaginationPrevious href="#" />
+            <Button
+              variant={"ghost"}
+              asChild
+              onClick={() => table.previousPage()}
+              disabled={!table.getCanPreviousPage()}
+            >
+              <PaginationPrevious />
+            </Button>
           </PaginationItem>
           <PaginationItem>
             <PaginationLink href="#">1</PaginationLink>
@@ -42,7 +51,14 @@ const TablePagination = ({data}: TablePaginationProps) => {
             <PaginationEllipsis />
           </PaginationItem>
           <PaginationItem>
-            <PaginationNext href="#" />
+            <Button
+            variant={'ghost'}
+              onClick={() => table.nextPage()}
+              disabled={!table.getCanNextPage()}
+              asChild
+            >
+              <PaginationNext />
+            </Button>
           </PaginationItem>
         </PaginationContent>
       </Pagination>
