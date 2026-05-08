@@ -2,7 +2,6 @@ import {
   type ColumnDef,
   flexRender,
   getCoreRowModel,
-  getPaginationRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 
@@ -14,44 +13,32 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import TablePagination from "./TablePagination";
+
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
-  pagination: {
-    pageIndex: number;
-    pageSize: number;
-  };
-  setPagination: any;
-  totalData: number;
+
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
-  pagination,
-  setPagination,
-  totalData,
+
 }: DataTableProps<TData, TValue>) {
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-    manualPagination: true,
-    state: { pagination },
-    onPaginationChange: setPagination,
-    rowCount: totalData,
-
   });
+
 
   return (
     <div className="overflow-hidden rounded-md ">
       <Table className="">
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
-            <TableRow key={headerGroup.id} className="border-b-0!">
+            <TableRow key={headerGroup.id} className="">
               {headerGroup.headers.map((header) => {
                 return (
                   <TableHead
@@ -74,7 +61,7 @@ export function DataTable<TData, TValue>({
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
               <TableRow
-                className=" border-0"
+                className=""
                 key={row.id}
                 data-state={row.getIsSelected() && "selected"}
               >
@@ -94,7 +81,8 @@ export function DataTable<TData, TValue>({
           )}
         </TableBody>
       </Table>
-      <TablePagination table={table} limit={10} data={{ total: totalData }} />
+
+
     </div>
   );
 }

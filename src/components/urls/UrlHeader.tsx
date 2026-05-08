@@ -3,14 +3,14 @@ import { Button } from "../ui/button";
 import { Download, Funnel } from "lucide-react";
 import AddNewUrl from "./AddNewUrl";
 
-const UrlHeader = () => {
+const UrlHeader = ({total}: {total:number}) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div className="flex items-end justify-between">
       <div>
-        <h3 className="text-on-surface text-2xl font-bold">Recent Activity</h3>
+        <h3 className="text-on-surface text-2xl font-bold">All URLs</h3>
         <p className="text-on-surface-variant text-sm">
-          Managing 1,284 active redirects
+          Managing {total} active redirects
         </p>
       </div>
       <div className="flex gap-2">
