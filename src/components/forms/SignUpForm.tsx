@@ -51,9 +51,6 @@ const SignUpForm = () => {
     onSubmit: async ({ value }) => {
       startTransition(async () => {
         const res = await userRegister(value);
-
-        console.log(res);
-
         if (!res.success) {
           toast.error(res.message);
           return;

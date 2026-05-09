@@ -1,7 +1,6 @@
 import { Spinner } from "../ui/spinner";
 import { columns } from "../dashboard/columns";
 import UrlHeader from "./UrlHeader";
-import { useState } from "react";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { getUrls } from "@/lib/request";
 import { DataTable } from "./data-table";
@@ -23,16 +22,6 @@ const UrlTable = () => {
     placeholderData: keepPreviousData,
   });
 
-  // const handlePagination = (page: number, pageSize: number) => {
-  //   const params = new URLSearchParams(searchParams);
-
-  //   params.set("page", String(page));
-  //   params.set("limit", String(pageSize));
-
-  //   setSearchParams(params);
-  // };
-
-  // console.log(pagination);
 
   if (isLoading) {
     return (
@@ -48,15 +37,7 @@ const UrlTable = () => {
 
       {isSuccess && (
         <div className="glass-panel overflow-hidden rounded-xl shadow-2xl">
-          <DataTable
-            currentPage={page}
-            // setPagination={setPagination}
-            data={data.urls}
-            columns={columns}
-            totalData={data.total}
-            totalPage={data.page}
-            pageSize={limit}
-          />
+          <DataTable data={data.urls} columns={columns} />
           <TableDataPagination
             pageSize={limit}
             currentPage={page}

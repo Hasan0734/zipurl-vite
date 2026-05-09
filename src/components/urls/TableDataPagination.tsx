@@ -1,5 +1,5 @@
 import { getPaginationRange } from "@/lib/utils";
-import { Link, useSearchParams } from "react-router";
+import {useSearchParams } from "react-router";
 import {
   Select,
   SelectContent,
@@ -23,8 +23,8 @@ const TableDataPagination = ({
   totalData,
 }: TableDataPaginationProps) => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const start = currentPage * pageSize + 1;
-  const end = start - 1 + pageSize;
+  const start = (currentPage-1) * (pageSize);
+  const end = start + pageSize;
   const paginationRange = getPaginationRange(currentPage, totalPage);
 
   const handleAddPage = (page: number) => {
@@ -47,7 +47,7 @@ const TableDataPagination = ({
 
       <div className="flex items-center gap-3">
         <div className="flex items-center space-x-2">
-          <p className="text-sm font-medium">Rows per page</p>
+          <p className="text-xs">Rows per page</p>
           <Select value={String(pageSize)} onValueChange={handlePageSize}>
             <SelectTrigger className="h-8 w-17.5">
               <SelectValue placeholder={pageSize} />
@@ -79,11 +79,8 @@ const TableDataPagination = ({
             }
             variant={page === currentPage ? "default" : "ghost"}
             className=""
-            asChild
           >
-            <Link to={"?page=" + (typeof page === "number" ? page : "")}>
-              {typeof page === "number" ? page : page}
-            </Link>
+            {page}
           </Button>
         ))}
         <Button

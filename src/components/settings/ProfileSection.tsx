@@ -5,7 +5,6 @@ import { useLoaderData } from "react-router";
 const ProfileSection = () => {
   const { profile } = useLoaderData();
 
-  console.log({ profile });
   return (
     <section className="glass-card rounded-3xl p-8">
       <div className="mb-8 flex items-center justify-between">

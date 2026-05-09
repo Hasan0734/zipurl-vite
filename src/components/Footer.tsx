@@ -1,5 +1,4 @@
-import { Globe, MessageSquareMore, Terminal, WholeWord } from "lucide-react"
-import React from "react"
+import { Globe, MessageSquareMore, Terminal } from "lucide-react"
 
 const Footer = () => {
   return (

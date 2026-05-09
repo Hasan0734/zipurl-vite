@@ -1,6 +1,5 @@
-import { Eye, EyeClosed, EyeOff } from "lucide-react";
-import React, { useState } from "react";
-import { Button } from "./ui/button";
+import { Eye, EyeOff } from "lucide-react";
+import { useState } from "react";
 
 const SecretText = ({ text }: { text: string }) => {
   const [isVisible, setIsVisible] = useState(false);

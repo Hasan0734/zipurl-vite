@@ -1,6 +1,6 @@
 import { useForm } from "@tanstack/react-form";
-import { AtSignIcon, LockIcon } from "lucide-react";
-import React, { useTransition } from "react";
+import { AtSignIcon } from "lucide-react";
+import { useTransition } from "react";
 import { FieldGroup } from "../ui/field";
 import TextInput from "../TextInput";
 import { Button } from "../ui/button";

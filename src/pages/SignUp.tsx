@@ -1,7 +1,6 @@
 import AuthFormLayout from "@/components/auth-layout/AuthFormLayout";
 import SignUpForm from "@/components/forms/SignUpForm";
 import {
-  FolderArchiveIcon,
   GaugeIcon,
   ShieldCheckIcon,
   TrendingUpDownIcon,

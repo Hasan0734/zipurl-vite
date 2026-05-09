@@ -1,11 +1,7 @@
 import { useForm } from "@tanstack/react-form";
 import {
-  Check,
-  CheckCircle,
   CheckIcon,
-  ChevronDown,
   ChevronsUpDown,
-  ChevronUp,
   Edit2Icon,
   Link2Icon,
   LockIcon,

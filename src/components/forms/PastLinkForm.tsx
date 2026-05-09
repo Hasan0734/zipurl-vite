@@ -1,4 +1,3 @@
-import api from "@/lib/api";
 import { Link2 } from "lucide-react";
 import { useState, useTransition, type SubmitEvent } from "react";
 import { Button } from "../ui/button";
