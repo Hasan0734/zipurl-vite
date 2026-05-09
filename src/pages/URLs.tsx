@@ -2,10 +2,6 @@ import { Link2, TrendingUp, Map } from "lucide-react";
 import StatsCard from "../components/dashboard/StatsCard";
 import DashboardLayout from "../components/DashboardLayout";
 import UrlTable from "@/components/urls/UrlTable";
-import { useQuery } from "@tanstack/react-query";
-import { getUrls } from "@/lib/request";
-import { useState } from "react";
-
 const URLs = () => {
 
 

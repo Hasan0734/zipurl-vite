@@ -7,8 +7,8 @@ import { Spinner } from "../ui/spinner";
 
 const RecentActivity = () => {
   const { isLoading, data, isSuccess } = useQuery({
-    queryKey: ["urls"],
-    queryFn: async () => await getUrls("limit=10&sort=-createdAt"),
+    queryKey: ["recentUrl"],
+    queryFn: async ({signal}) => await getUrls("limit=10&sort=-createdAt", signal),
   });
 
 

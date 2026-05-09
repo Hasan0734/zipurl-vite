@@ -5,17 +5,34 @@ import { useState } from "react";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { getUrls } from "@/lib/request";
 import { DataTable } from "./data-table";
+import { useSearchParams } from "react-router";
+import TableDataPagination from "./TableDataPagination";
 
 const UrlTable = () => {
-  const [pagination, setPagination] = useState({ pageIndex: 0, pageSize: 10 });
+  const [searchParams] = useSearchParams();
+  const page = Number(searchParams.get("page") || 1);
+  const limit = Number(searchParams.get("limit") || 10);
+  const search = searchParams.get("search") || "";
+
   const { isLoading, data, isSuccess } = useQuery({
-    queryKey: ["urls", pagination],
+    queryKey: ["urls", page, limit, search],
     queryFn: async () =>
       await getUrls(
-        `limit=${pagination.pageSize}&page=${pagination.pageIndex + 1}&sort=-createdAt`,
+        `limit=${limit}&page=${page}&search=${search}&sort=-createdAt`,
       ),
     placeholderData: keepPreviousData,
   });
+
+  // const handlePagination = (page: number, pageSize: number) => {
+  //   const params = new URLSearchParams(searchParams);
+
+  //   params.set("page", String(page));
+  //   params.set("limit", String(pageSize));
+
+  //   setSearchParams(params);
+  // };
+
+  // console.log(pagination);
 
   if (isLoading) {
     return (
@@ -32,10 +49,17 @@ const UrlTable = () => {
       {isSuccess && (
         <div className="glass-panel overflow-hidden rounded-xl shadow-2xl">
           <DataTable
-            pagination={pagination}
-            setPagination={setPagination}
+            currentPage={page}
+            // setPagination={setPagination}
             data={data.urls}
             columns={columns}
+            totalData={data.total}
+            totalPage={data.page}
+            pageSize={limit}
+          />
+          <TableDataPagination
+            pageSize={limit}
+            currentPage={page}
             totalData={data.total}
             totalPage={data.page}
           />

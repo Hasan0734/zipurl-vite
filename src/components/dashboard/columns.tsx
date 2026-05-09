@@ -13,7 +13,7 @@ export const columns: ColumnDef<UrlType>[] = [
     accessorKey: "original_url",
     header: "Original URL",
     cell: ({ row }) => (
-      <div className="max-w-xs overflow-hidden truncate">
+      <div className="max-w-50 overflow-hidden truncate">
         {row.getValue("original_url")}
       </div>
     ),

@@ -13,6 +13,7 @@ const UrlHeader = ({total}: {total:number}) => {
           Managing {total} active redirects
         </p>
       </div>
+      
       <div className="flex gap-2">
         <Button size={"lg"} variant={"outline"} className="rounded-full">
           <Funnel />

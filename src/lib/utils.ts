@@ -49,8 +49,8 @@ export function getPaginationRange(currentPage: number, totalPages: number) {
   const rangeWithDots = [];
   let l;
 
-  for (let i = 0; i <= totalPages -1; i++) {
-    if (i === 0 || i === totalPages - 1 || (i >= currentPage - delta && i <= currentPage + delta)) {
+  for (let i = 1; i <= totalPages; i++) {
+    if (i === 1 || i === totalPages - 1 || (i >= currentPage - delta && i <= currentPage + delta)) {
       range.push(i);
     }
   }

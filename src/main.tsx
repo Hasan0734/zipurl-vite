@@ -58,9 +58,7 @@ const router = createBrowserRouter([
           {
             path: "/urls",
             Component: URLs,
-            loader: async () => {
-              return { urls: await getUrls() };
-            },
+           
           },
           {
             path: "/analytics",
@@ -90,15 +88,6 @@ createRoot(document.getElementById("root")!).render(
 async function getProfile() {
   try {
     const res = await api.get("/auth/me");
-    return res.data;
-  } catch (error) {
-    return [];
-  }
-}
-
-async function getUrls() {
-  try {
-    const res = await api.get("/urls");
     return res.data;
   } catch (error) {
     return [];
