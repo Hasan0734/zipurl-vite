@@ -41,3 +41,32 @@ export const urlFormOptions = formOptions({
     firstInvalid?.focus();
   },
 });
+
+
+export function getPaginationRange(currentPage: number, totalPages: number) {
+  const delta = 1;
+  const range: number[] = [];
+  const rangeWithDots = [];
+  let l;
+
+  for (let i = 0; i <= totalPages -1; i++) {
+    if (i === 0 || i === totalPages - 1 || (i >= currentPage - delta && i <= currentPage + delta)) {
+      range.push(i);
+    }
+  }
+
+  for (let i of range) {
+    if (l) {
+      if (i - l === 2) {
+        rangeWithDots.push(l + 1)
+      } else if (i - l !== 1) {
+        rangeWithDots.push('...')
+      }
+    }
+    rangeWithDots.push(i);
+    l = i;
+  }
+
+  return rangeWithDots;
+
+}

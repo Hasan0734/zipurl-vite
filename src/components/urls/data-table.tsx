@@ -22,6 +22,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
+import { DataTablePagination } from "../dashboard/TablePagination";
+import { getPaginationRange } from "@/lib/utils";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -59,6 +61,11 @@ export function DataTable<TData, TValue>({
       table.getState().pagination.pageSize +
     1;
   const end = start - 1 + table.getState().pagination.pageSize;
+  const paginationRange = getPaginationRange(
+    table.getState().pagination.pageIndex,
+    totalPage,
+  );
+
 
   return (
     <div className="overflow-hidden rounded-md ">
@@ -123,7 +130,7 @@ export function DataTable<TData, TValue>({
                 table.setPageSize(Number(value));
               }}
             >
-              <SelectTrigger className="h-8 w-[70px]">
+              <SelectTrigger className="h-8 w-17.5">
                 <SelectValue
                   placeholder={table.getState().pagination.pageSize}
                 />
@@ -147,6 +154,22 @@ export function DataTable<TData, TValue>({
             <span className="hidden sm:block">Previous</span>
           </Button>
 
+          {paginationRange.map((page) => (
+            <Button
+              key={page}
+              onClick={() =>
+                typeof page === "number" ? table.setPageIndex(page) : ""
+              }
+              variant={
+                page === table.getState().pagination.pageIndex
+                  ? "default"
+                  : "ghost"
+              }
+              className=""
+            >
+              {typeof page === "number" ? page + 1 : page}
+            </Button>
+          ))}
           <Button
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
