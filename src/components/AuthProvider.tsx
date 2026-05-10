@@ -48,8 +48,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       async (error) => {
         const originalReq = error.config;
 
-        console.log(error.response)
-
         if (
           error.response.status === 401 &&
           error.response.data.message === "Unauthorized"
