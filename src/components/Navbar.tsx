@@ -59,7 +59,7 @@ const Navbar = () => {
             {auth.accessToken && <UserDropDown />}
           </div>
         </div>
-        <div>
+        <div className="block sm:hidden">
           <Button variant={'outline'} size={'icon-lg'}>
             <MenuIcon/>
           </Button>

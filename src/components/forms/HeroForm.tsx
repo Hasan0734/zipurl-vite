@@ -239,7 +239,7 @@ const HeroForm = ({ setShortCode, setCustomAlias }: HeroFormProps) => {
           </Collapsible>
         </FieldGroup>
         <Button
-          className="h-16 w-full rounded-md bg-primary text-lg font-bold"
+          className="h-14 sm:h-16 w-full rounded-md bg-primary text-lg font-bold"
           type="submit"
           disabled={isPending}
         >
@@ -275,7 +275,7 @@ const TextInput = ({ field, icon, isInvalid, ...props }: TextInputProps) => {
         aria-invalid={isInvalid}
         onChange={(e) => field.handleChange(e.target.value)}
         className={cn(
-          "h-16 w-full rounded-md border-none bg-[#192540] pr-6 pl-14 text-white transition-all outline-none focus:ring-2 focus:ring-primary/40",
+          "h-14 sm:h-16 w-full rounded-md border-none bg-[#192540] pr-6 pl-14 text-white transition-all outline-none focus:ring-2 focus:ring-primary/40",
           {
             "ring-2 ring-destructive/40": isInvalid,
           },

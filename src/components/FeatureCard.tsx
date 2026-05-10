@@ -36,7 +36,7 @@ const FeatureCard = () => {
   const visibleDots = Array.from({ length: count }).slice(start, end);
 
   return (
-    <div className="flex min-h-75 flex-col justify-between rounded-xl bg-[#091328] p-10 md:col-span-8">
+    <div className="flex min-h-75 flex-col justify-between rounded-xl bg-[#091328] p-5 sm:p-10 md:col-span-8">
       <Carousel
         setApi={setApi}
         className="w-full"
@@ -53,21 +53,19 @@ const FeatureCard = () => {
         <CarouselContent>
           {Array.from({ length: 4 }).map((_, index) => (
             <CarouselItem key={index}>
-              <div>
                 <div>
                   <span>
                     <ChartScatterIcon size={26} className="mb-6 text-primary" />
                   </span>
-                  <h3 className="text-on-surface mb-4 text-3xl font-bold">
+                  <h3 className="text-on-surface mb-4 text-xl sm:text-3xl font-bold">
                     Advanced Analytics
                   </h3>
-                  <p className="text-on-surface-variant text-lg">
+                  <p className="text-muted-foreground text-sm sm:text-lg">
                     Track every click in real-time. Understand your audience
                     with detailed geographical, device, and referral data
                     insights.
                   </p>
                 </div>
-              </div>
             </CarouselItem>
           ))}
         </CarouselContent>

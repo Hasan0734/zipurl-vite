@@ -9,13 +9,13 @@ const HeroSection = () => {
         <span className="label-md mb-4 block font-bold tracking-[0.2em] text-primary uppercase">
           Reach Further
         </span>
-        <h1 className="font-manrope mb-6 text-5xl leading-tight font-extrabold tracking-tighter md:text-7xl">
+        <h1 className="font-manrope mb-6  leading-tight font-extrabold tracking-tighter text-3xl md:text-7xl">
           Shorten Your Links <br />
           <span className="bg-linear-to-r from-[#10b981]/50 to-[#69f6b8] bg-clip-text text-transparent">
             Expand Your Reach
           </span>
         </h1>
-        <p className="mx-auto max-w-2xl text-lg  text-muted-foreground md:text-xl">
+        <p className="mx-auto max-w-2xl text-sm  text-muted-foreground md:text-xl">
           Transform long, cumbersome URLs into sleek, manageable links with
           powerful tracking and custom branding.
         </p>

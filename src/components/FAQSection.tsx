@@ -7,13 +7,13 @@ import {
 
 const FAQSection = () => {
   return (
-    <section className="px-6 py-24" id="FAQ">
+    <section className="px-6 py-16 sm:py-24" id="FAQ">
       <div className="mx-auto max-w-6xl">
         <div className="mb-16 text-center">
-          <h2 className="mb-4 text-4xl font-extrabold">
+          <h2 className="mb-4 text-2xl md:text-4xl font-extrabold">
             Frequently Asked Questions
           </h2>
-          <p className="text-lg text-muted-foreground">
+          <p className="text-sm sm:text-lg text-muted-foreground">
             Got questions? We've got answers.
           </p>
         </div>
