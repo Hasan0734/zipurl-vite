@@ -7,8 +7,7 @@ const CTASection = () => {
       className="relative overflow-hidden px-6 py-24"
       id="ready_to_start"
     >
-      <div className="absolute inset-0 z-0 bg-primary/5"></div>
-      <div className="bg-glass relative z-10 mx-auto max-w-5xl overflow-hidden rounded-xl border border-primary/20 p-6 sm:p-12 text-center shadow-[0_0_80px_rgba(16,185,129,0.1)] md:p-20">
+      <div className=" relative z-10 mx-auto max-w-5xl overflow-hidden rounded-xl border border-primary/20 p-6 sm:p-12 text-center md:p-20">
         <div className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-secondary/10 blur-[80px]"></div>
         <div className="absolute -bottom-24 -left-24 h-64 w-64 rounded-full bg-primary/10 blur-[80px]"></div>
         <h2 className=" mb-8 text-2xl leading-tight font-extrabold tracking-tighter md:text-6xl">
