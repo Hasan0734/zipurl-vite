@@ -9,7 +9,7 @@ const FeatureSection = () => {
   return (
     <section className="max-w-6xl mx-auto relative z-10 mt-20 sm:mt-32 grid w-full grid-cols-1 gap-6 md:grid-cols-12 px-6 pb-12">
       <FeatureCard />
-      <div className="rounded-xl border border-[#192540]/10 bg-[#192540]/40 p-5 sm:p-10 backdrop-blur-xl md:col-span-4">
+      <div className="rounded-xl  bg-card p-5 sm:p-10 backdrop-blur-xl md:col-span-4">
         <span className="">
           <ShieldCheckIcon size={26} className="mb-6 text-primary" />
         </span>
@@ -29,7 +29,7 @@ const FeatureSection = () => {
           Universal Redirects
         </h3>
       </div>
-      <div className="group relative overflow-hidden rounded-xl bg-[#091328] p-5 sm:p-10 md:col-span-8">
+      <div className="group relative overflow-hidden rounded-xl bg-card p-5 sm:p-10 md:col-span-8">
         <div className="flex items-start justify-between">
           <div className="relative z-10 max-w-md">
             <h3 className="text-on-surface mb-4 text-xl sm:text-3xl font-bold">

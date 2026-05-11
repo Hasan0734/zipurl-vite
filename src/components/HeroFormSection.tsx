@@ -24,7 +24,7 @@ const HeroFormSection = () => {
   return (
     <>
       <div className="relative z-10 w-full max-w-3xl">
-        <div className="rounded-xl border border-[#192540]/20 bg-[#192540]/40 p-4 sm:p-8  backdrop-blur-xl">
+        <div className="rounded-xl bg-card p-4 sm:p-8  backdrop-blur-xl">
           <HeroForm
             setShortCode={setShortCode}
             setCustomAlias={setCustomAlias}
@@ -40,7 +40,7 @@ const HeroFormSection = () => {
             delay: 0.5,
             ease: [0, 0.71, 0.2, 1.01],
           }}
-          className="relative z-10 mt-12 w-full max-w-3xl rounded-xl border border-[#192540]/15 p-8 shadow-2xl"
+          className="relative z-10 mt-12 w-full max-w-3xl rounded-xl border border-card p-8 shadow-2xl"
         >
           <div className="flex flex-col items-center gap-8 md:flex-row">
             <div className="w-full flex-1">

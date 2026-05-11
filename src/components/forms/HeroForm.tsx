@@ -227,7 +227,7 @@ const HeroForm = ({ setShortCode, setCustomAlias }: HeroFormProps) => {
                           (form.getFieldValue("expires_at") as Date) ||
                           undefined
                         }
-                        triggerClass="h-16 border-0 bg-[#192540]! px-6"
+                        triggerClass="h-16 border-0 bg-input/30! px-6"
                         iconClass="text-primary/50 "
                       />
                       <FieldError errors={field.state.meta.errors} />
@@ -275,7 +275,7 @@ const TextInput = ({ field, icon, isInvalid, ...props }: TextInputProps) => {
         aria-invalid={isInvalid}
         onChange={(e) => field.handleChange(e.target.value)}
         className={cn(
-          "h-14 sm:h-16 w-full rounded-md border-none bg-[#192540] pr-6 pl-14 text-white transition-all outline-none focus:ring-2 focus:ring-primary/40",
+          "h-14 sm:h-16 w-full rounded-md border-none bg-input/30 pr-6 pl-14 text-white transition-all outline-none focus:ring-2 focus:ring-primary/40",
           {
             "ring-2 ring-destructive/40": isInvalid,
           },

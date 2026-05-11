@@ -20,7 +20,7 @@ const AsideBar = () => {
 
 
   return (
-    <aside className="fixed top-0 left-0 z-50 flex h-screen w-64 flex-col bg-[#091328]/60 px-6 py-8  backdrop-blur-3xl s">
+    <aside className="fixed top-0 left-0 z-50 flex h-screen w-64 flex-col bg-[#091328]/60 px-6 py-8  backdrop-blur-3xl ">
       <Link to={'/'} className="mb-10 flex items-center gap-3 px-2">
         <div className="flex h-10 w-10 items-center justify-center rounded-lg border">
           <FolderArchiveIcon />

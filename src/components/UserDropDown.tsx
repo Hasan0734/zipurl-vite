@@ -32,16 +32,16 @@ const UserDropDown = () => {
   const user = auth.user;
   return (
     <div className="flex items-center gap-3">
-      <div className="text-right space-y-1">
-        <p className="text-on-surface text-sm leading-none font-semibold">
+      <div className="text-right space-y-1 order-2 md:order-1">
+        <p className=" text-sm leading-none font-semibold ">
           {user?.first_name} {user?.last_name}
         </p>
-        <p className="text-[10px] font-bold tracking-tighter text-secondary uppercase">
+        <p className="text-[10px] font-bold tracking-tighter text-secondary uppercase text-left md:text-right">
           Pro Member
         </p>
       </div>
       <DropdownMenu>
-        <DropdownMenuTrigger asChild>
+        <DropdownMenuTrigger className="order-1 sm:order-2" asChild>
           <Button variant="ghost" size="icon" className="rounded-full">
             <Avatar>
               <AvatarImage src="https://github.com/shadcn.png" alt="harry" />
