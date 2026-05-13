@@ -3,8 +3,16 @@ import { Button } from "./ui/button";
 import UserDropDown from "./UserDropDown";
 import { useAuth } from "@/hooks/use-auth";
 import { Link } from "react-router";
-import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
+import {
+  Sheet,
+  SheetTrigger,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetDescription,
+  SheetFooter,
+} from "./ui/sheet";
 
 const Navbar = () => {
   const [toggle, setToggle] = useState(false);
@@ -16,7 +24,7 @@ const Navbar = () => {
   ];
 
   const drawerVariants = {
-    closed: { x: "100%" }, 
+    closed: { x: "100%" },
     open: {
       x: 0,
       transition: {
@@ -70,16 +78,51 @@ const Navbar = () => {
           </div>
         </div>
         <div className="block md:hidden">
-          <Button
-            onClick={() => setToggle(!toggle)}
-            variant={"outline"}
-            size={"icon-sm"}
-          >
-            <MenuIcon />
-          </Button>
+          <Sheet >
+            <SheetTrigger asChild>
+              <Button
+                onClick={() => setToggle(!toggle)}
+                variant={"outline"}
+                size={"icon-sm"}
+              >
+                <MenuIcon />
+              </Button>
+            </SheetTrigger>
+            <SheetContent className="bg-background ">
+              <SheetHeader>
+                <div className="flex items-center gap-2">
+                  <Link
+                    to={"/"}
+                    className=" flex items-center gap-2 text-lg sm:text-2xl font-bold tracking-tighter text-primary"
+                  >
+                    <FolderArchiveIcon />
+                    <span className="text-foreground">ZipUrl</span>
+                  </Link>
+                </div>
+              </SheetHeader>
+
+              <div className="px-5">
+                <ul className="gap-4 flex flex-col">
+                  {navLinks.map((link) => (
+                    <li key={link.to}>
+                      <a
+                        className="font-manrope   tracking-tight text-white/60 transition-colors hover:text-primary"
+                        href="#pricing"
+                      >
+                        {link.title}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <SheetFooter>
+                <UserDropDown />
+              </SheetFooter>
+            </SheetContent>
+          </Sheet>
         </div>
 
-        <AnimatePresence>
+        {/* <AnimatePresence>
           {toggle && (
             <motion.div
               variants={drawerVariants}
@@ -127,7 +170,7 @@ const Navbar = () => {
               </div>
             </motion.div>
           )}
-        </AnimatePresence>
+        </AnimatePresence> */}
       </div>
     </nav>
   );
