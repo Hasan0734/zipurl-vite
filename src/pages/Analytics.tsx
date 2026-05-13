@@ -3,7 +3,7 @@ import DeviceDistribution from "@/components/analytics/DeviceDistribution";
 import LiveActivity from "@/components/analytics/LiveActivity";
 import MetricsBento from "@/components/analytics/MetricsBento";
 import TopCountries from "@/components/analytics/TopCountries";
-import DashboardLayout from "@/components/DashboardLayout";
+import DashboardLayout from "@/components/dashboard-common/DashboardLayout";
 import { Button } from "@/components/ui/button";
 import { Calendar, Download } from "lucide-react";
 

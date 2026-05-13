@@ -1,11 +1,7 @@
-import { addNewUrl } from "@/lib/request";
+import { updateUrlById } from "@/lib/request";
 import { urlFormOptions } from "@/lib/utils";
 import { useForm } from "@tanstack/react-form";
-import  {
-  useTransition,
-  type Dispatch,
-  type SetStateAction,
-} from "react";
+import { useTransition, type Dispatch, type SetStateAction } from "react";
 import { toast } from "sonner";
 import { Field, FieldError, FieldGroup } from "../ui/field";
 import TextInput from "../TextInput";
@@ -16,11 +12,14 @@ import { Button } from "../ui/button";
 import { DialogClose } from "../ui/dialog";
 import { Spinner } from "../ui/spinner";
 import { useQuery } from "@tanstack/react-query";
+import type { UrlType } from "@/lib/types";
 
-const UpdateUrlForm = ({
+const EditUrlForm = ({
   setIsOpen,
+  prevData,
 }: {
   setIsOpen: Dispatch<SetStateAction<boolean>>;
+  prevData: UrlType;
 }) => {
   const [isPending, startTransition] = useTransition();
 
@@ -30,10 +29,16 @@ const UpdateUrlForm = ({
 
   const form = useForm({
     ...urlFormOptions,
+    defaultValues: {
+      original_url: prevData.original_url,
+      custom_alias: prevData.custom_alias as string | undefined,
+      password: "" as string | undefined,
+      expires_at: prevData.expires_at ? new Date(prevData.expires_at) as Date | undefined : undefined,
+    },
     onSubmit: async ({ value }) => {
       startTransition(async () => {
         try {
-          const res = await addNewUrl(value);
+          const res = await updateUrlById(value, prevData._id);
 
           if (!res?.success) {
             toast.error(res.message);
@@ -67,6 +72,7 @@ const UpdateUrlForm = ({
           id={"original_url"}
           icon={Link2}
           placeholder="Paste your long URL here..."
+          readOnly
         />
         <TextInput
           label="Custom Alias (Optional)"
@@ -95,7 +101,7 @@ const UpdateUrlForm = ({
                   onSelect={(date: Date) => {
                     form.setFieldValue("expires_at", date);
                   }}
-                  date={(form.getFieldValue("expires_at") as Date) || undefined}
+                  date={form.getFieldValue("expires_at") as Date || undefined}
                   triggerClass="h-11"
                 />
                 <FieldError errors={field.state.meta.errors} />
@@ -113,15 +119,15 @@ const UpdateUrlForm = ({
             variant={"outline"}
             disabled={isPending}
           >
-            Close
+            Cancel
           </Button>
         </DialogClose>
         <Button className="h-11" size={"lg"} disabled={isPending}>
-          {isPending && <Spinner />}Add New
+          {isPending && <Spinner />} Save
         </Button>
       </div>
     </form>
   );
 };
 
-export default UpdateUrlForm;
+export default EditUrlForm;

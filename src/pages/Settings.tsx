@@ -1,4 +1,4 @@
-import DashboardLayout from "@/components/DashboardLayout";
+import DashboardLayout from "@/components/dashboard-common/DashboardLayout";
 import Network from "@/components/settings/Network";
 import PreferenceAndUrl from "@/components/settings/PreferenceAndUrl";
 import ProfileSection from "@/components/settings/ProfileSection";

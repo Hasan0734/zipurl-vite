@@ -1,6 +1,6 @@
 
-import { DataTable } from "./data-table";
-import { columns } from "./columns";
+import { DataTable } from "../dashboard-common/data-table";
+import { columns } from "../dashboard-common/columns";
 import { useQuery } from "@tanstack/react-query";
 import { getUrls } from "@/lib/request";
 import { Spinner } from "../ui/spinner";

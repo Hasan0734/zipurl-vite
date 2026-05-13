@@ -4,11 +4,11 @@ import {
   QrCodeIcon,
   Share2Icon,
 } from "lucide-react";
-import { Button } from "./ui/button";
-import HeroForm from "./forms/HeroForm";
+import { Button } from "../ui/button";
+import HeroForm from "../forms/HeroForm";
 import { useState } from "react";
 import { SHORT_URL } from "@/lib/utils";
-import CopyButton from "./ui/copy-button";
+import CopyButton from "../ui/copy-button";
 import { motion } from "motion/react";
 import { Link } from "react-router";
 const HeroFormSection = () => {
@@ -16,7 +16,7 @@ const HeroFormSection = () => {
   const [customAlias, setCustomAlias] = useState("");
 
   const url = () => {
-    const code = SHORT_URL + (customAlias ? customAlias : shortCode);
+    const code = SHORT_URL + "/" + (customAlias ? customAlias : shortCode);
     // const fullUrl = SHORT_URL + (code ? code : "example");
     return code;
   };

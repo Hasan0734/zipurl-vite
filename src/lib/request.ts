@@ -60,6 +60,16 @@ export const addNewUrl = async (data: { original_url: string }) => {
   }
 };
 
+export const updateUrlById = async (data: { }, id: string) => {
+  try {
+    const res = await api.patch(`/urls/${id}`, data);
+    return res.data;
+  } catch (err: any) {
+    return err.response.data;
+  }
+};
+
+
 export const getUrls = async (query: string) => {
   try {
     const res = await api.get("/urls?" + query);

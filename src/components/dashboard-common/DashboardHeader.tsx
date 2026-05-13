@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { useDebounce } from "use-debounce";
 import { BellDot, Search } from "lucide-react";
-import UserDropDown from "./UserDropDown";
+import UserDropDown from "../UserDropDown";
 import { useLocation, useSearchParams } from "react-router";
 import { cn } from "@/lib/utils";
-import { SidebarTrigger } from "./ui/sidebar";
+import { SidebarTrigger } from "../ui/sidebar";
 
 const DashboardHeader = () => {
   const { pathname } = useLocation();

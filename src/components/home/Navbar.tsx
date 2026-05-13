@@ -1,6 +1,6 @@
 import { FolderArchiveIcon, MenuIcon } from "lucide-react";
-import { Button } from "./ui/button";
-import UserDropDown from "./UserDropDown";
+import { Button } from "../ui/button";
+import UserDropDown from "../UserDropDown";
 import { useAuth } from "@/hooks/use-auth";
 import { Link } from "react-router";
 import { useState } from "react";
@@ -10,7 +10,7 @@ import {
   SheetContent,
   SheetHeader,
   SheetFooter,
-} from "./ui/sheet";
+} from "../ui/sheet";
 
 const Navbar = () => {
   const [toggle, setToggle] = useState(false);

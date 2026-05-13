@@ -16,6 +16,7 @@ import { Button } from "../ui/button";
 import { DialogClose } from "../ui/dialog";
 import { Spinner } from "../ui/spinner";
 import { useQuery } from "@tanstack/react-query";
+import { useSearchParams } from "react-router";
 
 const AddNewUrlForm = ({
   setIsOpen,
@@ -23,10 +24,15 @@ const AddNewUrlForm = ({
   setIsOpen: Dispatch<SetStateAction<boolean>>;
 }) => {
   const [isPending, startTransition] = useTransition();
+  const [searchParams] = useSearchParams();
 
   const { refetch } = useQuery({
     queryKey: ["urls"],
   });
+
+  
+
+
 
   const form = useForm({
     ...urlFormOptions,
@@ -117,7 +123,7 @@ const AddNewUrlForm = ({
           </Button>
         </DialogClose>
         <Button className="h-11" size={"lg"} disabled={isPending}>
-          {isPending && <Spinner />}Add New
+          {isPending && <Spinner />} Add New
         </Button>
       </div>
     </form>

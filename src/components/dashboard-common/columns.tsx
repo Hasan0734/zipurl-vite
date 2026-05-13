@@ -7,6 +7,8 @@ import { SHORT_URL } from "@/lib/utils";
 import SecretText from "../SecretText";
 import CopyButton from "../ui/copy-button";
 import { Badge } from "../ui/badge";
+import { useState } from "react";
+import EditUrlDialog from "./EditUrlDialog";
 
 export const columns: ColumnDef<UrlType>[] = [
   {
@@ -98,24 +100,38 @@ export const columns: ColumnDef<UrlType>[] = [
     header: "Expire At",
     cell: ({ row }) => (
       <div>
-        {row.getValue("expires_at")
-          ? format(row.getValue("expires_at"), "dd-MM-yyyy")
-          : <span className="text-muted-foreground/50">N/A</span>}
+        {row.getValue("expires_at") ? (
+          format(row.getValue("expires_at"), "dd-MM-yyyy")
+        ) : (
+          <span className="text-muted-foreground/50">N/A</span>
+        )}
       </div>
     ),
   },
   {
     accessorKey: "actions",
     header: "Actions",
-    cell: () => (
-      <div className="flex gap-2">
-        <Button variant={"outline"} size={"icon-sm"}>
-          <Edit2 />
-        </Button>
-        <Button variant={"destructive"} size={"icon-sm"}>
-          <Trash />
-        </Button>
-      </div>
-    ),
+    cell: ({ row }) => {
+      const [isOpen, setIsOpen] = useState(false);
+      return (
+        <div className="flex gap-2">
+          <EditUrlDialog
+            isOpen={isOpen}
+            setIsOpen={setIsOpen}
+            data={row.original}
+          />
+          <Button
+            onClick={() => setIsOpen(true)}
+            variant={"outline"}
+            size={"icon-sm"}
+          >
+            <Edit2 />
+          </Button>
+          <Button variant={"destructive"} size={"icon-sm"}>
+            <Trash />
+          </Button>
+        </div>
+      );
+    },
   },
 ];

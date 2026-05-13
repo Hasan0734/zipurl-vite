@@ -1,11 +1,12 @@
 import { Spinner } from "../ui/spinner";
-import { columns } from "../dashboard/columns";
+import { columns } from "../dashboard-common/columns";
 import UrlHeader from "./UrlHeader";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { getUrls } from "@/lib/request";
-import { DataTable } from "./data-table";
+// import { DataTable } from "./data-table";
 import { useSearchParams } from "react-router";
 import TableDataPagination from "./TableDataPagination";
+import { DataTable } from "../dashboard-common/data-table";
 
 const UrlTable = () => {
   const [searchParams] = useSearchParams();
@@ -34,7 +35,6 @@ const UrlTable = () => {
   return (
     <section className="space-y-6">
       <UrlHeader total={data.total} />
-
       {isSuccess && (
         <div className="glass-panel  overflow-hidden rounded-xl shadow-2xl">
           <DataTable data={data.urls} columns={columns} />

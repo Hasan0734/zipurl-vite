@@ -30,7 +30,7 @@ export const urlFormOptions = formOptions({
         fieldErrors[fieldName] = issue;
       });
 
-      return { form: "hero-form", fields: fieldErrors };
+      return { fields: fieldErrors };
     },
 
   },
