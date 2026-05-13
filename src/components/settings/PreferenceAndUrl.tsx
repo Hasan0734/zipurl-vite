@@ -18,7 +18,7 @@ const PreferenceAndUrl = () => {
           </div>
           <input
            onChange={(e) => console.log(e.target.value)}
-            className="bg-background h-1.5 w-full cursor-pointer appearance-none rounded-lg accent-primary"
+            className="bg-card h-1.5 w-full cursor-pointer appearance-none rounded-lg accent-primary"
             max="365"
             min="1"
             type="range"
@@ -36,7 +36,7 @@ const PreferenceAndUrl = () => {
           <div className="relative">
             <input
               onChange={(e) => console.log(e.target.value)}
-              className="bg-background/50 border-background/10 font-body w-full rounded-xl border px-4 py-3 text-sm transition-all outline-none focus:border-primary focus:ring-1 focus:ring-primary"
+              className="bg-card border-secondary/50 font-body w-full rounded-xl border px-4 py-3 text-sm transition-all outline-none focus:border-primary"
               type="text"
               value="lnk.lumos.tech"
             />

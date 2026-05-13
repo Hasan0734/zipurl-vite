@@ -14,7 +14,7 @@ const RecentActivity = () => {
 
   if (isLoading) {
     return (
-      <div>
+      <div className="flex items-center gap-2">
         <Spinner /> Loading
       </div>
     );

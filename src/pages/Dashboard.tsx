@@ -3,39 +3,34 @@ import PastLink from "../components/forms/PastLinkForm";
 import RecentActivity from "../components/dashboard/RecentActivity";
 import StatsCard from "../components/dashboard/StatsCard";
 import DashboardLayout from "../components/DashboardLayout";
+import StatSection from "@/components/dashboard/StatSection";
 
 const Dashboard = () => {
-
- 
+  const stats = [
+    {
+      title: "Total Impressions",
+      label: "24% from last month",
+      icon: TrendingUp,
+      total: "1.2M",
+    },
+    {
+      title: "Active Links",
+      label: "12 created today",
+      icon: Link2,
+      total: "842",
+    },
+    {
+      title: "Top Region",
+      label: "42% of total traffic",
+      icon: Map,
+      total: "London",
+    },
+  ];
   return (
     <DashboardLayout>
-      <div className="space-y-12 px-6 py-10">
-        <PastLink />
-
-        <RecentActivity  />
-
-        <section className="grid grid-cols-1 gap-8 md:grid-cols-3">
-          <StatsCard
-            title="Total Impressions"
-            label="24% from last month"
-            icon={TrendingUp}
-            total="1.2M"
-          />
-          <StatsCard
-            title="Active Links"
-            label="12 created today"
-            icon={Link2}
-            total="842"
-          />
-
-          <StatsCard
-            title="Top Region"
-            label="42% of total traffic"
-            icon={Map}
-            total="London"
-          />
-        </section>
-      </div>
+      <PastLink />
+      <RecentActivity />
+      <StatSection />
     </DashboardLayout>
   );
 };

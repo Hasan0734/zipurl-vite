@@ -1,37 +1,11 @@
-import { Link2, TrendingUp, Map } from "lucide-react";
-import StatsCard from "../components/dashboard/StatsCard";
+import StatSection from "@/components/dashboard/StatSection";
 import DashboardLayout from "../components/DashboardLayout";
 import UrlTable from "@/components/urls/UrlTable";
 const URLs = () => {
-
-
   return (
     <DashboardLayout>
-      <div className="space-y-12 py-10 px-6">
-        <section className="grid grid-cols-1 gap-8 md:grid-cols-3">
-          <StatsCard
-            title="Total Impressions"
-            label="24% from last month"
-            icon={TrendingUp}
-            total="1.2M"
-          />
-          <StatsCard
-            title="Active Links"
-            label="12 created today"
-            icon={Link2}
-            total="842"
-          />
-
-          <StatsCard
-            title="Top Region"
-            label="42% of total traffic"
-            icon={Map}
-            total="London"
-          />
-        </section>
-
-        <UrlTable  />
-      </div>
+        <StatSection />
+        <UrlTable />
     </DashboardLayout>
   );
 };

@@ -9,9 +9,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
       <AsideBar />
       <SidebarInset className="relative overflow-hidden">
         <DashboardHeader />
-       
-
-        {children}
+        <div className="space-y-12 py-10 px-6">{children}</div>
       </SidebarInset>
     </SidebarProvider>
   );

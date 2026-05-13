@@ -1,6 +1,6 @@
-import { LockKeyhole, Shield, ShieldCogCorner } from "lucide-react"
-import { Button } from "../ui/button"
-import { Switch } from "../ui/switch"
+import { LockKeyhole, Shield, ShieldCogCorner } from "lucide-react";
+import { Button } from "../ui/button";
+import { Switch } from "../ui/switch";
 
 const SecuritySection = () => {
   return (
@@ -10,7 +10,7 @@ const SecuritySection = () => {
         Security Protocols
       </h3>
       <div className="space-y-6">
-        <div className="flex items-center justify-between rounded-2xl border border-background/5 bg-background/50 p-4">
+        <div className="flex items-center justify-between rounded-2xl border border-secondary/50 bg-card p-4">
           <div className="flex items-center gap-4">
             <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10">
               <LockKeyhole className="text-primary" />
@@ -28,7 +28,7 @@ const SecuritySection = () => {
             Change
           </Button>
         </div>
-        <div className="flex items-center justify-between rounded-2xl border border-background/5 bg-background/50 p-4">
+        <div className="flex items-center justify-between rounded-2xl border border-secondary/50 bg-card p-4">
           <div className="flex items-center gap-4">
             <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10">
               <ShieldCogCorner className="text-primary" />
@@ -46,7 +46,7 @@ const SecuritySection = () => {
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default SecuritySection
+export default SecuritySection;

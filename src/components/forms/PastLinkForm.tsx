@@ -20,7 +20,7 @@ const PastLink = () => {
     startTransition(async () => {
       const res = await addNewUrl({ original_url: originalUrl });
 
-      if (!res.short_code) {
+      if (!res.success) {
         toast.error("Someting is wrong!");
         return;
       }

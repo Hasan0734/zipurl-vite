@@ -56,7 +56,7 @@ export const columns: ColumnDef<UrlType>[] = [
           />
         </div>
       ) : (
-        ""
+        <span className="text-muted-foreground/50">N/A</span>
       ),
   },
   {
@@ -66,14 +66,23 @@ export const columns: ColumnDef<UrlType>[] = [
   {
     accessorKey: "password",
     header: "Password",
-    cell: ({ row }) => <SecretText text={row.getValue("password")} />,
+    cell: ({ row }) =>
+      row.getValue("password") ? (
+        <SecretText text={row.getValue("password")} />
+      ) : (
+        <span className="text-muted-foreground/50">N/A</span>
+      ),
   },
-    {
+  {
     accessorKey: "is_active",
     header: "Status",
     cell: ({ row }) => (
       <div>
-        {row.getValue("is_active") ? <Badge>Active</Badge> : <Badge variant={'destructive'}>Inactive</Badge>}
+        {row.getValue("is_active") ? (
+          <Badge>Active</Badge>
+        ) : (
+          <Badge variant={"destructive"}>Inactive</Badge>
+        )}
       </div>
     ),
   },
@@ -91,7 +100,7 @@ export const columns: ColumnDef<UrlType>[] = [
       <div>
         {row.getValue("expires_at")
           ? format(row.getValue("expires_at"), "dd-MM-yyyy")
-          : ""}
+          : <span className="text-muted-foreground/50">N/A</span>}
       </div>
     ),
   },

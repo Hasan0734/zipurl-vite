@@ -17,6 +17,7 @@ import URLs from "./pages/URLs.tsx";
 import VerifyEmail from "./pages/VerifyEmail.tsx";
 import ForgotPassword from "./pages/ForgotPassword.tsx";
 import ResetPassword from "./pages/ResetPassword.tsx";
+import NotFound from "./pages/NotFound.tsx";
 
 const router = createBrowserRouter([
   {
@@ -53,12 +54,11 @@ const router = createBrowserRouter([
         children: [
           {
             path: "/dashboard",
-            Component: Dashboard
+            Component: Dashboard,
           },
           {
             path: "/urls",
             Component: URLs,
-           
           },
           {
             path: "/analytics",
@@ -74,6 +74,10 @@ const router = createBrowserRouter([
         ],
       },
     ],
+  },
+  {
+    path: "*",
+    Component: NotFound,
   },
 ]);
 

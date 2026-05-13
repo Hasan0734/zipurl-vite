@@ -30,28 +30,28 @@ const ProfileSection = () => {
           </div>
         </div>
         <div className="grid flex-1 grid-cols-2 gap-4">
-          <div className="space-y-1">
-            <label className="font-headline text-on-surface-variant text-[10px] tracking-widest uppercase">
+          <div className="space-y-1.5">
+            <label className="text-xs  uppercase">
               Full Name
             </label>
-            <div className="bg-surface-container-low border-outline-variant/10 font-body rounded-xl border px-4 py-3">
+            <div className="bg-card font-body rounded-xl border border-secondary/50 px-4 py-3">
               {profile.first_name} {profile.last_name}
             </div>
           </div>
-          <div className="space-y-1">
-            <label className="font-headline text-on-surface-variant text-[10px] tracking-widest uppercase">
+          <div className="space-y-1.5">
+            <label className=" text-xs uppercase">
               Account Type
             </label>
-            <div className="bg-surface-container-low border-outline-variant/10 flex items-center gap-2 rounded-xl border px-4 py-3">
-              <span className="bg-tertiary h-2 w-2 rounded-full"></span>
-              <span className="font-body text-tertiary">Premium Archon</span>
+            <div className="bg-card border-secondary/50 flex items-center gap-2 rounded-xl border px-4 py-3">
+              <span className="bg-primary h-2 w-2 rounded-full"></span>
+              <span className="text-primary">Premium Archon</span>
             </div>
           </div>
           <div className="col-span-2 space-y-1">
-            <label className="font-headline text-on-surface-variant text-[10px] tracking-widest uppercase">
+            <label className=" text-xs uppercase">
               Email Address
             </label>
-            <div className="bg-surface-container-low border-outline-variant/10 font-body rounded-xl border px-4 py-3">
+            <div className="bg-card  rounded-xl border border-secondary/50 px-4 py-3">
               {profile.email}
             </div>
           </div>

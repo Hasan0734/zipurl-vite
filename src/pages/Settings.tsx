@@ -10,7 +10,6 @@ const Settings = () => {
 
   return (
     <DashboardLayout>
-      <div className="space-y-12 py-10 px-6">
         <div className="mb-12">
           <div className="flex items-end justify-between">
             <div>
@@ -29,7 +28,6 @@ const Settings = () => {
             </div>
           </div>
         </div>
-
         <div className="grid grid-cols-12 items-start gap-8">
           <div className="col-span-12 space-y-8 lg:col-span-7">
             <ProfileSection />
@@ -40,7 +38,6 @@ const Settings = () => {
             <Network />
           </div>
         </div>
-      </div>
     </DashboardLayout>
   );
 };

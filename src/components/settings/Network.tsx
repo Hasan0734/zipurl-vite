@@ -1,6 +1,6 @@
-import { Network as NetworkHub } from "lucide-react"
-import { Switch } from "../ui/switch"
-import { Label } from "../ui/label"
+import { Network as NetworkHub } from "lucide-react";
+import { Switch } from "../ui/switch";
+import { Label } from "../ui/label";
 
 const Network = () => {
   return (
@@ -10,21 +10,27 @@ const Network = () => {
         Network
       </h3>
       <div className="space-y-4">
-        <div className="flex cursor-pointer items-center justify-between rounded-xl p-3 transition-colors hover:bg-white/5">
-          <Label htmlFor="https_upgrade" className="text-sm font-medium">Automatic HTTPS Upgrade</Label>
-          <Switch id="https_upgrade"/>
+        <div className="flex cursor-pointer items-center justify-between rounded-xl p-3 transition-colors hover:bg-card border border-card/15 hover:border-secondary/10">
+          <Label htmlFor="https_upgrade" className="text-sm font-medium">
+            Automatic HTTPS Upgrade
+          </Label>
+          <Switch id="https_upgrade" />
         </div>
-        <div className="flex cursor-pointer items-center justify-between rounded-xl p-3 transition-colors hover:bg-white/5">
-          <Label htmlFor="stealth" className="text-sm font-medium">Referrer Hiding (Stealth)</Label>
+        <div className="flex cursor-pointer items-center justify-between rounded-xl p-3 transition-colors hover:bg-card border border-card/15 hover:border-secondary/10">
+          <Label htmlFor="stealth" className="text-sm font-medium">
+            Referrer Hiding (Stealth)
+          </Label>
           <Switch id="stealth" />
         </div>
-        <div className="flex cursor-pointer items-center justify-between rounded-xl p-3 transition-colors hover:bg-white/5">
-          <Label htmlFor="anonymize_analytics" className="text-sm font-medium">Anonymize Analytics</Label>
+        <div className="flex cursor-pointer items-center justify-between rounded-xl p-3 transition-colors hover:bg-card border border-card/15 hover:border-secondary/10">
+          <Label htmlFor="anonymize_analytics" className="text-sm font-medium">
+            Anonymize Analytics
+          </Label>
           <Switch id="anonymize_analytics" />
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Network
+export default Network;
