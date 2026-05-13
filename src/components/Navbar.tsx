@@ -1,4 +1,4 @@
-import { FolderArchiveIcon, MenuIcon, X } from "lucide-react";
+import { FolderArchiveIcon, MenuIcon } from "lucide-react";
 import { Button } from "./ui/button";
 import UserDropDown from "./UserDropDown";
 import { useAuth } from "@/hooks/use-auth";
@@ -9,8 +9,6 @@ import {
   SheetTrigger,
   SheetContent,
   SheetHeader,
-  SheetTitle,
-  SheetDescription,
   SheetFooter,
 } from "./ui/sheet";
 
@@ -22,17 +20,6 @@ const Navbar = () => {
     { title: "FAQ", to: "#FAQ" },
     { title: "Ready to start", to: "#ready_to_start" },
   ];
-
-  const drawerVariants = {
-    closed: { x: "100%" },
-    open: {
-      x: 0,
-      transition: {
-        duration: 0.3,
-      },
-    },
-    exit: { x: "100%", transition: { duration: 0.3 } },
-  };
 
   return (
     <nav className="sticky top-0 z-50 bg-bakground  backdrop-blur-xl">

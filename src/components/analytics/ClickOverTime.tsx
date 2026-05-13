@@ -26,7 +26,7 @@ const chartConfig = {
 
 const ClickOverTime = () => {
   return (
-    <div className="glass-panel group relative overflow-hidden rounded-3xl border p-10 lg:col-span-2">
+    <div className="glass-panel group relative overflow-hidden rounded-3xl border border-primary/20 p-10 lg:col-span-2">
       <div className="mb-10 flex items-center justify-between">
         <h3 className="text-on-surface font-manrope text-xl font-bold">
           Clicks over time

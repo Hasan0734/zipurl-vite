@@ -6,7 +6,7 @@ const ProfileSection = () => {
   const { profile } = useLoaderData();
 
   return (
-    <section className="glass-card rounded-3xl p-8">
+    <section className="glass-panel  border border-primary/20 rounded-3xl p-8">
       <div className="mb-8 flex items-center justify-between">
         <h3 className="font-headline flex items-center gap-3 text-xl font-bold">
           <User className="text-primary" />

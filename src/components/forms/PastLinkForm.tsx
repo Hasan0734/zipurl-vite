@@ -41,7 +41,7 @@ const PastLink = () => {
         </p>
       </div>
       <form onSubmit={handleSubmit} className="">
-        <div className="glass-panel flex items-center gap-2 rounded-2xl p-2 shadow-2xl">
+        <div className="glass-panel border border-primary/20 flex items-center gap-2 rounded-2xl p-2 shadow-2xl">
           <div className="flex flex-1 items-center gap-3 px-4">
             <Link2 className="text-primary" />
             <input

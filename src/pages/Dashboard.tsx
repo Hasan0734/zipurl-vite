@@ -9,7 +9,7 @@ const Dashboard = () => {
  
   return (
     <DashboardLayout>
-      <div className="space-y-12 p-12">
+      <div className="space-y-12 px-6 py-10">
         <PastLink />
 
         <RecentActivity  />

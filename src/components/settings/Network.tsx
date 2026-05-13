@@ -4,7 +4,7 @@ import { Label } from "../ui/label"
 
 const Network = () => {
   return (
-    <section className="glass-card rounded-3xl p-8">
+    <section className="glass-panel border border-primary/20 rounded-3xl p-8">
       <h3 className="font-headline mb-6 flex items-center gap-3 text-xl font-bold">
         <NetworkHub className="text-primary" />
         Network

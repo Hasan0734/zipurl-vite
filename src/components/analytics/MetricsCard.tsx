@@ -19,7 +19,7 @@ const MetricsCard = ({
   isUpper,
 }: MetricsCardProps) => {
   return (
-    <div className="glass-panel border-outline-variant/10 flex min-h-45 flex-col justify-between rounded-3xl border p-8">
+    <div className="glass-panel border-outline-variant/10 flex min-h-45 flex-col justify-between rounded-3xl border border-primary/20 p-8">
       <div className="flex items-start justify-between">
         <Icon className="text-primary" />
         <span

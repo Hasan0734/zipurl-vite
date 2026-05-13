@@ -34,7 +34,7 @@ export function DataTable<TData, TValue>({
 
 
   return (
-    <div className="overflow-hidden rounded-md ">
+   
       <Table className="">
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
@@ -82,7 +82,5 @@ export function DataTable<TData, TValue>({
         </TableBody>
       </Table>
 
-
-    </div>
   );
 }

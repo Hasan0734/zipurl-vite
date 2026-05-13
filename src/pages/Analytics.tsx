@@ -10,7 +10,7 @@ import { Calendar, Download } from "lucide-react";
 const Analytics = () => {
   return (
     <DashboardLayout>
-      <div className="space-y-12 p-12">
+      <div className="space-y-12 py-10 px-6">
         <div className="mb-12 flex items-end justify-between">
           <div>
             <span className="mb-2 block text-xs font-bold tracking-[0.2em] text-primary uppercase">

@@ -65,7 +65,7 @@
   --chart-3: oklch(0.442 0.017 285.786);
   --chart-4: oklch(0.37 0.013 285.805);
   --chart-5: oklch(0.274 0.006 286.033);
-  --sidebar: oklch(0.21 0.006 285.885);
+  --sidebar: oklch(16.713% 0.0401 263.442);
   --sidebar-foreground: oklch(0.985 0 0);
   --sidebar-primary: oklch(0.723 0.219 149.579);
   --sidebar-primary-foreground: oklch(0.982 0.018 155.826);
@@ -150,7 +150,8 @@
 }
 
 .glass-panel {
-  background: rgba(25, 37, 64, 0.4);
+  /* background: rgba(25, 37, 64, 0.4); */
+  background:var(--color-background);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
 }

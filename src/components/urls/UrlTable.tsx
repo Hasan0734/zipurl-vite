@@ -36,7 +36,7 @@ const UrlTable = () => {
       <UrlHeader total={data.total} />
 
       {isSuccess && (
-        <div className="glass-panel overflow-hidden rounded-xl shadow-2xl">
+        <div className="glass-panel  overflow-hidden rounded-xl shadow-2xl">
           <DataTable data={data.urls} columns={columns} />
           <TableDataPagination
             pageSize={limit}

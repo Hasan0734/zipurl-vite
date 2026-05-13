@@ -1,7 +1,7 @@
 import { Globe, QrCode, Share2 } from "lucide-react";
 const LiveActivity = () => {
   return (
-    <div className="glass-panel rounded-3xl border p-8">
+    <div className="glass-panel rounded-3xl border border-primary/20 p-8">
       <h3 className="text-on-surface font-manrope mb-6 text-xl font-bold">
         Live Activity
       </h3>

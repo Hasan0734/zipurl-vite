@@ -7,7 +7,7 @@ const URLs = () => {
 
   return (
     <DashboardLayout>
-      <div className="space-y-12 p-12">
+      <div className="space-y-12 py-10 px-6">
         <section className="grid grid-cols-1 gap-8 md:grid-cols-3">
           <StatsCard
             title="Total Impressions"

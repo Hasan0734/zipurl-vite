@@ -4,7 +4,7 @@ import { Switch } from "../ui/switch"
 
 const SecuritySection = () => {
   return (
-    <section className="glass-card rounded-3xl p-8">
+    <section className="glass-panel  border border-primary/20 rounded-3xl p-8">
       <h3 className="font-headline mb-8 flex items-center gap-3 text-xl font-bold">
         <Shield className="text-primary" />
         Security Protocols

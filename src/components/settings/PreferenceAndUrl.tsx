@@ -3,7 +3,7 @@ import { Button } from "../ui/button"
 
 const PreferenceAndUrl = () => {
   return (
-    <section className="glass-card rounded-3xl border-primary/10 p-8">
+    <section className="glass-panel  rounded-3xl border border-primary/20 p-8">
       <h3 className="font-headline mb-8 flex items-center gap-3 text-xl font-bold">
         <SlidersHorizontal className="text-primary" />
         URL Preferences

@@ -40,7 +40,7 @@ const TableDataPagination = ({
   };
 
   return (
-    <div className="flex items-center justify-between px-8 py-4 bg-primary/10">
+    <div className="flex items-center justify-between px-8 py-3 bg-primary/10">
       <p className="text-on-surface-variant text-xs">
         Showing {start} to {end} of {totalData} links
       </p>

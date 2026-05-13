@@ -9,8 +9,9 @@ export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <Toaster position="top-center" />
-        <Outlet />
+          <Toaster position="top-center" />
+          <Outlet />
+        
       </AuthProvider>
     </QueryClientProvider>
   );

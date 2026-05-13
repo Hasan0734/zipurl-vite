@@ -10,7 +10,7 @@ const Settings = () => {
 
   return (
     <DashboardLayout>
-      <div className="space-y-12 p-12">
+      <div className="space-y-12 py-10 px-6">
         <div className="mb-12">
           <div className="flex items-end justify-between">
             <div>

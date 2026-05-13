@@ -1,17 +1,19 @@
 import React from "react";
-import DashboardHeader from "./dashboard/DashboardHeader";
+import DashboardHeader from "./DashboardHeader";
 import AsideBar from "./dashboard/AsideBar";
+import { SidebarInset, SidebarProvider } from "./ui/sidebar";
 
-const DashboardLayout = ({children}: {children: React.ReactNode}) => {
+const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div>
-      <AsideBar/>
-
-      <main className="ml-64 min-h-screen">
+    <SidebarProvider>
+      <AsideBar />
+      <SidebarInset className="relative overflow-hidden">
         <DashboardHeader />
+       
+
         {children}
-      </main>
-    </div>
+      </SidebarInset>
+    </SidebarProvider>
   );
 };
 

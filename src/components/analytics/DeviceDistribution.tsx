@@ -34,7 +34,7 @@ const DeviceDistribution = () => {
     return chartData.reduce((acc, curr) => acc + curr.total, 0)
   }, [])
   return (
-    <div className="glass-panel rounded-3xl border p-8">
+    <div className="glass-panel rounded-3xl border border-primary/20 p-8">
       <div className="mb-8 flex items-center justify-between">
         <h3 className="text-on-surface font-manrope text-xl font-bold">
           Device Distribution

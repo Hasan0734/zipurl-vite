@@ -2,7 +2,7 @@ import { ArrowRight } from "lucide-react";
 
 const TopCountries = () => {
   return (
-    <div className="glass-panel border flex flex-col rounded-3xl  p-10">
+    <div className="glass-panel border border-primary/20 flex flex-col rounded-3xl  p-10">
       <h3 className="text-on-surface font-manrope mb-8 text-xl font-bold">
         Top Countries
       </h3>

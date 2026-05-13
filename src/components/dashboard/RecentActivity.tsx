@@ -30,7 +30,7 @@ const RecentActivity = () => {
       </div>
 
       {isSuccess && (
-        <div className="glass-panel overflow-hidden rounded-xl shadow-2xl">
+        <div className="glass-panel overflow-hidden rounded-xl">
           <DataTable data={data.urls} columns={columns} />
 
         </div>
