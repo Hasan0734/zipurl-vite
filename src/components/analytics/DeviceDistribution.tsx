@@ -1,6 +1,6 @@
 import { MonitorSmartphone } from "lucide-react"
 import React from "react"
-import { Label, Legend, Pie, PieChart } from "recharts"
+import { Label, Pie, PieChart } from "recharts"
 import {
   ChartContainer,
   ChartTooltip,
