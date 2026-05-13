@@ -16,11 +16,11 @@ const Navbar = () => {
   ];
 
   const drawerVariants = {
-    closed: { x: "100%" }, // Start off-screen to the left
+    closed: { x: "100%" }, 
     open: {
       x: 0,
       transition: {
-       duration: 0.3
+        duration: 0.3,
       },
     },
     exit: { x: "100%", transition: { duration: 0.3 } },
