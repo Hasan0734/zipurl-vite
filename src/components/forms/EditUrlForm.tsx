@@ -11,7 +11,7 @@ import { Label } from "../ui/label";
 import { Button } from "../ui/button";
 import { DialogClose } from "../ui/dialog";
 import { Spinner } from "../ui/spinner";
-import { useQuery } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import type { UrlType } from "@/lib/types";
 import {
   Select,
@@ -30,10 +30,7 @@ const EditUrlForm = ({
   prevData: UrlType;
 }) => {
   const [isPending, startTransition] = useTransition();
-
-  const { refetch } = useQuery({
-    queryKey: ["urls"],
-  });
+  const queryClient = useQueryClient()
 
   const form = useForm({
     ...urlFormOptions,
@@ -55,7 +52,7 @@ const EditUrlForm = ({
             toast.error(res.message);
             return;
           }
-          refetch();
+          queryClient.invalidateQueries({ queryKey: ['urls'] })
           toast.success(res.message);
           setIsOpen(false);
           form.reset();

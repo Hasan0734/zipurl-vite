@@ -1,11 +1,7 @@
 import { addNewUrl } from "@/lib/request";
 import { urlFormOptions } from "@/lib/utils";
 import { useForm } from "@tanstack/react-form";
-import  {
-  useTransition,
-  type Dispatch,
-  type SetStateAction,
-} from "react";
+import { useTransition, type Dispatch, type SetStateAction } from "react";
 import { toast } from "sonner";
 import { Field, FieldError, FieldGroup } from "../ui/field";
 import TextInput from "../TextInput";
@@ -15,7 +11,7 @@ import { Label } from "../ui/label";
 import { Button } from "../ui/button";
 import { DialogClose } from "../ui/dialog";
 import { Spinner } from "../ui/spinner";
-import { useQuery } from "@tanstack/react-query";
+import { useSearchParams } from "react-router";
 
 const AddNewUrlForm = ({
   setIsOpen,
@@ -23,14 +19,7 @@ const AddNewUrlForm = ({
   setIsOpen: Dispatch<SetStateAction<boolean>>;
 }) => {
   const [isPending, startTransition] = useTransition();
-
-  const { refetch } = useQuery({
-    queryKey: ["urls"],
-  });
-
-
-
-
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const form = useForm({
     ...urlFormOptions,
@@ -43,7 +32,9 @@ const AddNewUrlForm = ({
             toast.error(res.message);
             return;
           }
-          refetch();
+          const params = new URLSearchParams(searchParams);
+          params.set("page", "1");
+          setSearchParams(params, { replace: true });
           toast.success(res.message);
           setIsOpen(false);
           form.reset();
