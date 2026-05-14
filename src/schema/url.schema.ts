@@ -13,6 +13,7 @@ export const urlSchema = z.object({
     custom_alias: optionalPreprocess(z.string().min(8, "Minimum 8 characters").max(20, "Maximum 20 characters")),
     password: optionalPreprocess(z.string().min(4, "Minimum 4 characters").max(20, "Maximum 20 characters")),
     expires_at: z.date().optional(),
+    is_active: z.boolean().optional()
 });
 
 export type UrlSchemaType = z.infer<typeof urlSchema>;

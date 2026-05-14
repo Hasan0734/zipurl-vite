@@ -13,6 +13,14 @@ import { DialogClose } from "../ui/dialog";
 import { Spinner } from "../ui/spinner";
 import { useQuery } from "@tanstack/react-query";
 import type { UrlType } from "@/lib/types";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
 
 const EditUrlForm = ({
   setIsOpen,
@@ -33,7 +41,10 @@ const EditUrlForm = ({
       original_url: prevData.original_url,
       custom_alias: prevData.custom_alias as string | undefined,
       password: "" as string | undefined,
-      expires_at: prevData.expires_at ? new Date(prevData.expires_at) as Date | undefined : undefined,
+      expires_at: prevData.expires_at
+        ? (new Date(prevData.expires_at) as Date | undefined)
+        : undefined,
+      is_active: prevData.is_active,
     },
     onSubmit: async ({ value }) => {
       startTransition(async () => {
@@ -101,10 +112,34 @@ const EditUrlForm = ({
                   onSelect={(date: Date) => {
                     form.setFieldValue("expires_at", date);
                   }}
-                  date={form.getFieldValue("expires_at") as Date || undefined}
+                  date={(form.getFieldValue("expires_at") as Date) || undefined}
                   triggerClass="h-11"
                 />
                 <FieldError errors={field.state.meta.errors} />
+              </Field>
+            );
+          }}
+        />
+
+        <form.Field
+          name="is_active"
+          children={(field) => {
+            return (
+              <Field>
+                <Label>Status</Label>
+                <Select value={JSON.stringify(field.state.value)}
+                  onValueChange={(v) => v && field.handleChange(JSON.parse(v))}
+                >
+                  <SelectTrigger  className="w-full h-11!">
+                    <SelectValue placeholder="Select a status" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-background">
+                   <SelectGroup>
+                     <SelectItem className="h-9" value={"true"}>Active</SelectItem>
+                    <SelectItem className="h-9" value={"false"}>Inactive</SelectItem>
+                   </SelectGroup>
+                  </SelectContent>
+                </Select>
               </Field>
             );
           }}

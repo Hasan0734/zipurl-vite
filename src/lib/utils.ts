@@ -8,7 +8,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export const SHORT_URL = import.meta.env.VITE_API_URL
+export const SHORT_URL = import.meta.env.VITE_API_URL + "/"
 
 
 export const urlFormOptions = formOptions({
@@ -17,6 +17,7 @@ export const urlFormOptions = formOptions({
     custom_alias: "" as string | undefined,
     password: "" as string | undefined,
     expires_at: undefined as Date | undefined,
+    is_active: true
   },
 
   validators: {

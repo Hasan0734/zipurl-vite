@@ -1,7 +1,7 @@
 import { type ColumnDef } from "@tanstack/react-table";
 import { Button } from "../ui/button";
 import { Edit2, Trash } from "lucide-react";
-import { format } from "date-fns";
+import { format, isPast } from "date-fns";
 import type { UrlType } from "@/lib/types";
 import { SHORT_URL } from "@/lib/utils";
 import SecretText from "../SecretText";
@@ -98,15 +98,18 @@ export const columns: ColumnDef<UrlType>[] = [
   {
     accessorKey: "expires_at",
     header: "Expire At",
-    cell: ({ row }) => (
+    cell: ({ row }) => {
+      const isExpired = isPast(new Date(row.getValue("expires_at")))
+
+      return(
       <div>
         {row.getValue("expires_at") ? (
-          format(row.getValue("expires_at"), "dd-MM-yyyy")
+         <span className={isExpired ? "text-destructive" : ""}> {format(row.getValue("expires_at"), "dd-MM-yyyy")}</span>
         ) : (
           <span className="text-muted-foreground/50">N/A</span>
         )}
       </div>
-    ),
+    )},
   },
   {
     accessorKey: "actions",

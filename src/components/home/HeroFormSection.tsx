@@ -16,7 +16,7 @@ const HeroFormSection = () => {
   const [customAlias, setCustomAlias] = useState("");
 
   const url = () => {
-    const code = SHORT_URL + "/" + (customAlias ? customAlias : shortCode);
+    const code = SHORT_URL + (customAlias ? customAlias : shortCode);
     // const fullUrl = SHORT_URL + (code ? code : "example");
     return code;
   };

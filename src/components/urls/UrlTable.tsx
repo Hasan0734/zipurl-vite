@@ -23,7 +23,6 @@ const UrlTable = () => {
     placeholderData: keepPreviousData,
   });
 
-
   if (isLoading) {
     return (
       <div className="flex items-center gap-2">
@@ -39,7 +38,7 @@ const UrlTable = () => {
         <div className="glass-panel  overflow-hidden rounded-xl shadow-2xl">
           <DataTable data={data.urls} columns={columns} />
           <TableDataPagination
-            pageSize={limit}
+            pageSize={data.limit}
             currentPage={page}
             totalData={data.total}
             totalPage={data.page}

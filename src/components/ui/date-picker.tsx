@@ -23,7 +23,9 @@ const DatePicker = ({
   const handleDate = (dt: Date | undefined) => {
     if (!dt) return;
     // setDate(dt);
-    onSelect(dt);
+    const hoursDate = new Date(dt);
+    hoursDate.setHours(23, 59, 59, 999);
+    onSelect(hoursDate);
   };
   return (
     <Popover>
