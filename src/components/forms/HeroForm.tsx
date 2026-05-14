@@ -101,8 +101,6 @@ const HeroForm = ({ setShortCode, setCustomAlias }: HeroFormProps) => {
             validators={{
               onChangeAsyncDebounceMs: 500,
               onChangeAsync: async ({ value, fieldApi }) => {
-
-              
                 const originalUrlValid =
                   fieldApi.form.getFieldMeta("original_url")?.isValid;
                 const isValid = fieldApi.state.meta.isValid;
