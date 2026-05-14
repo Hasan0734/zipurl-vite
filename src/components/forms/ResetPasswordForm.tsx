@@ -5,7 +5,7 @@ import { FieldGroup } from "../ui/field";
 import TextInput from "../TextInput";
 import { Button } from "../ui/button";
 import { Spinner } from "../ui/spinner";
-import { resetPassword } from "@/lib/request";
+import { resetPassword } from "@/lib/api-request";
 import { toast } from "sonner";
 import { passwordSchema } from "@/schema/user.schema";
 

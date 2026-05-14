@@ -1,4 +1,4 @@
-import { updateUrlById } from "@/lib/request";
+import { updateUrlById } from "@/lib/api-request";
 import { urlFormOptions } from "@/lib/utils";
 import { useForm } from "@tanstack/react-form";
 import { useTransition, type Dispatch, type SetStateAction } from "react";
@@ -30,7 +30,8 @@ const EditUrlForm = ({
   prevData: UrlType;
 }) => {
   const [isPending, startTransition] = useTransition();
-  const queryClient = useQueryClient()
+  const queryClient = useQueryClient();
+
 
   const form = useForm({
     ...urlFormOptions,
@@ -52,7 +53,9 @@ const EditUrlForm = ({
             toast.error(res.message);
             return;
           }
-          queryClient.invalidateQueries({ queryKey: ['urls'] })
+          queryClient.invalidateQueries({ queryKey: ["recentUrl"] });
+          queryClient.invalidateQueries({ queryKey: ["urls"] });
+
           toast.success(res.message);
           setIsOpen(false);
           form.reset();
@@ -124,17 +127,22 @@ const EditUrlForm = ({
             return (
               <Field>
                 <Label>Status</Label>
-                <Select value={JSON.stringify(field.state.value)}
+                <Select
+                  value={JSON.stringify(field.state.value)}
                   onValueChange={(v) => v && field.handleChange(JSON.parse(v))}
                 >
-                  <SelectTrigger  className="w-full h-11!">
+                  <SelectTrigger className="w-full h-11!">
                     <SelectValue placeholder="Select a status" />
                   </SelectTrigger>
                   <SelectContent className="bg-background">
-                   <SelectGroup>
-                     <SelectItem className="h-9" value={"true"}>Active</SelectItem>
-                    <SelectItem className="h-9" value={"false"}>Inactive</SelectItem>
-                   </SelectGroup>
+                    <SelectGroup>
+                      <SelectItem className="h-9" value={"true"}>
+                        Active
+                      </SelectItem>
+                      <SelectItem className="h-9" value={"false"}>
+                        Inactive
+                      </SelectItem>
+                    </SelectGroup>
                   </SelectContent>
                 </Select>
               </Field>

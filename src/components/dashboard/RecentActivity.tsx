@@ -2,7 +2,7 @@
 import { DataTable } from "../dashboard-common/data-table";
 import { columns } from "../dashboard-common/columns";
 import { useQuery } from "@tanstack/react-query";
-import { getUrls } from "@/lib/request";
+import { getUrls } from "@/lib/api-request";
 import { Spinner } from "../ui/spinner";
 
 const RecentActivity = () => {

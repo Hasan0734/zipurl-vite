@@ -1,7 +1,7 @@
 import AuthFormLayout from "@/components/auth-layout/AuthFormLayout";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
-import { verifyEmail } from "@/lib/request";
+import { verifyEmail } from "@/lib/api-request";
 import { CircleCheckIcon, CircleXIcon } from "lucide-react";
 import { useEffect, useRef, useState, useTransition } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router";

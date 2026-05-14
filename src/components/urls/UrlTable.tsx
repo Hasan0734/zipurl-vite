@@ -2,7 +2,7 @@ import { Spinner } from "../ui/spinner";
 import { columns } from "../dashboard-common/columns";
 import UrlHeader from "./UrlHeader";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { getUrls } from "@/lib/request";
+import { getUrls } from "@/lib/api-request";
 // import { DataTable } from "./data-table";
 import { useSearchParams } from "react-router";
 import TableDataPagination from "./TableDataPagination";

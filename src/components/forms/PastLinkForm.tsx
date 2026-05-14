@@ -5,7 +5,8 @@ import { Spinner } from "../ui/spinner";
 import * as motion from "motion/react-client";
 import CopyButton from "../ui/copy-button";
 import { toast } from "sonner";
-import { addNewUrl } from "@/lib/request";
+import { addNewUrl } from "@/lib/api-request";
+import { useQueryClient } from "@tanstack/react-query";
 
 
 
@@ -13,6 +14,7 @@ const PastLink = () => {
   const [isPending, startTransition] = useTransition();
   const [originalUrl, setOriginalUrl] = useState("");
   const [short_code, setShortCode] = useState("");
+  const queryClient = useQueryClient()
 
   const handleSubmit = (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -24,6 +26,7 @@ const PastLink = () => {
         toast.error("Someting is wrong!");
         return;
       }
+      queryClient.invalidateQueries({queryKey: ["recentUrl"]})
       setShortCode(res.short_code);
       toast.success("New short url created.");
       setOriginalUrl("");

@@ -8,7 +8,7 @@ import TextInput from "../TextInput";
 import { loginUserSchema } from "@/schema/user.schema";
 import { Link, useLocation, useNavigate } from "react-router";
 import { useAuth } from "@/hooks/use-auth";
-import { resendVerifyEmail, userLogin } from "@/lib/request";
+import { resendVerifyEmail, userLogin } from "@/lib/api-request";
 import { toast } from "sonner";
 
 interface SigninFormProps {

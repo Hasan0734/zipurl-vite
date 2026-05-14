@@ -47,7 +47,7 @@ const AsideBar = () => {
                 cn(
                   "flex items-center gap-4 rounded-xl  px-4 py-3   transition-all duration-300 hover:bg-[#192540]/50",
                   {
-                    "border-r-4 border-primary/50 text-primary font-bold bg-[#192540]/50":
+                    "border-r-4 border-primary text-primary font-bold bg-[#192540]/50":
                       isActive,
                   },
                 )

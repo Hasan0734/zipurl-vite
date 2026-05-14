@@ -1,6 +1,6 @@
 import { type ColumnDef } from "@tanstack/react-table";
 import { Button } from "../ui/button";
-import { Edit2, Trash } from "lucide-react";
+import { Edit2 } from "lucide-react";
 import { format, isPast } from "date-fns";
 import type { UrlType } from "@/lib/types";
 import { SHORT_URL } from "@/lib/utils";
@@ -9,6 +9,8 @@ import CopyButton from "../ui/copy-button";
 import { Badge } from "../ui/badge";
 import { useState } from "react";
 import EditUrlDialog from "./EditUrlDialog";
+
+import DeleteUrl from "./DeleteUrl";
 
 export const columns: ColumnDef<UrlType>[] = [
   {
@@ -33,6 +35,7 @@ export const columns: ColumnDef<UrlType>[] = [
           {row.getValue("short_code")}
         </a>
         <CopyButton
+          size={"sm"}
           content={SHORT_URL + row.getValue("short_code")}
           variant={"ghost"}
         />
@@ -53,6 +56,7 @@ export const columns: ColumnDef<UrlType>[] = [
             {row.getValue("custom_alias")}
           </a>
           <CopyButton
+            size={"sm"}
             content={SHORT_URL + row.getValue("short_code")}
             variant={"ghost"}
           />
@@ -99,23 +103,28 @@ export const columns: ColumnDef<UrlType>[] = [
     accessorKey: "expires_at",
     header: "Expire At",
     cell: ({ row }) => {
-      const isExpired = isPast(new Date(row.getValue("expires_at")))
+      const isExpired = isPast(new Date(row.getValue("expires_at")));
 
-      return(
-      <div>
-        {row.getValue("expires_at") ? (
-         <span className={isExpired ? "text-destructive" : ""}> {format(row.getValue("expires_at"), "dd-MM-yyyy")}</span>
-        ) : (
-          <span className="text-muted-foreground/50">N/A</span>
-        )}
-      </div>
-    )},
+      return (
+        <div>
+          {row.getValue("expires_at") ? (
+            <span className={isExpired ? "text-destructive" : ""}>
+              {" "}
+              {format(row.getValue("expires_at"), "dd-MM-yyyy")}
+            </span>
+          ) : (
+            <span className="text-muted-foreground/50">N/A</span>
+          )}
+        </div>
+      );
+    },
   },
   {
     accessorKey: "actions",
     header: "Actions",
     cell: ({ row }) => {
       const [isOpen, setIsOpen] = useState(false);
+
       return (
         <div className="flex gap-2">
           <EditUrlDialog
@@ -130,9 +139,7 @@ export const columns: ColumnDef<UrlType>[] = [
           >
             <Edit2 />
           </Button>
-          <Button variant={"destructive"} size={"icon-sm"}>
-            <Trash />
-          </Button>
+          <DeleteUrl id={row.original._id} />
         </div>
       );
     },

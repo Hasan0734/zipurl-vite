@@ -27,7 +27,7 @@ import {
   CollapsibleTrigger,
 } from "../ui/collapsible";
 import { toast } from "sonner";
-import { addNewUrl } from "@/lib/request";
+import { addNewUrl } from "@/lib/api-request";
 
 interface HeroFormProps {
   setShortCode: Dispatch<SetStateAction<string>>;

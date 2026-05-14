@@ -69,6 +69,15 @@ export const updateUrlById = async (data: { }, id: string) => {
   }
 };
 
+export const deleteUrlById = async (id: string) => {
+  try {
+    const res = await api.delete(`/urls/${id}`);
+    return res.data;
+  } catch (err: any) {
+    return err.response.data;
+  }
+};
+
 
 export const getUrls = async (query: string) => {
   try {
