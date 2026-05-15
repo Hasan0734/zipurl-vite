@@ -28,3 +28,15 @@ export type UrlType = {
     createdAt: Date;
     updatedAt: Date
 }
+
+
+export type StatType = {
+    total: number,
+    totalClicks:number,
+    activeLinks: number,
+    last24HoursAgo: number,
+    last24HoursClicks: number,
+    todayCreated: number
+
+
+}

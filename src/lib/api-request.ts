@@ -60,7 +60,7 @@ export const addNewUrl = async (data: { original_url: string }) => {
   }
 };
 
-export const updateUrlById = async (data: { }, id: string) => {
+export const updateUrlById = async (data: {}, id: string) => {
   try {
     const res = await api.patch(`/urls/${id}`, data);
     return res.data;
@@ -90,3 +90,22 @@ export const getUrls = async (query: string) => {
     };
   }
 }
+
+export const getStatSummary = async () => {
+  try {
+    const res = await api.get("/urls/stats/summary");
+    return res.data;
+  } catch (error: any) {
+    return error.response.data
+  }
+}
+
+export const checkCustomAlias = async (data: { custom_alias: string, url_id?: string }) => {
+  try {
+    const res = await api.post("/urls/check/custom-alias", data);
+    return res.data;
+  } catch (e: any) {
+    return e.reponse.data
+  }
+}
+

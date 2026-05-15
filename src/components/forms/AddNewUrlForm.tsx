@@ -18,6 +18,7 @@ import {
   InputGroupInput,
 } from "../ui/input-group";
 import api from "@/lib/api";
+import { useQueryClient } from "@tanstack/react-query";
 
 const AddNewUrlForm = ({
   setIsOpen,
@@ -26,6 +27,9 @@ const AddNewUrlForm = ({
 }) => {
   const [isPending, startTransition] = useTransition();
   const [searchParams, setSearchParams] = useSearchParams();
+
+
+  const queryClient = useQueryClient()
 
   const form = useForm({
     ...urlFormOptions,
@@ -41,9 +45,13 @@ const AddNewUrlForm = ({
           const params = new URLSearchParams(searchParams);
           params.set("page", "1");
           setSearchParams(params, { replace: true });
+          queryClient.invalidateQueries({ queryKey: ["recentUrl"] });
+          queryClient.invalidateQueries({ queryKey: ["urls"] });
+          queryClient.invalidateQueries({ queryKey: ["stats-summary"] });
+
           toast.success(res.message);
           setIsOpen(false);
-          form.reset();
+          // form.reset();
           return;
         } catch {
           toast.error("Something is wrong!");

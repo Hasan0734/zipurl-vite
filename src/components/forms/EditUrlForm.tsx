@@ -1,4 +1,4 @@
-import { updateUrlById } from "@/lib/api-request";
+import { checkCustomAlias, updateUrlById } from "@/lib/api-request";
 import { urlFormOptions } from "@/lib/utils";
 import { useForm } from "@tanstack/react-form";
 import { useTransition, type Dispatch, type SetStateAction } from "react";
@@ -26,7 +26,6 @@ import {
   InputGroupAddon,
   InputGroupInput,
 } from "../ui/input-group";
-import api from "@/lib/api";
 
 
 const EditUrlForm = ({
@@ -64,7 +63,6 @@ const EditUrlForm = ({
 
           toast.success(res.message);
           setIsOpen(false);
-          form.reset();
           return;
         } catch {
           toast.error("Something is wrong!");
@@ -119,23 +117,14 @@ const EditUrlForm = ({
                 return undefined;
               }
 
-              try {
-                const res = await api.post("/urls/check/custom-alias", {
-                  custom_alias: value,
-                });
-
-                if (!res.data.success) {
-                  return {
-                    message: res.data.message,
-                  };
-                }
-
-                return undefined;
-              } catch (e: any) {
-                return {
-                  message: e.response.data.message[0] || "Error checking alias",
-                };
+              const res = await checkCustomAlias({
+                custom_alias: value,
+                url_id: prevData._id,
+              });
+              if (!res.success) {
+                return { message: res.message };
               }
+              return undefined;
             },
           }}
           name="custom_alias"
@@ -148,6 +137,8 @@ const EditUrlForm = ({
             const originalUrlValid = form.getFieldMeta("original_url")?.isValid;
 
             const originalUrlValue = form.getFieldValue("original_url");
+
+            console.log(field.state.meta);
 
             return (
               <Field>
@@ -175,6 +166,7 @@ const EditUrlForm = ({
                   </div>
                 )}
                 {isInvalid && <FieldError errors={field.state.meta.errors} />}
+
                 {!isChecking &&
                   !isInvalid &&
                   hasValue &&

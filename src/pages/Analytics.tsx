@@ -5,9 +5,16 @@ import MetricsBento from "@/components/analytics/MetricsBento";
 import TopCountries from "@/components/analytics/TopCountries";
 import DashboardLayout from "@/components/dashboard-common/DashboardLayout";
 import { Button } from "@/components/ui/button";
+import { getStatSummary } from "@/lib/api-request";
+import { useQuery } from "@tanstack/react-query";
 import { Calendar, Download } from "lucide-react";
 
 const Analytics = () => {
+  const stats = useQuery({
+    queryKey: ["stats-summary"],
+    queryFn: async () => await getStatSummary(),
+  });
+
   return (
     <DashboardLayout>
       <div className="mb-12 flex items-end justify-between">
@@ -30,7 +37,8 @@ const Analytics = () => {
           </Button>
         </div>
       </div>
-      <MetricsBento />
+     <MetricsBento stats={stats} />
+      
 
       <div className="mb-8 grid grid-cols-1 gap-8 lg:grid-cols-3">
         <ClickOverTime />

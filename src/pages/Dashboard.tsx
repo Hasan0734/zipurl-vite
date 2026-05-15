@@ -9,7 +9,8 @@ const Dashboard = () => {
     <DashboardLayout>
       <PastLink />
       <RecentActivity />
-      <StatSection />
+        <StatSection />
+
     </DashboardLayout>
   );
 };
