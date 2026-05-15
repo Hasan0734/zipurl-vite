@@ -32,12 +32,12 @@ const MetricsCard = ({
         </span>
       </div>
       <div>
-        <p className=" mb-1 text-sm font-medium tracking-wider uppercase">
+        <h3 className=" mb-1 text-sm font-medium tracking-wider uppercase">
           {title}
-        </p>
-        <p className=" font-manrope text-4xl font-black tracking-tight">
+        </h3>
+        <h1 className=" font-manrope text-4xl font-black tracking-tight text-muted-foreground">
           {total}
-        </p>
+        </h1>
       </div>
     </div>
   )

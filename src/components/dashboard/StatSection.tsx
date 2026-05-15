@@ -16,10 +16,10 @@ const StatSection = () => {
     <section className="grid grid-cols-1 gap-8 md:grid-cols-3">
       <StatsCard
         stat={{
-          title: "Total Impressions",
+          title: "Total Clicks",
           label: "24% from last month",
           icon: TrendingUp,
-          total: "1.2M",
+          total: String(data.totalClicks),
         }}
       />
       <StatsCard
