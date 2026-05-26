@@ -22,7 +22,7 @@ const MetricsBento = ({ stats }: MetricsBentoProps) => {
           <MetricsCard
             icon={Users}
             title="Unique Visitors"
-            total="42,119"
+            total={stats.data.visitor}
             increment="+8.2%"
             isUpper
           />

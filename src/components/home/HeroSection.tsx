@@ -1,8 +1,13 @@
 import HeroFormSection from "./HeroFormSection";
+import {motion} from 'motion/react'
 
 const HeroSection = () => {
   return (
-    <section className="relative flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center overflow-hidden px-6 py-12">
+    <motion.section
+      initial={{opacity: 0, y: 30}}
+      animate={{opacity: 1, y: 0}}
+      transition={{duration: 0.4}}
+    className="relative flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center overflow-hidden px-6 py-12">
       <div className="absolute top-1/4 -left-20 h-96 w-96 rounded-full bg-primary/5 blur-[150px]"></div>
       <div className="absolute -right-20 bottom-1/4 size-120 rounded-full bg-primary/5 blur-[150px]"></div>
       <div className="relative z-10 mb-16 w-full max-w-4xl text-center">
@@ -21,7 +26,7 @@ const HeroSection = () => {
         </p>
       </div>
       <HeroFormSection />
-    </section>
+    </motion.section>
   );
 };
 

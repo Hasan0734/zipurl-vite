@@ -99,6 +99,15 @@ export const getStatSummary = async () => {
     return error.response.data
   }
 }
+export const getAnalytics = async () => {
+  try {
+    const res = await api.get("/analytics");
+    return res.data;
+  } catch (error: any) {
+    return error.response.data
+  }
+}
+
 
 export const checkCustomAlias = async (data: { custom_alias: string, url_id?: string }) => {
   try {
