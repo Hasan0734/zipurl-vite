@@ -32,11 +32,34 @@ export type UrlType = {
 
 export type StatType = {
     total: number,
-    totalClicks:number,
+    totalClicks: number,
     activeLinks: number,
     last24HoursAgo: number,
     last24HoursClicks: number,
     todayCreated: number
 
+}
 
+export type Countries = {
+    countries: string,
+    clicks: number,
+    percentage: number
+}
+
+export type Devices = {
+    device: string,
+    clicks: number,
+    percentage: number
+}
+
+export type WeeklyClicks = {
+    day: string;
+    clicks: number,
+    previous: number
+}
+
+export type LastAgoData = {
+    date: string;
+    day: string;
+    clicks: number
 }

@@ -4,10 +4,8 @@ import LiveActivity from "@/components/analytics/LiveActivity";
 import MetricsBento from "@/components/analytics/MetricsBento";
 import TopCountries from "@/components/analytics/TopCountries";
 import DashboardLayout from "@/components/dashboard-common/DashboardLayout";
-import { Button } from "@/components/ui/button";
 import { getAnalytics, getStatSummary } from "@/lib/api-request";
 import { useQuery } from "@tanstack/react-query";
-import { Calendar, Download } from "lucide-react";
 
 const Analytics = () => {
   const stats = useQuery({
@@ -30,7 +28,7 @@ const Analytics = () => {
             Data Intelligence
           </h2>
         </div>
-        <div className="flex gap-3">
+        {/* <div className="flex gap-3">
           <Button variant={"outline"} className="rounded-full" size={"lg"}>
             <Calendar />
             Last 30 Days
@@ -39,17 +37,23 @@ const Analytics = () => {
             <Download />
             Export PDF
           </Button>
-        </div>
+        </div> */}
       </div>
       <MetricsBento stats={stats} />
 
       <div className="mb-8 grid grid-cols-1 gap-8 lg:grid-cols-3">
-        <ClickOverTime />
-        <TopCountries isLoading={analytics.isLoading} data={analytics.data} />
+        <ClickOverTime data={analytics.data} isLoading={analytics.isLoading} />
+        <TopCountries
+          isLoading={analytics.isLoading}
+          topCountries={analytics.data?.topCountries}
+        />
       </div>
 
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
-        <DeviceDistribution />
+        <DeviceDistribution
+          isLoading={analytics.isLoading}
+          devices={analytics.data?.devices}
+        />
         <LiveActivity />
       </div>
     </DashboardLayout>

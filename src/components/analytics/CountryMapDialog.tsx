@@ -6,12 +6,25 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../ui/dialog";
-import { ArrowRight, Layers, X } from "lucide-react";
-import { Map, MapControls, useMap } from "../ui/map";
-import { useCallback, useEffect, useState } from "react";
-import { Button } from "../ui/button";
+import { ArrowRight } from "lucide-react";
+import { Map, useMap } from "../ui/map";
+import {
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
+import { useQuery } from "@tanstack/react-query";
+import { Skeleton } from "../ui/skeleton";
 
 const CountryMapDialog = () => {
+  const { data: geojson, isLoading } = useQuery({
+    queryKey: ["countriesGeo"],
+    queryFn: async () => {
+        const res = await fetch("/countries.geojson");
+        return await res.json()
+    },
+  });
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -31,14 +44,17 @@ const CountryMapDialog = () => {
           </DialogDescription>
         </DialogHeader>
         <div className="h-[500px] w-full overflow-hidden">
-          <Map
-            className="rounded-lg overflow-hidden"
-            zoom={0}
-            maxZoom={0}
-            attributionControl={false}
-          >
-            <CustomLayer />
-          </Map>
+          {!isLoading && (
+            <Map
+              className="rounded-lg overflow-hidden"
+              zoom={0}
+              maxZoom={0}
+              attributionControl={false}
+            >
+              <CustomLayer geojson={geojson} />
+            </Map>
+          )}
+          {isLoading && <Skeleton className="w-full h-full" />}
         </div>
       </DialogContent>
     </Dialog>
@@ -64,7 +80,12 @@ type HoverCountry = {
   visitors: number;
 };
 
-function CustomLayer() {
+interface CustomLayerType {
+  //   setIsLoading: Dispatch<SetStateAction<boolean>>;
+  geojson: any;
+}
+
+function CustomLayer({ geojson }: CustomLayerType) {
   const { map, isLoaded } = useMap();
   const [hovered, setHovered] = useState<HoverCountry | null>(null);
 
@@ -73,8 +94,8 @@ function CustomLayer() {
       return;
     }
 
-    const response = await fetch("/countries.geojson");
-    const geojson = await response.json();
+    // const response = await fetch("/countries.geojson");
+    // const geojson = await response.json();
     const mergedFeatures = geojson.features.map((feature: any) => {
       const matchedCountry = analytics.find(
         (c) => c.country === feature.properties.name,

@@ -1,6 +1,7 @@
 import { cn } from "@/lib/utils";
 import { Skeleton } from "../ui/skeleton";
 import CountryMapDialog from "./CountryMapDialog";
+import type { Countries } from "@/lib/types";
 
 const colors = [
   "bg-primary",
@@ -12,11 +13,11 @@ const colors = [
 ];
 
 interface PropsType {
-  data: any;
+  topCountries: Countries[];
   isLoading: boolean;
 }
 
-const TopCountries = ({ data, isLoading }: PropsType) => {
+const TopCountries = ({ topCountries, isLoading }: PropsType) => {
   return (
     <div className="glass-panel border border-primary/20 flex flex-col rounded-3xl p-10">
       <h3 className="text-on-surface font-manrope mb-8 text-xl font-bold">
@@ -24,9 +25,9 @@ const TopCountries = ({ data, isLoading }: PropsType) => {
       </h3>
       <div className="flex-1 space-y-6">
         {!isLoading &&
-          data.topCountries
+          topCountries
             .slice(0, 4)
-            .map((item: any) => <CountryItem item={item} />)}
+            .map((item: any) => <CountryItem key={item.country} item={item} />)}
         {isLoading &&
           Array.from({ length: 4 }).map((_, index) => (
             <CountrySkeleton key={index++} />
