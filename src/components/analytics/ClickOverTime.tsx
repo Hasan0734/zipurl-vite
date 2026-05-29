@@ -62,6 +62,7 @@ const ClickOverTime = ({ data, isLoading }: PropsType) => {
             data={data[selectedValue]}
             margin={{
               top: 50,
+              
             }}
             height={200}
           >

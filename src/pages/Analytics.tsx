@@ -17,6 +17,7 @@ const Analytics = () => {
     queryFn: async () => await getAnalytics(),
   });
 
+
   return (
     <DashboardLayout>
       <div className="mb-12 flex items-end justify-between">

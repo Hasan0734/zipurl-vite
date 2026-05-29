@@ -26,7 +26,7 @@ const UrlTable = () => {
   if (isLoading) {
     return (
       <div className="flex items-center gap-2">
-        <Spinner /> Loading
+        <Spinner /> Loading..
       </div>
     );
   }

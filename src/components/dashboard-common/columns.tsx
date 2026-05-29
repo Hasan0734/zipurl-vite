@@ -1,6 +1,6 @@
 import { type ColumnDef } from "@tanstack/react-table";
 import { Button } from "../ui/button";
-import { Edit2 } from "lucide-react";
+import {  Edit2 } from "lucide-react";
 import { format, isPast } from "date-fns";
 import type { UrlType } from "@/lib/types";
 import { SHORT_URL } from "@/lib/utils";
@@ -11,13 +11,14 @@ import { useState } from "react";
 import EditUrlDialog from "./EditUrlDialog";
 
 import DeleteUrl from "./DeleteUrl";
+import UrlAnalyticsDialog from "./UrlAnalyticsDialog";
 
 export const columns: ColumnDef<UrlType>[] = [
   {
     accessorKey: "original_url",
     header: "Original URL",
     cell: ({ row }) => (
-      <div className="max-w-50 overflow-hidden truncate">
+      <div className="max-w-40 overflow-hidden truncate">
         {row.getValue("original_url")}
       </div>
     ),
@@ -78,6 +79,11 @@ export const columns: ColumnDef<UrlType>[] = [
       ) : (
         <span className="text-muted-foreground/50">N/A</span>
       ),
+  },
+  {
+    accessorKey: "analytics",
+    header: "Analytics",
+    cell: ({ row }) => <UrlAnalyticsDialog data={row.original} />,
   },
   {
     accessorKey: "is_active",

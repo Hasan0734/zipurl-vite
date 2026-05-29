@@ -4,8 +4,8 @@ import UrlTable from "@/components/urls/UrlTable";
 const URLs = () => {
   return (
     <DashboardLayout>
-        <StatSection />
-        <UrlTable />
+      <StatSection />
+      <UrlTable />
     </DashboardLayout>
   );
 };
