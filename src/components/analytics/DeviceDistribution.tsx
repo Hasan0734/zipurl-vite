@@ -89,14 +89,14 @@ const DeviceDistribution = ({ devices, isLoading }: PropsType) => {
                             y={viewBox.cy}
                             className="fill-foreground text-3xl font-bold"
                           >
-                            {devices[0].percentage.toLocaleString()}%
+                            {devices[0]?.percentage.toLocaleString()}%
                           </tspan>
                           <tspan
                             x={viewBox.cx}
                             y={(viewBox.cy || 0) + 24}
                             className="fill-muted-foreground"
                           >
-                            {devices[0].device}
+                            {devices[0]?.device}
                           </tspan>
                         </text>
                       );

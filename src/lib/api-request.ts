@@ -108,6 +108,15 @@ export const getAnalytics = async () => {
   }
 }
 
+export const getUrlAnalytics = async (id:string) => {
+  try {
+    const res = await api.get(`/urls/analytics/${id}`);
+    return res.data;
+  } catch (error: any) {
+    return error.response.data
+  }
+}
+
 
 export const checkCustomAlias = async (data: { custom_alias: string, url_id?: string }) => {
   try {
