@@ -1,16 +1,25 @@
-
 import { DataTable } from "../dashboard-common/data-table";
 import { columns } from "../dashboard-common/columns";
 import { useQuery } from "@tanstack/react-query";
-import { getUrls } from "@/lib/api-request";
+import { getUrls, getUrlsByAdmin } from "@/lib/api-request";
 import { Spinner } from "../ui/spinner";
+import { useAuth } from "@/hooks/use-auth";
 
 const RecentActivity = () => {
+  const auth = useAuth();
+  const user = auth.user;
+  const isAdmin = user?.role === "admin"
   const { isLoading, data, isSuccess } = useQuery({
     queryKey: ["recentUrl"],
-    queryFn: async () => await getUrls("limit=10&sort=-createdAt"),
-  });
+    queryFn: async () => {
+      const params = "limit=10&sort=-createdAt";
+      if (isAdmin) {
+        return await getUrlsByAdmin(params + "&fields=-password,-original_url");
+      }
 
+      return await getUrls(params);
+    },
+  });
 
   if (isLoading) {
     return (
@@ -25,13 +34,13 @@ const RecentActivity = () => {
       <div>
         <h3 className="text-on-surface text-2xl font-bold">Recent Activity</h3>
         <p className="text-on-surface-variant text-sm">
-          Managing {data.total} active redirects
+          Managing {data?.total} active redirects
         </p>
       </div>
 
       {isSuccess && (
         <div className="glass-panel overflow-hidden rounded-xl">
-          <DataTable data={data.urls} columns={columns} />
+          <DataTable data={data?.urls} columns={columns} />
         </div>
       )}
     </section>

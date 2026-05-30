@@ -1,8 +1,8 @@
 import { type ColumnDef } from "@tanstack/react-table";
 import { Button } from "../ui/button";
-import {  Edit2 } from "lucide-react";
+import { Edit2 } from "lucide-react";
 import { format, isPast } from "date-fns";
-import type { UrlType } from "@/lib/types";
+import type { Owner, UrlType } from "@/lib/types";
 import { SHORT_URL } from "@/lib/utils";
 import SecretText from "../SecretText";
 import CopyButton from "../ui/copy-button";
@@ -12,8 +12,32 @@ import EditUrlDialog from "./EditUrlDialog";
 
 import DeleteUrl from "./DeleteUrl";
 import UrlAnalyticsDialog from "./UrlAnalyticsDialog";
+import { useAuth } from "@/hooks/use-auth";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
 export const columns: ColumnDef<UrlType>[] = [
+  {
+    accessorKey: "owner_id",
+    header: "Owner",
+    cell: ({ row }) => {
+      const owner = row.original.owner_id as Owner;
+
+      return (
+        <div className="flex">
+          <button className="rounded-full flex items-center gap-2">
+            <Avatar>
+              <AvatarImage
+                src="https://github.com/shadcn.png"
+                alt={owner.first_name}
+              />
+              <AvatarFallback>FA</AvatarFallback>
+            </Avatar>
+            {owner.first_name + " " + owner.last_name}
+          </button>
+        </div>
+      );
+    },
+  },
   {
     accessorKey: "original_url",
     header: "Original URL",
@@ -131,20 +155,27 @@ export const columns: ColumnDef<UrlType>[] = [
     cell: ({ row }) => {
       const [isOpen, setIsOpen] = useState(false);
 
+      const user = useAuth().user;
+      const isUser = user?.role === "user";
       return (
-        <div className="flex gap-2">
-          <EditUrlDialog
-            isOpen={isOpen}
-            setIsOpen={setIsOpen}
-            data={row.original}
-          />
-          <Button
-            onClick={() => setIsOpen(true)}
-            variant={"outline"}
-            size={"icon-sm"}
-          >
-            <Edit2 />
-          </Button>
+        <div className="flex gap-2 justify-center">
+          {isUser && (
+            <>
+              <EditUrlDialog
+                isOpen={isOpen}
+                setIsOpen={setIsOpen}
+                data={row.original}
+              />
+              <Button
+                onClick={() => setIsOpen(true)}
+                variant={"outline"}
+                size={"icon-sm"}
+              >
+                <Edit2 />
+              </Button>
+            </>
+          )}
+
           <DeleteUrl id={row.original._id} />
         </div>
       );

@@ -91,6 +91,18 @@ export const getUrls = async (query: string) => {
   }
 }
 
+export const getUrlsByAdmin = async (query: string) => {
+  try {
+    const res = await api.get("/admin/urls?" + query);
+    return res.data;
+  } catch (error) {
+    return {
+      urls: [],
+      total: 0
+    };
+  }
+}
+
 export const getStatSummary = async () => {
   try {
     const res = await api.get("/urls/stats/summary");

@@ -4,25 +4,26 @@ import {
   LayoutDashboard,
   Link2Icon,
   Settings,
+  Users2Icon,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Link, NavLink } from "react-router";
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarHeader,
-} from "../ui/sidebar";
+import { Sidebar, SidebarContent, SidebarHeader } from "../ui/sidebar";
+import { useAuth } from "@/hooks/use-auth";
 
 const AsideBar = () => {
+  const user = useAuth().user;
+  const isAdmin = user?.role === "admin";
   const items = [
     { title: "Dashboard", to: "/dashboard", icon: LayoutDashboard },
     { title: "URLs", to: "/urls", icon: Link2Icon },
+    { title: "Users", to: "/users", icon: Users2Icon, isAdmin: true },
     { title: "Analytics", to: "/analytics", icon: ChartNoAxesCombined },
     { title: "Settings", to: "/settings", icon: Settings },
   ];
 
   return (
-    <Sidebar  variant="inset">
+    <Sidebar variant="inset">
       <SidebarContent>
         <SidebarHeader>
           <Link to={"/"} className="mb-10 flex items-center gap-3 px-2">
@@ -40,26 +41,30 @@ const AsideBar = () => {
           </Link>
         </SidebarHeader>
         <div className="flex-1 space-y-2">
-          {items.map((item) => (
-            <NavLink
-              key={item.title}
-              className={({ isActive }) =>
-                cn(
-                  "flex items-center gap-4 rounded-xl  px-4 py-3   transition-all duration-300 hover:bg-[#192540]/50",
-                  {
-                    "border-r-4 border-primary text-primary font-bold bg-[#192540]/50":
-                      isActive,
-                  },
-                )
-              }
-              to={item.to}
-            >
-              <item.icon />
-              <span className="font-['Inter'] text-sm tracking-tight">
-                {item.title}
-              </span>
-            </NavLink>
-          ))}
+          {items.map((item) => {
+            if (item.isAdmin === true && !isAdmin) return null;
+
+            return (
+              <NavLink
+                key={item.title}
+                className={({ isActive }) =>
+                  cn(
+                    "flex items-center gap-4 rounded-xl  px-4 py-3   transition-all duration-300 hover:bg-[#192540]/50",
+                    {
+                      "border-r-4 border-primary text-primary font-bold bg-[#192540]/50":
+                        isActive,
+                    },
+                  )
+                }
+                to={item.to}
+              >
+                <item.icon />
+                <span className="font-['Inter'] text-sm tracking-tight">
+                  {item.title}
+                </span>
+              </NavLink>
+            );
+          })}
         </div>
       </SidebarContent>
     </Sidebar>

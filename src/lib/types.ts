@@ -14,6 +14,11 @@ export type User = {
 }
 
 
+export type Owner = {
+    _id: string,
+    first_name: string,
+    last_name: string
+}
 
 export type UrlType = {
     _id: string;
@@ -24,7 +29,7 @@ export type UrlType = {
     is_active: boolean;
     expires_at: Date;
     click_count: number;
-    owner_id: string;
+    owner_id:  Owner | string;
     createdAt: Date;
     updatedAt: Date
 }

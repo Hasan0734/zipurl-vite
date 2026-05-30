@@ -14,6 +14,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { useAuth } from "@/hooks/use-auth";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -25,12 +26,27 @@ export function DataTable<TData, TValue>({
   data,
 }: DataTableProps<TData, TValue>) {
 
+  const user = useAuth().user
+  const isUser = user?.role === "user"
+  const isAdmin = user?.role === "admin"
 
   const table = useReactTable({
     data,
     columns,
+    state: {
+      columnVisibility: {
+        original_url: isUser,
+        analytics: isUser,
+        password: isUser,
+        owner_id: isAdmin
+      }
+    },
     getCoreRowModel: getCoreRowModel(),
+    
   });
+
+
+  console.log(data)
 
   return (
     <Table className="">

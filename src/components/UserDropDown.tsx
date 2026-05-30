@@ -20,7 +20,7 @@ import { useNavigate } from "react-router";
 
 const UserDropDown = () => {
   const auth = useAuth();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const items = [
     { label: "Dashboard", to: "/dashboard", icon: LayoutDashboardIcon },
@@ -30,6 +30,7 @@ const UserDropDown = () => {
   ];
 
   const user = auth.user;
+
   return (
     <div className="flex items-center gap-3">
       <div className="text-right space-y-1 order-2 md:order-1">
@@ -37,7 +38,7 @@ const UserDropDown = () => {
           {user?.first_name} {user?.last_name}
         </p>
         <p className="text-[10px] font-bold tracking-tighter text-secondary uppercase text-left md:text-right">
-          Pro Member
+          {user?.role === "admin" ? "Admin" : "User"}
         </p>
       </div>
       <DropdownMenu>
