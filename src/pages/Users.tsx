@@ -3,6 +3,11 @@ import DashboardLayout from "../components/dashboard-common/DashboardLayout";
 import { useAuth } from "@/hooks/use-auth";
 import { useNavigate } from "react-router";
 import UsersTable from "@/components/Users/UsersTable";
+import StatsCard from "@/components/dashboard/StatsCard";
+import { TrendingUp, Users2, UsersIcon } from "lucide-react";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { getUsersStats } from "@/lib/api-request";
+import StatsCardSkeleton from "@/components/dashboard/StatsCardSkeleton";
 const Users = () => {
   const navigate = useNavigate();
   const user = useAuth().user;
@@ -10,14 +15,63 @@ const Users = () => {
 
   if (!isAdmin) {
     navigate("/dashboard");
+    return;
   }
+
+  const { isLoading, data, isSuccess } = useQuery({
+    queryKey: ["users-stats"],
+    queryFn: async () => await getUsersStats(),
+    placeholderData: keepPreviousData,
+  });
+
+
+  console.log(data)
 
   return (
     <DashboardLayout>
-      <StatSection />
+      {isLoading ? (
+        <SkeletonSection />
+      ) : (
+        <section className="grid grid-cols-1 gap-8 md:grid-cols-3">
+          <StatsCard
+            stat={{
+              title: "Total Users",
+              label: "24% from last month",
+              icon: TrendingUp,
+              total: String(data.totalUsers),
+            }}
+          />
+          <StatsCard
+            stat={{
+              title: "Active Users",
+              label: `3 Sign up today`,
+              icon: UsersIcon,
+              total: String(data.activeUsers),
+            }}
+          />
+          <StatsCard
+            stat={{
+              title: "Verified Users",
+              label: `${data.notVerifiedUsers} not verified`,
+              icon: Users2,
+              total: String(data.verifiedUsers),
+            }}
+          />
+        </section>
+      )}
       <UsersTable />
     </DashboardLayout>
   );
 };
 
 export default Users;
+
+const SkeletonSection = () => {
+  return (
+    <section className="grid grid-cols-1 gap-8 md:grid-cols-3">
+      {Array.from({ length: 3 }).map((_, i) => (
+        <StatsCardSkeleton key={i} />
+      ))}
+    </section>
+  );
+};

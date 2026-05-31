@@ -13,9 +13,6 @@ const UsersTable = () => {
   const page = Number(searchParams.get("page") || 1);
   const limit = Number(searchParams.get("limit") || 10);
   const search = searchParams.get("search") || "";
-  const auth = useAuth();
-  const user = auth.user;
-
   const { isLoading, data, isSuccess } = useQuery({
     queryKey: ["users", page, limit, search],
     queryFn: async () => {
@@ -27,7 +24,6 @@ const UsersTable = () => {
 
 
 
-  console.log(data)
 
   if (isLoading) {
     return (

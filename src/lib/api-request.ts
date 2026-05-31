@@ -143,7 +143,18 @@ export const getUsers = async (query: string) => {
   try {
     const res = await api.get(`/users?` + query);
     return res.data;
-  } catch (e:any) {
+  } catch (e: any) {
     return e.reponse.data
+  }
+}
+
+export const getUsersStats = async () => {
+  try {
+    const res = await api.get('/users/stats/summary')
+    return res.data
+
+  } catch (e: any) {
+    return e.reponse.data
+
   }
 }

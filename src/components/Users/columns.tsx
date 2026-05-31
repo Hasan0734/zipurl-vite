@@ -109,6 +109,15 @@ export const columns: ColumnDef<User>[] = [
       );
     },
   },
+   {
+    accessorKey: "totalLink",
+    header: "Total Link",
+    cell: ({row}) => (
+      <div className="text-center">
+        {row.getValue("totalLink")}
+      </div>
+    )
+  },
   {
     accessorKey: "createdAt",
     header: "Created At",
