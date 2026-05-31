@@ -1,22 +1,17 @@
 import StatSection from "@/components/dashboard/StatSection";
 import DashboardLayout from "../components/dashboard-common/DashboardLayout";
 import UrlTable from "@/components/urls/UrlTable";
-import StatsCard from "@/components/dashboard/StatsCard";
-import { TrendingUp } from "lucide-react";
+import { useAuth } from "@/hooks/use-auth";
+import AdminStaticsSection from "@/components/urls/AdminStaticsSection";
 const URLs = () => {
+  const user = useAuth().user;
+
+  const isAdmin = user?.role === "admin";
+
   return (
     <DashboardLayout>
-      <section className="grid grid-cols-1 gap-8 md:grid-cols-3">
-        <StatsCard
-          stat={{
-            title: "Total Clicks",
-            label: "24% from last month",
-            icon: TrendingUp,
-            total: String(0),
-          }}
-        />
-      </section>
-      <StatSection />
+      {isAdmin && <AdminStaticsSection />}
+      {!isAdmin && <StatSection />}
       <UrlTable />
     </DashboardLayout>
   );

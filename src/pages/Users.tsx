@@ -18,7 +18,7 @@ const Users = () => {
     return;
   }
 
-  const { isLoading, data, isSuccess } = useQuery({
+  const { isLoading, data } = useQuery({
     queryKey: ["users-stats"],
     queryFn: async () => await getUsersStats(),
     placeholderData: keepPreviousData,
@@ -44,7 +44,7 @@ const Users = () => {
           <StatsCard
             stat={{
               title: "Active Users",
-              label: `3 Sign up today`,
+              label: `${data.todayCreated} Sign up today`,
               icon: UsersIcon,
               total: String(data.activeUsers),
             }}
@@ -52,9 +52,9 @@ const Users = () => {
           <StatsCard
             stat={{
               title: "Verified Users",
-              label: `${data.notVerifiedUsers} not verified`,
+              label: `${data.notVerified} not verified`,
               icon: Users2,
-              total: String(data.verifiedUsers),
+              total: String(data.verified),
             }}
           />
         </section>

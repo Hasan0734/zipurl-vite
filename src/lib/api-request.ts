@@ -49,8 +49,6 @@ export const resetPassword = async (data: PasswordSchemaType, token: string) => 
   }
 }
 
-
-
 export const addNewUrl = async (data: { original_url: string }) => {
   try {
     const res = await api.post("/urls", data);
@@ -135,7 +133,7 @@ export const checkCustomAlias = async (data: { custom_alias: string, url_id?: st
     const res = await api.post("/urls/check/custom-alias", data);
     return res.data;
   } catch (e: any) {
-    return e.reponse.data
+    return e.response.data
   }
 }
 
@@ -144,7 +142,7 @@ export const getUsers = async (query: string) => {
     const res = await api.get(`/users?` + query);
     return res.data;
   } catch (e: any) {
-    return e.reponse.data
+    return e.response.data
   }
 }
 
@@ -154,7 +152,25 @@ export const getUsersStats = async () => {
     return res.data
 
   } catch (e: any) {
-    return e.reponse.data
+    return e.response.data
 
   }
 }
+
+export const getAdminUrlStats = async () => {
+  try {
+    const res = await api.get("/admin/urls/stats/summary");
+    return res.data;
+  } catch (e: any) {
+    return e.response.data
+  }
+}
+export const getAdminStatSummary = async () => {
+  try {
+    const res = await api.get("/analytics/stats")
+    return res.data;
+  } catch (e:any) {
+    return e.response.data
+  }
+}
+
