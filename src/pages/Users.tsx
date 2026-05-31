@@ -1,22 +1,21 @@
 import StatSection from "@/components/dashboard/StatSection";
 import DashboardLayout from "../components/dashboard-common/DashboardLayout";
-import UrlTable from "@/components/urls/UrlTable";
 import { useAuth } from "@/hooks/use-auth";
-import { redirect, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
+import UsersTable from "@/components/Users/UsersTable";
 const Users = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const user = useAuth().user;
-  const isAdmin = user?.role === "admin"
+  const isAdmin = user?.role === "admin";
 
-  if(!isAdmin){
-    console.log(isAdmin)
-     navigate("/dashboard");
+  if (!isAdmin) {
+    navigate("/dashboard");
   }
 
   return (
     <DashboardLayout>
       <StatSection />
-      <UrlTable />
+      <UsersTable />
     </DashboardLayout>
   );
 };

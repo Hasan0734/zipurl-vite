@@ -9,6 +9,7 @@ export type User = {
     is_verified: boolean,
     two_factor_enabled: boolean,
     role: string,
+    status: string,
     createdAt: Date,
     updatedAt: Date
 }

@@ -1,32 +1,33 @@
 import { Spinner } from "../ui/spinner";
-import { columns } from "../dashboard-common/columns";
-import UrlHeader from "./UrlHeader";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { getUrls, getUrlsByAdmin } from "@/lib/api-request";
+import {  getUsers } from "@/lib/api-request";
 import { useSearchParams } from "react-router";
-import TableDataPagination from "./TableDataPagination";
-import { DataTable } from "../dashboard-common/data-table";
 import { useAuth } from "@/hooks/use-auth";
+import TableDataPagination from "./TableDataPagination";
+import UsersHeader from "./UsersHeader";
+import { DataTable } from "./data-table";
+import { columns } from "./columns";
 
-const UrlTable = () => {
+const UsersTable = () => {
   const [searchParams] = useSearchParams();
   const page = Number(searchParams.get("page") || 1);
   const limit = Number(searchParams.get("limit") || 10);
   const search = searchParams.get("search") || "";
   const auth = useAuth();
   const user = auth.user;
+
   const { isLoading, data, isSuccess } = useQuery({
-    queryKey: ["urls", page, limit, search],
+    queryKey: ["users", page, limit, search],
     queryFn: async () => {
       const params = `limit=${limit}&page=${page}&search=${search}&sort=-createdAt`;
-      if (user?.role === "admin") {
-        return await getUrlsByAdmin(params + '&fields=-password');
-      }
-
-      return await getUrls(params);
+      return await getUsers(params);
     },
     placeholderData: keepPreviousData,
   });
+
+
+
+  console.log(data)
 
   if (isLoading) {
     return (
@@ -38,10 +39,10 @@ const UrlTable = () => {
 
   return (
     <section className="space-y-6">
-      <UrlHeader total={data?.total} />
+      <UsersHeader total={data?.total} />
       {isSuccess && (
         <div className="glass-panel  overflow-hidden rounded-xl shadow-2xl">
-          <DataTable data={data.urls} columns={columns} />
+          <DataTable data={data.users} columns={columns} />
           <TableDataPagination
             pageSize={data.limit}
             currentPage={page}
@@ -54,4 +55,4 @@ const UrlTable = () => {
   );
 };
 
-export default UrlTable;
+export default UsersTable;

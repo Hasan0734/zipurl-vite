@@ -4,13 +4,13 @@ import DashboardLayout from "../components/dashboard-common/DashboardLayout";
 import StatSection from "@/components/dashboard/StatSection";
 
 const Dashboard = () => {
-
   return (
     <DashboardLayout>
-      <PastLink />
-      <RecentActivity />
-        <StatSection />
+      <StatSection />
 
+      <PastLink />
+
+      <RecentActivity />
     </DashboardLayout>
   );
 };

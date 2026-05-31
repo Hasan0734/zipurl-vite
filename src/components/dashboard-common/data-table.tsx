@@ -35,7 +35,6 @@ export function DataTable<TData, TValue>({
     columns,
     state: {
       columnVisibility: {
-        original_url: isUser,
         analytics: isUser,
         password: isUser,
         owner_id: isAdmin
@@ -46,7 +45,6 @@ export function DataTable<TData, TValue>({
   });
 
 
-  console.log(data)
 
   return (
     <Table className="">

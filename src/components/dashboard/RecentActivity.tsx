@@ -14,7 +14,7 @@ const RecentActivity = () => {
     queryFn: async () => {
       const params = "limit=10&sort=-createdAt";
       if (isAdmin) {
-        return await getUrlsByAdmin(params + "&fields=-password,-original_url");
+        return await getUrlsByAdmin(params + "&fields=-password");
       }
 
       return await getUrls(params);

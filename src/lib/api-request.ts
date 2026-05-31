@@ -120,7 +120,7 @@ export const getAnalytics = async () => {
   }
 }
 
-export const getUrlAnalytics = async (id:string) => {
+export const getUrlAnalytics = async (id: string) => {
   try {
     const res = await api.get(`/urls/analytics/${id}`);
     return res.data;
@@ -139,3 +139,11 @@ export const checkCustomAlias = async (data: { custom_alias: string, url_id?: st
   }
 }
 
+export const getUsers = async (query: string) => {
+  try {
+    const res = await api.get(`/users?` + query);
+    return res.data;
+  } catch (e:any) {
+    return e.reponse.data
+  }
+}

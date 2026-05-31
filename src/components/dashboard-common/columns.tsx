@@ -17,10 +17,9 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
 export const columns: ColumnDef<UrlType>[] = [
   {
-    accessorKey: "owner_id",
+    accessorKey: "owner_name",
     header: "Owner",
     cell: ({ row }) => {
-      const owner = row.original.owner_id as Owner;
 
       return (
         <div className="flex">
@@ -28,11 +27,11 @@ export const columns: ColumnDef<UrlType>[] = [
             <Avatar>
               <AvatarImage
                 src="https://github.com/shadcn.png"
-                alt={owner.first_name}
+                alt={row.getValue("owner_name")}
               />
               <AvatarFallback>FA</AvatarFallback>
             </Avatar>
-            {owner.first_name + " " + owner.last_name}
+              {row.getValue("owner_name")}
           </button>
         </div>
       );
@@ -43,7 +42,13 @@ export const columns: ColumnDef<UrlType>[] = [
     header: "Original URL",
     cell: ({ row }) => (
       <div className="max-w-40 overflow-hidden truncate">
-        {row.getValue("original_url")}
+        <a
+          href={row.getValue("original_url")}
+          target="_blank"
+          className="hover:text-primary hover:underline"
+        >
+          {row.getValue("original_url")}
+        </a>
       </div>
     ),
   },
