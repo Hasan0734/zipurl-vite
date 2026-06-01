@@ -1,7 +1,7 @@
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import StatsCard from "../dashboard/StatsCard";
+import StatsCard from "../common/StatsCard";
 import { LinkIcon, TrendingUp } from "lucide-react";
-import StatsCardSkeleton from "../dashboard/StatsCardSkeleton";
+import StatsCardSkeleton from "../common/StatsCardSkeleton";
 import { getAdminUrlStats } from "@/lib/api-request";
 
 const AdminStaticsSection = () => {

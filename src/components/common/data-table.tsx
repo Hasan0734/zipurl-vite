@@ -2,7 +2,7 @@ import React from "react";
 import {
   type ColumnDef,
   flexRender,
-  getCoreRowModel,
+  type TableOptions,
   useReactTable,
 } from "@tanstack/react-table";
 
@@ -14,37 +14,21 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useAuth } from "@/hooks/use-auth";
+import { Skeleton } from "../ui/skeleton";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
-  data: TData[];
+  tableConfig: TableOptions<TData>;
+  isLoading?: boolean;
 }
 
 export function DataTable<TData, TValue>({
   columns,
-  data,
+  tableConfig,
+  isLoading,
 }: DataTableProps<TData, TValue>) {
 
-  const user = useAuth().user
-  const isUser = user?.role === "user"
-  const isAdmin = user?.role === "admin"
-
-  const table = useReactTable({
-    data,
-    columns,
-    state: {
-      columnVisibility: {
-        analytics: isUser,
-        password: isUser,
-        owner_id: isAdmin
-      }
-    },
-    getCoreRowModel: getCoreRowModel(),
-    
-  });
-
-
+  const table = useReactTable(tableConfig);
 
   return (
     <Table className="">
@@ -67,21 +51,26 @@ export function DataTable<TData, TValue>({
         ))}
       </TableHeader>
       <TableBody className="">
-        {table.getRowModel().rows?.length ? (
+        {isLoading ? (
+          Array.from({ length: 10 }).map((_, rowIndex) => (
+            <TableRow key={`skeleton-${rowIndex}`}>
+              {columns.map((_, cellIndex) => (
+                <TableCell key={`skeleton-cell-${cellIndex}`}>
+                  <Skeleton className="h-5 w-full max-w-37.5" />
+                </TableCell>
+              ))}
+            </TableRow>
+          ))
+        ) : table.getRowModel().rows?.length ? (
           table.getRowModel().rows.map((row) => (
             <React.Fragment key={row.id}>
-              <TableRow
-                className=""
-                key={row.id}
-                data-state={row.getIsSelected() && "selected"}
-              >
+              <TableRow className="" key={row.id}>
                 {row.getVisibleCells().map((cell) => (
                   <TableCell key={cell.id} className="py-4! px-8 ">
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
                 ))}
               </TableRow>
-             
             </React.Fragment>
           ))
         ) : (

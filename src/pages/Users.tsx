@@ -1,13 +1,13 @@
 import StatSection from "@/components/dashboard/StatSection";
-import DashboardLayout from "../components/dashboard-common/DashboardLayout";
+import DashboardLayout from "../components/common/DashboardLayout";
 import { useAuth } from "@/hooks/use-auth";
 import { useNavigate } from "react-router";
 import UsersTable from "@/components/Users/UsersTable";
-import StatsCard from "@/components/dashboard/StatsCard";
+import StatsCard from "@/components/common/StatsCard";
 import { TrendingUp, Users2, UsersIcon } from "lucide-react";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { getUsersStats } from "@/lib/api-request";
-import StatsCardSkeleton from "@/components/dashboard/StatsCardSkeleton";
+import StatsCardSkeleton from "@/components/common/StatsCardSkeleton";
 const Users = () => {
   const navigate = useNavigate();
   const user = useAuth().user;
@@ -24,8 +24,6 @@ const Users = () => {
     placeholderData: keepPreviousData,
   });
 
-
-  console.log(data)
 
   return (
     <DashboardLayout>

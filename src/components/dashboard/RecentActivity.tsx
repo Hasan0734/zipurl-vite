@@ -1,14 +1,16 @@
-import { DataTable } from "../dashboard-common/data-table";
-import { columns } from "../dashboard-common/columns";
+import { DataTable } from "../common/data-table";
+import { columns } from "../common/columns";
 import { useQuery } from "@tanstack/react-query";
 import { getUrls, getUrlsByAdmin } from "@/lib/api-request";
-import { Spinner } from "../ui/spinner";
 import { useAuth } from "@/hooks/use-auth";
+import { getCoreRowModel } from "@tanstack/react-table";
+import { Skeleton } from "../ui/skeleton";
 
 const RecentActivity = () => {
   const auth = useAuth();
   const user = auth.user;
-  const isAdmin = user?.role === "admin"
+  const isAdmin = user?.role === "admin";
+  const isUser = user?.role === "user";
   const { isLoading, data, isSuccess } = useQuery({
     queryKey: ["recentUrl"],
     queryFn: async () => {
@@ -21,26 +23,40 @@ const RecentActivity = () => {
     },
   });
 
-  if (isLoading) {
-    return (
-      <div className="flex items-center gap-2">
-        <Spinner /> Loading
-      </div>
-    );
-  }
+  const tableConfig = {
+    data: isLoading ? [] : data.urls,
+    columns,
+    state: {
+      columnVisibility: {
+        analytics: isUser,
+        password: isUser,
+        owner_id: isAdmin,
+      },
+    },
+    getCoreRowModel: getCoreRowModel(),
+  };
 
   return (
     <section className="space-y-6">
-      <div>
-        <h3 className="text-on-surface text-2xl font-bold">Recent Activity</h3>
-        <p className="text-on-surface-variant text-sm">
-          Managing {data?.total} active redirects
-        </p>
-      </div>
+      {isLoading ? (
+        <div className="space-y-2">
+          <Skeleton className="w-40 h-8" />
+          <Skeleton className="w-60 h-6" />
+        </div>
+      ) : (
+        <div>
+          <h3 className="text-2xl font-bold">Recent Activity</h3>
+          <p className=" text-sm">Managing {data?.total} active redirects</p>
+        </div>
+      )}
 
       {isSuccess && (
         <div className="glass-panel overflow-hidden rounded-xl">
-          <DataTable data={data?.urls} columns={columns} />
+          <DataTable
+            columns={columns}
+            tableConfig={tableConfig}
+            isLoading={isLoading}
+          />
         </div>
       )}
     </section>

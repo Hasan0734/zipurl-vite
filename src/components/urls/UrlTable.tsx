@@ -1,12 +1,13 @@
-import { Spinner } from "../ui/spinner";
-import { columns } from "../dashboard-common/columns";
+import { columns } from "../common/columns";
 import UrlHeader from "./UrlHeader";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { getUrls, getUrlsByAdmin } from "@/lib/api-request";
 import { useSearchParams } from "react-router";
-import TableDataPagination from "./TableDataPagination";
-import { DataTable } from "../dashboard-common/data-table";
+import { DataTable } from "../common/data-table";
 import { useAuth } from "@/hooks/use-auth";
+import { getCoreRowModel } from "@tanstack/react-table";
+import  TableHeaderSkeleton from "../common/TableHeaderSkeleton";
+import TableDataPagination from "../common/TableDataPagination";
 
 const UrlTable = () => {
   const [searchParams] = useSearchParams();
@@ -15,12 +16,16 @@ const UrlTable = () => {
   const search = searchParams.get("search") || "";
   const auth = useAuth();
   const user = auth.user;
-  const { isLoading, data, isSuccess } = useQuery({
+  const isAdmin = user?.role === "admin";
+  const isUser = user?.role === "user";
+
+
+  const { isLoading, data } = useQuery({
     queryKey: ["urls", page, limit, search],
     queryFn: async () => {
       const params = `limit=${limit}&page=${page}&search=${search}&sort=-createdAt`;
       if (user?.role === "admin") {
-        return await getUrlsByAdmin(params + '&fields=-password');
+        return await getUrlsByAdmin(params + "&fields=-password");
       }
 
       return await getUrls(params);
@@ -28,28 +33,37 @@ const UrlTable = () => {
     placeholderData: keepPreviousData,
   });
 
-  if (isLoading) {
-    return (
-      <div className="flex items-center gap-2">
-        <Spinner /> Loading..
-      </div>
-    );
-  }
-
+  const tableConfig = {
+    data: isLoading ? [] : data.urls,
+    columns,
+    state: {
+      columnVisibility: {
+        // analytics: isUser,
+        password: isUser,
+        owner_id: isAdmin,
+      },
+    },
+    getCoreRowModel: getCoreRowModel(),
+  };
   return (
     <section className="space-y-6">
-      <UrlHeader total={data?.total} />
-      {isSuccess && (
-        <div className="glass-panel  overflow-hidden rounded-xl shadow-2xl">
-          <DataTable data={data.urls} columns={columns} />
+      {isLoading ? <TableHeaderSkeleton /> : <UrlHeader total={data?.total} />}
+
+      <div className="glass-panel  overflow-hidden rounded-xl shadow-2xl">
+        <DataTable
+          tableConfig={tableConfig}
+          columns={columns}
+          isLoading={isLoading}
+        />
+        {!isLoading && (
           <TableDataPagination
             pageSize={data.limit}
             currentPage={page}
             totalData={data.total}
             totalPage={data.page}
           />
-        </div>
-      )}
+        )}
+      </div>
     </section>
   );
 };

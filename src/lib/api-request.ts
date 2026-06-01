@@ -30,8 +30,6 @@ export const verifyEmail = async (token: string) => {
   }
 };
 
-
-
 export const passwordResetRequest = async (email: string) => {
   try {
     const res = await api.post(`/auth/request-password-reset`, { email });
@@ -127,7 +125,6 @@ export const getUrlAnalytics = async (id: string) => {
   }
 }
 
-
 export const checkCustomAlias = async (data: { custom_alias: string, url_id?: string }) => {
   try {
     const res = await api.post("/urls/check/custom-alias", data);
@@ -169,7 +166,7 @@ export const getAdminStatSummary = async () => {
   try {
     const res = await api.get("/analytics/stats")
     return res.data;
-  } catch (e:any) {
+  } catch (e: any) {
     return e.response.data
   }
 }

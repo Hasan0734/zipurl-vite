@@ -2,7 +2,7 @@ import { type ColumnDef } from "@tanstack/react-table";
 import { Button } from "../ui/button";
 import { Edit2 } from "lucide-react";
 import { format, isPast } from "date-fns";
-import type { Owner, UrlType } from "@/lib/types";
+import type { UrlType } from "@/lib/types";
 import { SHORT_URL } from "@/lib/utils";
 import SecretText from "../SecretText";
 import CopyButton from "../ui/copy-button";

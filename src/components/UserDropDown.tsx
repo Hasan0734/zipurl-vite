@@ -26,7 +26,7 @@ const UserDropDown = () => {
     { label: "Dashboard", to: "/dashboard", icon: LayoutDashboardIcon },
     { label: "URLs", to: "/urls", icon: Link2Icon },
     { label: "Analytics", to: "/analytics", icon: ChartNoAxesCombinedIcon },
-    { label: "Profile", to: "/profile", icon: UserIcon },
+    { label: "Profile", to: "/settings", icon: UserIcon },
   ];
 
   const user = auth.user;

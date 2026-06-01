@@ -1,5 +1,5 @@
 import StatSection from "@/components/dashboard/StatSection";
-import DashboardLayout from "../components/dashboard-common/DashboardLayout";
+import DashboardLayout from "../components/common/DashboardLayout";
 import UrlTable from "@/components/urls/UrlTable";
 import { useAuth } from "@/hooks/use-auth";
 import AdminStaticsSection from "@/components/urls/AdminStaticsSection";

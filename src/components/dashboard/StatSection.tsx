@@ -1,8 +1,8 @@
 import { Link2, TrendingUp, Map } from "lucide-react";
-import StatsCard from "./StatsCard";
+import StatsCard from "../common/StatsCard";
 import { useQuery } from "@tanstack/react-query";
 import { getStatSummary } from "@/lib/api-request";
-import StatsCardSkeleton from "./StatsCardSkeleton";
+import StatsCardSkeleton from "../common/StatsCardSkeleton";
 
 const StatSection = () => {
   const { data, isLoading } = useQuery({

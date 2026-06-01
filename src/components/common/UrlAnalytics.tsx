@@ -1,11 +1,7 @@
 import type { UrlType } from "@/lib/types";
 import MetricsBento from "../analytics/MetricsBento";
 import { useQuery } from "@tanstack/react-query";
-import {
-  getAnalytics,
-  getStatSummary,
-  getUrlAnalytics,
-} from "@/lib/api-request";
+import { getUrlAnalytics } from "@/lib/api-request";
 import ClickOverTime from "../analytics/ClickOverTime";
 import TopCountries from "../analytics/TopCountries";
 import DeviceDistribution from "../analytics/DeviceDistribution";

@@ -15,6 +15,7 @@ const Home = () => {
       <PricingSection />
       <FAQSection />
       <CTASection />
+
       <Footer />
     </>
   );

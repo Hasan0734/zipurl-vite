@@ -1,22 +1,21 @@
-import ClickOverTime from "@/components/analytics/ClickOverTime";
-import DeviceDistribution from "@/components/analytics/DeviceDistribution";
-import LiveActivity from "@/components/analytics/LiveActivity";
-import MetricsBento from "@/components/analytics/MetricsBento";
-import TopCountries from "@/components/analytics/TopCountries";
-import DashboardLayout from "@/components/dashboard-common/DashboardLayout";
-import { getAnalytics, getStatSummary } from "@/lib/api-request";
-import { useQuery } from "@tanstack/react-query";
+import AdminAnalytics from "@/components/analytics/AdminAnalytics";
+import UserAnalytics from "@/components/analytics/UserAnalytics";
+import DashboardLayout from "@/components/common/DashboardLayout";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { useAuth } from "@/hooks/use-auth";
+import { useState } from "react";
 
 const Analytics = () => {
-  const stats = useQuery({
-    queryKey: ["stats-summary"],
-    queryFn: async () => await getStatSummary(),
-  });
-  const analytics = useQuery({
-    queryKey: ["analytics"],
-    queryFn: async () => await getAnalytics(),
-  });
+  const user = useAuth().user;
+  const isAdmin = user?.role === "admin";
 
+  const [selected, setSelected] = useState("users");
 
   return (
     <DashboardLayout>
@@ -39,24 +38,23 @@ const Analytics = () => {
             Export PDF
           </Button>
         </div> */}
+       {isAdmin && <Select
+          defaultValue="users"
+          value={selected}
+          onValueChange={(e) => setSelected(e)}
+        >
+          <SelectTrigger>
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent className="bg-background">
+            <SelectItem value="users">Users</SelectItem>
+            <SelectItem value="urls">Urls</SelectItem>
+            <SelectItem value="clicks">clicks</SelectItem>
+          </SelectContent>
+        </Select>}
       </div>
-      <MetricsBento stats={stats} />
 
-      <div className="mb-8 grid grid-cols-1 gap-8 lg:grid-cols-3">
-        <ClickOverTime data={analytics.data} isLoading={analytics.isLoading} />
-        <TopCountries
-          isLoading={analytics.isLoading}
-          topCountries={analytics.data?.topCountries}
-        />
-      </div>
-
-      <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
-        <DeviceDistribution
-          isLoading={analytics.isLoading}
-          devices={analytics.data?.devices}
-        />
-        <LiveActivity />
-      </div>
+      {isAdmin ? <AdminAnalytics selected={selected} /> : <UserAnalytics />}
     </DashboardLayout>
   );
 };
