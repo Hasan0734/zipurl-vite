@@ -11,6 +11,7 @@ const AdminStaticsSection = () => {
     placeholderData: keepPreviousData,
   });
 
+
   return isLoading ? (
     <SkeletonSection />
   ) : (

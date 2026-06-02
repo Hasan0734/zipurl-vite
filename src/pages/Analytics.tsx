@@ -19,7 +19,7 @@ const Analytics = () => {
 
   return (
     <DashboardLayout>
-      <div className="mb-12 flex items-end justify-between">
+      <div className="mb-12 gap-4 flex md:items-end md:justify-between flex-col-reverse md:flex-row justify-center ">
         <div>
           <span className="mb-2 block text-xs font-bold tracking-[0.2em] text-primary uppercase">
             Performance Overview
@@ -28,30 +28,23 @@ const Analytics = () => {
             Data Intelligence
           </h2>
         </div>
-        {/* <div className="flex gap-3">
-          <Button variant={"outline"} className="rounded-full" size={"lg"}>
-            <Calendar />
-            Last 30 Days
-          </Button>
-          <Button variant={"outline"} className="rounded-full" size={"lg"}>
-            <Download />
-            Export PDF
-          </Button>
-        </div> */}
-       {isAdmin && <Select
-          defaultValue="users"
-          value={selected}
-          onValueChange={(e) => setSelected(e)}
-        >
-          <SelectTrigger>
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent className="bg-background">
-            <SelectItem value="users">Users</SelectItem>
-            <SelectItem value="urls">Urls</SelectItem>
-            <SelectItem value="clicks">clicks</SelectItem>
-          </SelectContent>
-        </Select>}
+
+        {isAdmin && (
+          <Select
+            defaultValue="users"
+            value={selected}
+            onValueChange={(e) => setSelected(e)}
+          >
+            <SelectTrigger className="w-full md:w-auto">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent className="bg-background w-full md:w-auto">
+              <SelectItem value="users">Users</SelectItem>
+              <SelectItem value="urls">Urls</SelectItem>
+              <SelectItem value="clicks">Clicks</SelectItem>
+            </SelectContent>
+          </Select>
+        )}
       </div>
 
       {isAdmin ? <AdminAnalytics selected={selected} /> : <UserAnalytics />}

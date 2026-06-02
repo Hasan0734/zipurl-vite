@@ -116,6 +116,15 @@ export const getAnalytics = async () => {
   }
 }
 
+export const getClicksAnalytics = async () => {
+  try {
+    const res = await api.get("/analytics/clicks");
+    return res.data;
+  } catch (error: any) {
+    return error.response.data
+  }
+}
+
 export const getUrlAnalytics = async (id: string) => {
   try {
     const res = await api.get(`/urls/analytics/${id}`);
