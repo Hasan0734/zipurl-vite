@@ -1,4 +1,4 @@
-import { Eye, EyeOff, type LucideIcon } from "lucide-react";
+import { Eye, EyeOff, XIcon, type LucideIcon } from "lucide-react";
 import { type InputHTMLAttributes, useState } from "react";
 import { Field, FieldError, FieldLabel } from "./ui/field";
 import {
@@ -8,6 +8,10 @@ import {
   InputGroupInput,
 } from "./ui/input-group";
 import { Link } from "react-router";
+import type {
+  FieldComponent,
+  ReactFormExtendedApi,
+} from "@tanstack/react-form";
 
 interface TextInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
@@ -18,6 +22,7 @@ interface TextInputProps extends InputHTMLAttributes<HTMLInputElement> {
   form: any;
   placeholder: string;
   type?: string;
+  showClearBtn?: boolean;
   [key: string]: any;
 }
 
@@ -31,6 +36,7 @@ const TextInput = ({
   placeholder,
   type,
   forgotPasswordPath,
+  showClearBtn,
   ...props
 }: TextInputProps) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -38,7 +44,6 @@ const TextInput = ({
   return (
     <form.Field
       name={id}
-      control={form.control}
       children={(field: any) => {
         const isInvalid =
           field.state.meta.isTouched && !field.state.meta.isValid;
@@ -72,6 +77,19 @@ const TextInput = ({
               <InputGroupAddon align="inline-start">
                 <Icon size={18} />
               </InputGroupAddon>
+              {showClearBtn && field.state.value && (
+                <InputGroupAddon align="inline-end">
+                  <InputGroupButton
+                    onClick={(e) => {
+                      e.preventDefault();
+                      field.setValue("");
+                      form.removeField();
+                    }}
+                  >
+                    <XIcon />
+                  </InputGroupButton>
+                </InputGroupAddon>
+              )}
               {type === "password" && (
                 <InputGroupAddon align="inline-end">
                   <InputGroupButton

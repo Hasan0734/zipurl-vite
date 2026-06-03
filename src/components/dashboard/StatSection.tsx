@@ -16,26 +16,28 @@ const StatSection = () => {
     <section className="grid grid-cols-1 gap-8 md:grid-cols-3">
       <StatsCard
         stat={{
-          title: "Total Clicks",
-          label: "24% from last month",
-          icon: TrendingUp,
-          total: String(data.totalClicks),
+          title: "Total Links",
+          label: `${data.todayCreated} created today`,
+          icon: Link2,
+          total: String(data.total),
         }}
       />
+
       <StatsCard
         stat={{
           title: "Active Links",
-          label: `${data.todayCreated} created today`,
+          label: `${data.expiredLinks} Expired links`,
           icon: Link2,
           total: String(data.activeLinks),
         }}
       />
+
       <StatsCard
         stat={{
-          title: "Top Region",
-          label: "42% of total traffic",
-          icon: Map,
-          total: "London",
+          title: "Total Clicks",
+          label: "24% from last month",
+          icon: TrendingUp,
+          total: String(data.totalClicks),
         }}
       />
     </section>

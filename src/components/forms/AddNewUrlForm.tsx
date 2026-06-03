@@ -27,9 +27,7 @@ const AddNewUrlForm = ({
 }) => {
   const [isPending, startTransition] = useTransition();
   const [searchParams, setSearchParams] = useSearchParams();
-
-
-  const queryClient = useQueryClient()
+  const queryClient = useQueryClient();
 
   const form = useForm({
     ...urlFormOptions,
@@ -77,14 +75,6 @@ const AddNewUrlForm = ({
           icon={Link2}
           placeholder="Paste your long URL here..."
         />
-        {/* <TextInput
-          label="Custom Alias (Optional)"
-          form={form}
-          name="custom_alias"
-          id={"custom_alias"}
-          icon={Pen}
-          placeholder={"my-link"}
-        /> */}
 
         <form.Field
           validators={{
@@ -192,7 +182,11 @@ const AddNewUrlForm = ({
               <Field className="md:col-span-1">
                 <Label>Expire (Optional)</Label>
                 <DatePicker
-                  onSelect={(date: Date) => {
+                  onSelect={(date: Date | undefined) => {
+                    if (!date) {
+                      form.deleteField("expires_at");
+                      return;
+                    }
                     form.setFieldValue("expires_at", date);
                   }}
                   date={(form.getFieldValue("expires_at") as Date) || undefined}

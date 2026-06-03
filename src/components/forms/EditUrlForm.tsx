@@ -27,7 +27,6 @@ import {
   InputGroupInput,
 } from "../ui/input-group";
 
-
 const EditUrlForm = ({
   setIsOpen,
   prevData,
@@ -43,7 +42,7 @@ const EditUrlForm = ({
     defaultValues: {
       original_url: prevData.original_url,
       custom_alias: prevData.custom_alias as string | undefined,
-      password: "" as string | undefined,
+      password: prevData.password as string | undefined,
       expires_at: prevData.expires_at
         ? (new Date(prevData.expires_at) as Date | undefined)
         : undefined,
@@ -60,6 +59,7 @@ const EditUrlForm = ({
           }
           queryClient.invalidateQueries({ queryKey: ["recentUrl"] });
           queryClient.invalidateQueries({ queryKey: ["urls"] });
+          queryClient.invalidateQueries({queryKey: ["stats-summary"]})
 
           toast.success(res.message);
           setIsOpen(false);
@@ -70,6 +70,8 @@ const EditUrlForm = ({
       });
     },
   });
+
+  
   return (
     <form
       id="add-newUrl-form"
@@ -188,6 +190,7 @@ const EditUrlForm = ({
           id={"password"}
           icon={LockIcon}
           placeholder={"••••••••"}
+          showClearBtn
         />
 
         <form.Field
@@ -197,7 +200,8 @@ const EditUrlForm = ({
               <Field className="md:col-span-1">
                 <Label>Expire (Optional)</Label>
                 <DatePicker
-                  onSelect={(date: Date) => {
+                  clearButton
+                  onSelect={(date: Date | undefined) => {
                     form.setFieldValue("expires_at", date);
                   }}
                   date={(form.getFieldValue("expires_at") as Date) || undefined}

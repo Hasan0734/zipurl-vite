@@ -1,7 +1,7 @@
 import PastLink from "../components/forms/PastLinkForm";
 import RecentActivity from "../components/dashboard/RecentActivity";
 import DashboardLayout from "../components/common/DashboardLayout";
-import StatSection from "@/components/dashboard/StatSection";
+// import StatSection from "@/components/dashboard/StatSection";
 import { useAuth } from "@/hooks/use-auth";
 import AdminDashboardStats from "@/components/dashboard/AdminDashboardStats";
 
@@ -11,7 +11,7 @@ const Dashboard = () => {
   return (
     <DashboardLayout>
       <PastLink />
-      {isAdmin ? <AdminDashboardStats /> : <StatSection />}
+      {isAdmin && <AdminDashboardStats />}
       <RecentActivity />
     </DashboardLayout>
   );

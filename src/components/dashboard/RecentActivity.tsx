@@ -46,7 +46,7 @@ const RecentActivity = () => {
       ) : (
         <div>
           <h3 className="text-2xl font-bold">Recent Activity</h3>
-          <p className=" text-sm">Managing {data?.total} active redirects</p>
+          <p className=" text-sm">Managing recent active redirects</p>
         </div>
       )}
 

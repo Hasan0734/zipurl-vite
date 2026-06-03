@@ -69,7 +69,6 @@ const ClicksBarChart = ({ data }: PropsType) => {
     [selectData],
   );
 
-  console.log(devices);
 
   return (
     <Card className="py-0">
