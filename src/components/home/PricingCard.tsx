@@ -46,7 +46,7 @@ const PricingCard = ({ data }: PricingCardProps) => {
         ))}
       </ul>
       <button
-        className={cn(" w-full rounded-md border py-3 sm:py-4 sm:font-bold", {
+        className={cn(" w-full rounded-md border py-3 sm:py-3 sm:font-bold", {
           "bg-primary": data.isPopular,
         })}
       >

@@ -1,18 +1,13 @@
-import { type LucideIcon } from "lucide-react";
 import type { ReactNode } from "react";
 import LogoHeader from "./LogoHeader";
 import { cn } from "@/lib/utils";
 
-interface Tags {
-  icon: LucideIcon;
-  label: string;
-}
+
 
 interface AuthFormLayoutProps {
   children: ReactNode;
   title?: string;
   description?: string;
-  tags?: Tags[];
   formAreaClass?: string;
   containerClass?: string;
 }
@@ -21,7 +16,6 @@ const AuthFormLayout = ({
   children,
   title,
   description,
-  tags,
   formAreaClass,
   containerClass,
 }: AuthFormLayoutProps) => {
@@ -58,18 +52,7 @@ const AuthFormLayout = ({
           )}
           {children}
         </section>
-        <div className="mt-8 grid grid-cols-3 gap-4 opacity-50 grayscale transition-all duration-500 hover:grayscale-0">
-          {tags && tags?.length > 0
-            ? tags.map((tag) => (
-                <div className="flex flex-col items-center gap-1">
-                  <tag.icon size={18} />
-                  <span className="font-label text-[10px] tracking-widest uppercase">
-                    {tag.label}
-                  </span>
-                </div>
-              ))
-            : null}
-        </div>
+        
       </main>
     </div>
   );

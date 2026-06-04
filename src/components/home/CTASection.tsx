@@ -21,14 +21,14 @@ const CTASection = () => {
         <div className="flex flex-col justify-center gap-4 sm:flex-row">
           <Button
             asChild
-            className="h-11 sm:h-16  rounded-md px-10 sm:text-lg sm:font-bold transition-all hover:scale-[1.05] active:scale-95"
+            className="h-9 sm:h-14  rounded-md px-8 sm:text-lg sm:font-bold transition-all hover:scale-[1.05] active:scale-95"
           >
             <Link to={"/sign-up"}>Create Free Account</Link>
           </Button>
           <Button
             asChild
             variant={"outline"}
-            className="h-11 sm:h-16 rounded-md  px-10 sm:text-lg sm:font-bold  transition-all hover:scale-[1.05] active:scale-95"
+            className="h-9 sm:h-14 rounded-md  px-8 sm:text-lg sm:font-bold  transition-all hover:scale-[1.05] active:scale-95"
           >
             <a href={"#pricing"}>View Pricing</a>
           </Button>

@@ -51,7 +51,7 @@ const footerLinks = [
 const Footer = () => {
 
   return (
-    <footer className="bg-[#091328] px-6 sm:px-12 py-5 sm:py-16">
+    <footer className=" px-6 sm:px-12 py-5 sm:py-16">
       <div className="mx-auto flex max-w-6xl flex-col justify-between gap-12 md:flex-row">
         <div className="max-w-xs">
           <span className="mb-6 block text-2xl font-black tracking-tighter text-[#dee5ff]">
