@@ -1,4 +1,3 @@
-import StatSection from "@/components/dashboard/StatSection";
 import DashboardLayout from "../components/common/DashboardLayout";
 import { useAuth } from "@/hooks/use-auth";
 import { useNavigate } from "react-router";
@@ -10,7 +9,7 @@ import { getUsersStats } from "@/lib/api-request";
 import StatsCardSkeleton from "@/components/common/StatsCardSkeleton";
 const Users = () => {
   const navigate = useNavigate();
-  const user = useAuth().user;
+  const {user} = useAuth();
   const isAdmin = user?.role === "admin";
 
   if (!isAdmin) {

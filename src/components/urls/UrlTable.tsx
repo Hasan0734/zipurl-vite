@@ -1,4 +1,4 @@
-import { columns } from "../common/columns";
+import { columns } from "../common/url-columns";
 import UrlHeader from "./UrlHeader";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { getUrls, getUrlsByAdmin } from "@/lib/api-request";

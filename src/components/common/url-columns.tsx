@@ -1,26 +1,28 @@
 import { type ColumnDef } from "@tanstack/react-table";
 import { Button } from "../ui/button";
-import { Edit2 } from "lucide-react";
+import { Edit2, Trash2 } from "lucide-react";
 import { format, isPast } from "date-fns";
 import type { UrlType } from "@/lib/types";
 import { SHORT_URL } from "@/lib/utils";
 import SecretText from "../SecretText";
 import CopyButton from "../ui/copy-button";
 import { Badge } from "../ui/badge";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import EditUrlDialog from "./EditUrlDialog";
-
-import DeleteUrl from "./DeleteUrl";
 import UrlAnalyticsDialog from "./UrlAnalyticsDialog";
 import { useAuth } from "@/hooks/use-auth";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import ConfirmDialog from "./ConfirmDialog";
+import { Spinner } from "../ui/spinner";
+import { toast } from "sonner";
+import { deleteUrlById } from "@/lib/api-request";
+import { useQueryClient } from "@tanstack/react-query";
 
 export const columns: ColumnDef<UrlType>[] = [
   {
     accessorKey: "owner_name",
     header: "Owner",
     cell: ({ row }) => {
-
       return (
         <div className="flex">
           <button className="rounded-full flex items-center gap-2">
@@ -31,7 +33,7 @@ export const columns: ColumnDef<UrlType>[] = [
               />
               <AvatarFallback>FA</AvatarFallback>
             </Avatar>
-              {row.getValue("owner_name")}
+            {row.getValue("owner_name")}
           </button>
         </div>
       );
@@ -158,10 +160,26 @@ export const columns: ColumnDef<UrlType>[] = [
     accessorKey: "actions",
     header: "Actions",
     cell: ({ row }) => {
+      const [isPending, startTransition] = useTransition();
       const [isOpen, setIsOpen] = useState(false);
-
-      const user = useAuth().user;
+      const {user} = useAuth();
       const isUser = user?.role === "user";
+      const queryClient = useQueryClient();
+
+      const handleDelete = () => {
+        startTransition(async () => {
+          const res = await deleteUrlById(row.original._id);
+
+          if (!res.success) {
+            toast.error(res.message || "Something wrong!");
+            return;
+          }
+          toast.success(res.message);
+          queryClient.invalidateQueries({ queryKey: ["urls"] });
+          queryClient.invalidateQueries({ queryKey: ["recentUrl"] });
+        });
+      };
+
       return (
         <div className="flex gap-2 justify-center">
           {isUser && (
@@ -181,7 +199,20 @@ export const columns: ColumnDef<UrlType>[] = [
             </>
           )}
 
-          <DeleteUrl id={row.original._id} />
+          {/* <DeleteUrl id={row.original._id} /> */}
+          <ConfirmDialog
+            isPending={false}
+            onConfirm={handleDelete}
+            triggerBtn={
+              <Button
+                disabled={isPending}
+                variant={"destructive"}
+                size={"icon-sm"}
+              >
+                {isPending ? <Spinner /> : <Trash2 />}
+              </Button>
+            }
+          />
         </div>
       );
     },

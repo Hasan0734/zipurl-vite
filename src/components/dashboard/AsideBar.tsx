@@ -12,7 +12,7 @@ import { Sidebar, SidebarContent, SidebarHeader } from "../ui/sidebar";
 import { useAuth } from "@/hooks/use-auth";
 
 const AsideBar = () => {
-  const user = useAuth().user;
+  const {user} = useAuth();
   const isAdmin = user?.role === "admin";
   const items = [
     { title: "Dashboard", to: "/dashboard", icon: LayoutDashboard },

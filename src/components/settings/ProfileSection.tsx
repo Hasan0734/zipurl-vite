@@ -1,9 +1,53 @@
-import { Camera, User } from "lucide-react";
+import { Camera, CheckIcon, User } from "lucide-react";
 import { Button } from "../ui/button";
-import { useLoaderData } from "react-router";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import ProfileForm from "../forms/ProfileForm";
+import { useState, useTransition } from "react";
+import { useForm } from "@tanstack/react-form";
+import { Spinner } from "../ui/spinner";
+import { updateProfile } from "@/lib/api-request";
+import { updateUserSchema } from "@/schema/user.schema";
+import { useAuth } from "@/hooks/use-auth";
+import { toast } from "sonner";
 
 const ProfileSection = () => {
-  const { profile } = useLoaderData();
+  const [editable, setEditable] = useState(false);
+  const [isPending, startTransition] = useTransition();
+  const [isSuccess, setIsSuccess] = useState(false);
+
+  const { user, setUser, setAccessToken } = useAuth();
+
+  const form = useForm({
+    defaultValues: {
+      first_name: user?.first_name,
+      last_name: user?.last_name,
+      email: user?.email,
+    },
+    validators: {
+      onSubmit: updateUserSchema,
+    },
+    onSubmit: ({ value }) => {
+      startTransition(async () => {
+        const res = await updateProfile(value);
+
+        if (res.success) {
+          setIsSuccess(true);
+          setAccessToken(res.access_token);
+          setUser(res.user);
+          toast.success(res.message);
+          await new Promise((resolve) => setTimeout(resolve, 500));
+          setEditable(false);
+          setIsSuccess(false);
+          
+          return;
+        }
+        await new Promise((resolve) => setTimeout(resolve, 500));
+        setEditable(false);
+        setIsSuccess(false);
+        toast.error(res.message || "Something wrong!");
+      });
+    },
+  });
 
   return (
     <section className="glass-panel  border border-primary/20 rounded-3xl p-8">
@@ -12,50 +56,40 @@ const ProfileSection = () => {
           <User className="text-primary" />
           Profile Identity
         </h3>
-        <Button className="rounded-full px-4 text-primary" variant={"outline"}>
-          Edit
+        <Button
+          onClick={() => {
+            if (!editable) {
+              setEditable(true);
+              return;
+            }
+            form.handleSubmit();
+          }}
+          className="rounded-full px-4"
+          variant={editable ? "default" : "outline"}
+        >
+          {editable ? (
+            <>
+              {isPending && !isSuccess && <Spinner />}{" "}
+              {isSuccess && <CheckIcon />} Save
+            </>
+          ) : (
+            "Edit"
+          )}
         </Button>
       </div>
       <div className="flex items-center gap-8">
         <div className="group relative">
-          <div className="to-tertiary absolute -inset-1 rounded-full bg-linear-to-tr from-primary opacity-25 blur transition duration-500 group-hover:opacity-50"></div>
-          <img
-            alt="User avatar"
-            className="border-surface relative h-24 w-24 rounded-full border-4 object-cover"
-            data-alt="Modern professional woman portrait with neon emerald lighting accents on her face in a dark studio setting"
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBS-ccwAlivF4SZ6Y1Lmz1Nzkp9NzNn_awoC-9qRsUXVZaDEAStaapEoRMLKfH4SOB2LbvClXt9QikQriVzdFPM_D8fkNv8SqGwYpzMLyfHpM62diMPLgoBsQyDskV_xqss1XAfwAHnGNLkO2-gJ7uyo3h2lGQ02F7RUFNs4h6ylyUNiDn3X9Mca06CYM6dULBNSSOG74wSEiq5eTjOa7RcCtVQkmISQY-9BF2LoBck3LHYatjc7EFX5i7Eg8UidzaEOXTHKp-Pd2Y"
-          />
-          <div className="border-surface absolute right-0 bottom-0 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border-4 bg-primary shadow-lg">
+          <div className="to-secondary absolute -inset-1 rounded-full bg-linear-to-tr from-primary opacity-25 blur transition duration-500 group-hover:opacity-50"></div>
+
+          <Avatar className="size-24 border-4 object-cover relative">
+            <AvatarImage src="https://github.com/shadcn.png" alt="harry" />
+            <AvatarFallback>LR</AvatarFallback>
+          </Avatar>
+          <div className=" absolute right-0 bottom-0 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border-4 bg-primary shadow-lg">
             <Camera size={16} />
           </div>
         </div>
-        <div className="grid flex-1 grid-cols-2 gap-4">
-          <div className="space-y-1.5">
-            <label className="text-xs  uppercase">
-              Full Name
-            </label>
-            <div className="bg-card font-body rounded-xl border border-secondary/50 px-4 py-3">
-              {profile.first_name} {profile.last_name}
-            </div>
-          </div>
-          <div className="space-y-1.5">
-            <label className=" text-xs uppercase">
-              Account Type
-            </label>
-            <div className="bg-card border-secondary/50 flex items-center gap-2 rounded-xl border px-4 py-3">
-              <span className="bg-primary h-2 w-2 rounded-full"></span>
-              <span className="text-primary">Premium Archon</span>
-            </div>
-          </div>
-          <div className="col-span-2 space-y-1">
-            <label className=" text-xs uppercase">
-              Email Address
-            </label>
-            <div className="bg-card  rounded-xl border border-secondary/50 px-4 py-3">
-              {profile.email}
-            </div>
-          </div>
-        </div>
+        <ProfileForm editable={editable} form={form} />
       </div>
     </section>
   );

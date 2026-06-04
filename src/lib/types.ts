@@ -13,7 +13,7 @@ export type User = {
     createdAt: Date,
     updatedAt: Date
 }
-
+export type UpdateUserOptionalPayload = Partial<Pick<User, 'first_name' | 'last_name'>>;
 
 export type Owner = {
     _id: string,

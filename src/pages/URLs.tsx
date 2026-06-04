@@ -4,7 +4,7 @@ import UrlTable from "@/components/urls/UrlTable";
 import { useAuth } from "@/hooks/use-auth";
 import AdminStaticsSection from "@/components/urls/AdminStaticsSection";
 const URLs = () => {
-  const user = useAuth().user;
+  const {user} = useAuth();
 
   const isAdmin = user?.role === "admin";
 

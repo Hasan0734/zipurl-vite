@@ -130,15 +130,15 @@ export const columns: ColumnDef<User>[] = [
     accessorKey: "actions",
     header: "Actions",
     cell: ({ row }) => {
-      const [isOpen, setIsOpen] = useState(false);
+      // const [isOpen, setIsOpen] = useState(false);
 
-      const user = useAuth().user;
-      const isUser = user?.role === "user";
+      // const {user} = useAuth();
+      // const isUser = user?.role === "user";
 
       return (
         <div className="flex gap-2 justify-center">
           <Button
-            onClick={() => setIsOpen(true)}
+            // onClick={() => setIsOpen(true)}
             variant={"outline"}
             size={"icon-sm"}
           >

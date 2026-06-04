@@ -1,5 +1,6 @@
 import type { LoginUserSchemaType, PasswordSchemaType } from "@/schema/user.schema";
 import api from "./api";
+import type { UpdateUserOptionalPayload } from "./types";
 
 export const userLogin = async (data: LoginUserSchemaType) => {
   try {
@@ -30,6 +31,15 @@ export const verifyEmail = async (token: string) => {
   }
 };
 
+export const updateProfile = async (updateDate: UpdateUserOptionalPayload) => {
+  try {
+    const res = await api.patch('/auth/profile', updateDate)
+    return res.data
+  } catch (error: any) {
+    return error.response.data
+  }
+}
+
 export const passwordResetRequest = async (email: string) => {
   try {
     const res = await api.post(`/auth/request-password-reset`, { email });
@@ -38,6 +48,7 @@ export const passwordResetRequest = async (email: string) => {
     return err.response.data;
   }
 }
+
 export const resetPassword = async (data: PasswordSchemaType, token: string) => {
   try {
     const res = await api.post(`/auth/reset-password`, { token, ...data });
@@ -73,7 +84,6 @@ export const deleteUrlById = async (id: string) => {
     return err.response.data;
   }
 };
-
 
 export const getUrls = async (query: string) => {
   try {

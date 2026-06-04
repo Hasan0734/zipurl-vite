@@ -1,5 +1,5 @@
 import { DataTable } from "../common/data-table";
-import { columns } from "../common/columns";
+import { columns } from "../common/url-columns";
 import { useQuery } from "@tanstack/react-query";
 import { getUrls, getUrlsByAdmin } from "@/lib/api-request";
 import { useAuth } from "@/hooks/use-auth";

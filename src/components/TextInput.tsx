@@ -8,21 +8,19 @@ import {
   InputGroupInput,
 } from "./ui/input-group";
 import { Link } from "react-router";
-import type {
-  FieldComponent,
-  ReactFormExtendedApi,
-} from "@tanstack/react-form";
+import { cn } from "@/lib/utils";
 
 interface TextInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
   id: string;
-  icon: LucideIcon;
+  icon?: LucideIcon;
   className?: string;
   forgotPassword?: boolean;
   form: any;
-  placeholder: string;
+  placeholder?: string;
   type?: string;
   showClearBtn?: boolean;
+  inputClass?: string;
   [key: string]: any;
 }
 
@@ -37,6 +35,7 @@ const TextInput = ({
   type,
   forgotPasswordPath,
   showClearBtn,
+  inputClass,
   ...props
 }: TextInputProps) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -61,7 +60,7 @@ const TextInput = ({
                 </Link>
               )}
             </div>
-            <InputGroup className="h-11!">
+            <InputGroup className={cn("h-11!", inputClass)} >
               <InputGroupInput
                 aria-invalid={isInvalid}
                 type={showPassword ? "text" : type}
@@ -72,10 +71,9 @@ const TextInput = ({
                 onChange={(e) => field.handleChange(e.target.value)}
                 placeholder={placeholder}
                 {...props}
-                className=""
               />
               <InputGroupAddon align="inline-start">
-                <Icon size={18} />
+                {Icon && <Icon size={18} />}
               </InputGroupAddon>
               {showClearBtn && field.state.value && (
                 <InputGroupAddon align="inline-end">

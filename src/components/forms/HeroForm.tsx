@@ -218,7 +218,7 @@ const HeroForm = ({ setShortCode, setCustomAlias }: HeroFormProps) => {
                   return (
                     <Field className="md:col-span-1">
                       <DatePicker
-                        onSelect={(date: Date) => {
+                        onSelect={(date: Date | undefined) => {
                           form.setFieldValue("expires_at", date);
                         }}
                         date={

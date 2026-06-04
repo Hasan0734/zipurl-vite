@@ -1,3 +1,4 @@
+
 import {
   AlertDialog,
   AlertDialogAction,
@@ -9,38 +10,20 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "../ui/alert-dialog";
-import { deleteUrlById } from "@/lib/api-request";
-import { toast } from "sonner";
-import { useQueryClient } from "@tanstack/react-query";
-import  { Spinner } from "../ui/spinner";
-import { useTransition } from "react";
-import { Button } from "../ui/button";
-import { Trash } from "lucide-react";
+import { Spinner } from "../ui/spinner";
 
-const DeleteUrl = ({id}: {id:string}) => {
-  const queryClient = useQueryClient();
-  const [isPending, startTransition] = useTransition();
 
-  const handleDelete = () => {
-    startTransition(async () => {
-      const res = await deleteUrlById(id);
+interface PropsType {
+    isPending: boolean
+    onConfirm: () => void;
+    triggerBtn: React.ReactNode
+}
 
-      if (!res.success) {
-        toast.error(res.message || "Something wrong!");
-        return;
-      }
-      toast.success(res.message);
-      queryClient.invalidateQueries({ queryKey: ["urls"] });
-      queryClient.invalidateQueries({ queryKey: ["recentUrl"] });
-    });
-  };
-  
+const ConfirmDialog = ({isPending, onConfirm, triggerBtn}: PropsType) => {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button disabled={isPending} variant={"destructive"} size={"icon-sm"}>
-          {isPending ? <Spinner /> : <Trash />}
-        </Button>
+        {triggerBtn}
       </AlertDialogTrigger>
       <AlertDialogContent className="bg-background emerald-glow">
         <AlertDialogHeader>
@@ -53,7 +36,7 @@ const DeleteUrl = ({id}: {id:string}) => {
         <AlertDialogFooter className="bg-transparent">
           <AlertDialogCancel>Cancel</AlertDialogCancel>
           <AlertDialogAction
-            onClick={handleDelete}
+            onClick={onConfirm}
             variant={"destructive"}
             disabled={isPending}
           >
@@ -65,4 +48,4 @@ const DeleteUrl = ({id}: {id:string}) => {
   );
 };
 
-export default DeleteUrl;
+export default ConfirmDialog;

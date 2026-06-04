@@ -1,6 +1,6 @@
 import { LockKeyhole, Shield, ShieldCogCorner } from "lucide-react";
-import { Button } from "../ui/button";
 import { Switch } from "../ui/switch";
+import ChangePassword from "./ChangePassword";
 
 const SecuritySection = () => {
   return (
@@ -16,17 +16,13 @@ const SecuritySection = () => {
               <LockKeyhole className="text-primary" />
             </div>
             <div>
-              <h4 className="font-headline text-sm font-bold">
-                Master Password
-              </h4>
+              <h4 className="font-headline text-sm font-bold">Password</h4>
               <p className="text-on-surface-variant text-xs">
                 Last updated 14 days ago
               </p>
             </div>
           </div>
-          <Button className="rounded-full px-4" variant={"outline"} size={"lg"}>
-            Change
-          </Button>
+         <ChangePassword/>
         </div>
         <div className="flex items-center justify-between rounded-2xl border border-secondary/50 bg-card p-4">
           <div className="flex items-center gap-4">
@@ -38,7 +34,7 @@ const SecuritySection = () => {
                 Two-Factor Authentication
               </h4>
               <p className="text-on-surface-variant text-xs">
-                Biometric and SMS verification
+                OTP verification
               </p>
             </div>
           </div>

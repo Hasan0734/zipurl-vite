@@ -6,7 +6,7 @@ import { useAuth } from "@/hooks/use-auth";
 import AdminDashboardStats from "@/components/dashboard/AdminDashboardStats";
 
 const Dashboard = () => {
-  const user = useAuth().user;
+  const {user} = useAuth();
   const isAdmin = user?.role === "admin";
   return (
     <DashboardLayout>

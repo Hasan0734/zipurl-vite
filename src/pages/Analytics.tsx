@@ -12,7 +12,7 @@ import { useAuth } from "@/hooks/use-auth";
 import { useState } from "react";
 
 const Analytics = () => {
-  const user = useAuth().user;
+  const {user} = useAuth();
   const isAdmin = user?.role === "admin";
 
   const [selected, setSelected] = useState("users");

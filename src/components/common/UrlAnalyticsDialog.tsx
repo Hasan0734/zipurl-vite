@@ -28,7 +28,7 @@ const UrlAnalyticsDialog = ({ data }: PropsType) => {
             Let's see your url analytics. With a chart and list map for country.
           </DialogDescription>
         </DialogHeader>
-        <ScrollArea className="py-2 overflow-scroll max-h-[calc(100vh-100px)] pr-6">
+        <ScrollArea className="py-2 overflow-y-scroll max-h-[calc(100vh-100px)] pr-6">
           <UrlAnalytics data={data} />
         </ScrollArea>
       </DialogContent>
