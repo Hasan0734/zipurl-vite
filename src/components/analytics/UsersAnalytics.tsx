@@ -1,6 +1,6 @@
 import MetricsSectionSkeleton from "./MetricsSectionSkeleton";
 import MetricsCard from "./MetricsCard";
-import { getUsersStats } from "@/lib/api-request";
+import { getUsersAnalytics, getUsersStats } from "@/lib/api-request";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { Users, Users2 } from "lucide-react";
 import UsersBarChart from "./UsersBarChart";
@@ -11,7 +11,14 @@ const UsersAnalytics = () => {
     queryFn: async () => await getUsersStats(),
     placeholderData: keepPreviousData,
   });
-  
+
+  const analytics = useQuery({
+    queryKey: ["users-analytics"],
+    queryFn: async () => await getUsersAnalytics(),
+  });
+
+  console.log(analytics);
+
   return (
     <div className="space-y-6">
       {stats.isLoading ? (
@@ -42,7 +49,7 @@ const UsersAnalytics = () => {
         </div>
       )}
 
-      <UsersBarChart />
+      {!analytics.isLoading && <UsersBarChart data={analytics.data} />}
     </div>
   );
 };

@@ -13,11 +13,10 @@ const ClicksAnalytics = () => {
   });
 
   const analytics = useQuery({
-    queryKey: ["analytics"],
+    queryKey: ["clicks-analytics"],
     queryFn: async () => await getClicksAnalytics(),
   });
 
-  console.log(analytics.data);
 
   return (
     <div>

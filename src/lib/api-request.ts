@@ -202,6 +202,18 @@ export const getClicksAnalytics = async () => {
         return error.response.data
     }
 }
+export const getUsersAnalytics = async () => {
+    try {
+        const res = await api.get("/analytics/users");
+        return res.data;
+    } catch (error: any) {
+        return {
+            last6DaysUsers: [],
+            last30DaysUsers: [],
+            last90DaysUsers: [],
+        }
+    }
+}
 
 export const getUrlAnalytics = async (id: string) => {
     try {

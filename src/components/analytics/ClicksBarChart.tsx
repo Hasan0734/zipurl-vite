@@ -44,11 +44,11 @@ const chartConfig = {
   },
   mobile: {
     label: "Mobile",
-    color: "var(--secondary)",
+    color: "var(--primary)",
   },
   tablet: {
     label: "Tablet",
-    color: "var(--chart-1)",
+    color: "var(--primary)",
   },
 } satisfies ChartConfig;
 
