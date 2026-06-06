@@ -1,4 +1,3 @@
-
 import {
   AlertDialog,
   AlertDialogAction,
@@ -12,27 +11,26 @@ import {
 } from "../ui/alert-dialog";
 import { Spinner } from "../ui/spinner";
 
-
 interface PropsType {
-    isPending: boolean
-    onConfirm: () => void;
-    triggerBtn: React.ReactNode
-    message: string
+  isPending: boolean;
+  onConfirm: () => void;
+  triggerBtn: React.ReactNode;
+  message: string;
 }
 
-const ConfirmDialog = ({isPending, onConfirm, triggerBtn, message}: PropsType) => {
-  console.log(message)
+const ConfirmDialog = ({
+  isPending,
+  onConfirm,
+  triggerBtn,
+  message,
+}: PropsType) => {
   return (
     <AlertDialog>
-      <AlertDialogTrigger asChild>
-        {triggerBtn}
-      </AlertDialogTrigger>
+      <AlertDialogTrigger asChild>{triggerBtn}</AlertDialogTrigger>
       <AlertDialogContent className="bg-background emerald-glow">
         <AlertDialogHeader>
           <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-          <AlertDialogDescription>
-              {message}
-          </AlertDialogDescription>
+          <AlertDialogDescription>{message}</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter className="bg-transparent">
           <AlertDialogCancel>Cancel</AlertDialogCancel>

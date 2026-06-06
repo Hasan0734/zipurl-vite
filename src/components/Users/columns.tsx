@@ -12,15 +12,8 @@ import { Spinner } from "@/components/ui/spinner.tsx";
 import { changeUserStatus, deleteUserById } from "@/lib/api-request.ts";
 import { toast } from "sonner";
 
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
-  DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
 import { useQueryClient } from "@tanstack/react-query";
+import UserStatus from "./user-status";
 
 export const columns: ColumnDef<User>[] = [
   {
@@ -94,61 +87,9 @@ export const columns: ColumnDef<User>[] = [
   {
     accessorKey: "status",
     header: "Status",
-    cell: ({ row }) => {
-      const [isPending, startTransition] = useTransition();
-      const queryClient = useQueryClient()
-      const handleStatus = (value: string) => {
-        startTransition(async () => {
-          const res = await changeUserStatus(row.original._id, value);
-
-          if (!res.success) {
-            toast.error(res.message || "Failed to change status");
-            return;
-          }
-          queryClient.invalidateQueries({ queryKey: ["users"] });
-          toast.success(res.message);
-        });
-      };
-      return (
-        <div>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              {row.getValue("status") === "active" ? (
-                <Badge>
-                  {isPending && <Spinner/>} Active <ChevronDown />
-                </Badge>
-              ) : row.getValue("status") === "pending" ? (
-                <Badge variant={"secondary"}>
-                  {isPending && <Spinner/>} Pending <ChevronDown />
-                </Badge>
-              ) : (
-                <Badge variant={"destructive"}>
-                  {isPending && <Spinner/>} Block <ChevronDown />
-                </Badge>
-              )}
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-40" align="start">
-              <DropdownMenuGroup>
-                <DropdownMenuRadioGroup
-                  value={row.getValue("status")}
-                  onValueChange={handleStatus}
-                >
-                  <DropdownMenuRadioItem value="active">
-                    Active
-                  </DropdownMenuRadioItem>
-                  <DropdownMenuRadioItem value="pending">
-                    Pending
-                  </DropdownMenuRadioItem>
-                  <DropdownMenuRadioItem value="block">
-                    Block
-                  </DropdownMenuRadioItem>
-                </DropdownMenuRadioGroup>
-              </DropdownMenuGroup>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
-      );
-    },
+    cell: ({ row }) => (
+      <UserStatus userId={row.original._id} status={row.getValue("status")} />
+    ),
   },
   {
     accessorKey: "role",

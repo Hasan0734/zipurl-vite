@@ -11,7 +11,6 @@ import Analytics from "./pages/Analytics.tsx";
 import Settings from "./pages/Settings.tsx";
 import App from "./App.tsx";
 import ProtectedRoutes from "./lib/ProtectedRoutes.tsx";
-import api from "./lib/api.ts";
 import SignUp from "./pages/SignUp.tsx";
 import URLs from "./pages/URLs.tsx";
 import VerifyEmail from "./pages/VerifyEmail.tsx";
@@ -77,9 +76,7 @@ const router = createBrowserRouter([
           {
             path: "/settings",
             Component: Settings,
-            loader: async () => {
-              return { profile: await getProfile() };
-            },
+           
           },
         ],
       },
@@ -99,11 +96,3 @@ createRoot(document.getElementById("root")!).render(
   </StrictMode>,
 );
 
-async function getProfile() {
-  try {
-    const res = await api.get("/auth/me");
-    return res.data;
-  } catch (error) {
-    return [];
-  }
-}

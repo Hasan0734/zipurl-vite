@@ -1,22 +1,14 @@
 import { type ColumnDef } from "@tanstack/react-table";
-import { Button } from "../ui/button";
-import { Edit2, Trash2 } from "lucide-react";
 import { format, isPast } from "date-fns";
 import type { UrlType } from "@/lib/types";
 import { SHORT_URL } from "@/lib/utils";
 import SecretText from "../SecretText";
 import CopyButton from "../ui/copy-button";
-import { Badge } from "../ui/badge";
-import { useState, useTransition } from "react";
-import EditUrlDialog from "./EditUrlDialog";
 import UrlAnalyticsDialog from "./UrlAnalyticsDialog";
-import { useAuth } from "@/hooks/use-auth";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import ConfirmDialog from "./ConfirmDialog";
-import { Spinner } from "../ui/spinner";
-import { toast } from "sonner";
-import { deleteUrlById } from "@/lib/api-request";
-import { useQueryClient } from "@tanstack/react-query";
+import UrlStatus from "./url-status";
+import UrlAction from "./url-action";
+import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 
 export const columns: ColumnDef<UrlType>[] = [
   {
@@ -60,22 +52,40 @@ export const columns: ColumnDef<UrlType>[] = [
   {
     accessorKey: "short_code",
     header: "Short Code",
-    cell: ({ row }) => (
-      <div className="flex items-center gap-1">
-        <a
-          href={SHORT_URL + row.getValue("short_code")}
-          target="_blank"
-          className="hover:text-primary hover:underline"
-        >
-          {row.getValue("short_code")}
-        </a>
-        <CopyButton
-          size={"sm"}
-          content={SHORT_URL + row.getValue("short_code")}
-          variant={"ghost"}
-        />
-      </div>
-    ),
+    cell: ({ row }) => {
+      return (
+        <div className="flex items-center gap-1">
+          {row.original.is_active ? (
+            <Tooltip>
+              <TooltipTrigger  asChild>
+                <span className="size-2 bg-primary rounded-full"></span>
+              </TooltipTrigger>
+              <TooltipContent>Url is active</TooltipContent>
+            </Tooltip>
+          ) : (
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <span className="size-2 bg-destructive rounded-full"></span>
+              </TooltipTrigger>
+              <TooltipContent>Url is inactive</TooltipContent>
+            </Tooltip>
+          )}
+
+          <a
+            href={SHORT_URL + row.getValue("short_code")}
+            target="_blank"
+            className="hover:text-primary hover:underline"
+          >
+            {row.getValue("short_code")}
+          </a>
+          <CopyButton
+            size={"sm"}
+            content={SHORT_URL + row.getValue("short_code")}
+            variant={"ghost"}
+          />
+        </div>
+      );
+    },
   },
   {
     accessorKey: "custom_alias",
@@ -83,6 +93,11 @@ export const columns: ColumnDef<UrlType>[] = [
     cell: ({ row }) =>
       row.getValue("custom_alias") ? (
         <div className="flex items-center gap-1">
+          {row.getValue("is_active") ? (
+            <span className="size-2 bg-primary rounded-full"></span>
+          ) : (
+            <span className="size-2 bg-destructive rounded-full"></span>
+          )}
           <a
             href={SHORT_URL + row.getValue("custom_alias")}
             target="_blank"
@@ -120,25 +135,13 @@ export const columns: ColumnDef<UrlType>[] = [
     cell: ({ row }) => <UrlAnalyticsDialog data={row.original} />,
   },
   {
-    accessorKey: "is_active",
+    accessorKey: "status",
     header: "Status",
     cell: ({ row }) => (
-      <div>
-        {row.getValue("is_active") ? (
-          <Badge>Active</Badge>
-        ) : (
-          <Badge variant={"destructive"}>Inactive</Badge>
-        )}
-      </div>
+      <UrlStatus urlId={row.original._id} status={row.getValue("status")} />
     ),
   },
-  {
-    accessorKey: "createdAt",
-    header: "Created At",
-    cell: ({ row }) => (
-      <div>{format(row.getValue("createdAt"), "dd-MM-yyyy")}</div>
-    ),
-  },
+
   {
     accessorKey: "expires_at",
     header: "Expire At",
@@ -160,64 +163,15 @@ export const columns: ColumnDef<UrlType>[] = [
     },
   },
   {
+    accessorKey: "createdAt",
+    header: "Created At",
+    cell: ({ row }) => (
+      <div>{format(row.getValue("createdAt"), "dd-MM-yyyy")}</div>
+    ),
+  },
+  {
     accessorKey: "actions",
     header: "Actions",
-    cell: ({ row }) => {
-      const [isPending, startTransition] = useTransition();
-      const [isOpen, setIsOpen] = useState(false);
-      const { user } = useAuth();
-      const queryClient = useQueryClient();
-
-      const handleDelete = () => {
-        startTransition(async () => {
-          const res = await deleteUrlById(row.original._id);
-
-          if (!res.success) {
-            toast.error(res.message || "Something wrong!");
-            return;
-          }
-          toast.success(res.message);
-          queryClient.invalidateQueries({ queryKey: ["urls"] });
-          queryClient.invalidateQueries({ queryKey: ["recentUrl"] });
-        });
-      };
-
-      return (
-        <div className="flex gap-2 justify-center">
-          {user?._id === row.original.owner_id && (
-            <>
-              <EditUrlDialog
-                isOpen={isOpen}
-                setIsOpen={setIsOpen}
-                data={row.original}
-              />
-              <Button
-                onClick={() => setIsOpen(true)}
-                variant={"outline"}
-                size={"icon-sm"}
-              >
-                <Edit2 />
-              </Button>
-            </>
-          )}
-
-          {/* <DeleteUrl id={row.original._id} /> */}
-          <ConfirmDialog
-            isPending={false}
-            onConfirm={handleDelete}
-            message={"This action cannot be undone. This will permanently delete your url from our servers."}
-            triggerBtn={
-              <Button
-                disabled={isPending}
-                variant={"destructive"}
-                size={"icon-sm"}
-              >
-                {isPending ? <Spinner /> : <Trash2 />}
-              </Button>
-            }
-          />
-        </div>
-      );
-    },
+    cell: ({ row }) => <UrlAction url={row.original} />,
   },
 ];

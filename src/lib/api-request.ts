@@ -32,7 +32,7 @@ export const deleteUserById = async (id: string) => {
 
 export const deleteUrlById = async (id: string) => {
     try {
-        const res = await api.delete(('/users/' + id))
+        const res = await api.delete(('/urls/' + id))
         return res.data;
     } catch (err: any) {
         return err.response.data;
@@ -72,6 +72,14 @@ export const changeUserStatus = async (userId: string, status: string) => {
     try {
         const res = await api.patch(`/users/${userId}`, { status });
 
+        return res.data
+    } catch (e: any) {
+        return e.response.data;
+    }
+}
+export const changeUrlStatus = async (userId: string, status: string) => {
+    try {
+        const res = await api.patch(`/admin/urls/${userId}`, { status });
         return res.data
     } catch (e: any) {
         return e.response.data;
