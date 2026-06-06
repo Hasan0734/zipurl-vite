@@ -6,7 +6,6 @@ import { useTransition } from "react";
 import { enable2FA, getMe } from "@/lib/api-request";
 import { toast } from "sonner";
 import { Spinner } from "../ui/spinner";
-import api from "@/lib/api";
 
 const SecuritySection = () => {
   const [isPending, startTransition] = useTransition();
@@ -20,9 +19,7 @@ const SecuritySection = () => {
         toast.error(res.message || "Something wrong!");
         return;
       }
-
       const me = await getMe();
-
       if (me.success) {
         setAccessToken(me.access_token);
         setUser(me.user);

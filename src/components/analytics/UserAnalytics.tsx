@@ -1,4 +1,3 @@
-import React from "react";
 import MetricsBento from "./MetricsBento";
 import ClickOverTime from "./ClickOverTime";
 import TopCountries from "./TopCountries";

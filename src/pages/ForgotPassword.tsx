@@ -8,7 +8,6 @@ const ForgotPassword = () => {
     <AuthFormLayout
       title="Forgot Password"
       description="Enter your credentials and we sent a email for reset your password."
-      tags={[]}
     >
       <>
         <ForgotPasswordForm />

@@ -1,4 +1,3 @@
-import React from "react";
 import MetricsSectionSkeleton from "./MetricsSectionSkeleton";
 import MetricsCard from "./MetricsCard";
 import { getUsersStats } from "@/lib/api-request";

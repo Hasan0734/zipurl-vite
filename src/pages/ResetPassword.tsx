@@ -20,7 +20,6 @@ const ResetPassword = () => {
     <AuthFormLayout
       title="Reset Password"
       description="Set new password. Please make sure your passwrod is strong."
-      tags={[]}
       formAreaClass="max-w-120"
     >
       <>
