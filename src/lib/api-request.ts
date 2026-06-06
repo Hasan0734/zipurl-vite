@@ -11,6 +11,16 @@ export const userLogin = async (data: LoginUserSchemaType) => {
     }
 };
 
+export const getMe = async () => {
+    try {
+        const me = await api.post("/auth/refresh");
+        const data = me.data;
+        return data;
+    } catch (error: any) {
+        return error.response.data
+    }
+}
+
 
 export const deleteUserById = async (id: string) => {
     try {
@@ -80,6 +90,15 @@ export const resetPassword = async (data: PasswordSchemaType, token: string) => 
 export const changePassword = async (data: ChangePassSchemaType) => {
     try {
         const res = await api.patch(`/auth/change-password`, data);
+        return res.data;
+    } catch (err: any) {
+        return err.response.data;
+    }
+}
+
+export const enable2FA = async (data: { two_factor_enabled: boolean }) => {
+    try {
+        const res = await api.patch(`/auth/enable-2FA`, data);
         return res.data;
     } catch (err: any) {
         return err.response.data;
