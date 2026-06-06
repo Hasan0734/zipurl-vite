@@ -1,5 +1,5 @@
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { getClicks, getUsers } from "@/lib/api-request";
+import { getClicks } from "@/lib/api-request";
 import { useSearchParams } from "react-router";
 import { columns } from "./columns";
 import TableHeaderSkeleton from "../common/TableHeaderSkeleton";

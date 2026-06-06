@@ -1,7 +1,6 @@
 import DashboardLayout from "../components/common/DashboardLayout";
 import { useAuth } from "@/hooks/use-auth";
 import { useNavigate } from "react-router";
-import UsersTable from "@/components/Users/UsersTable";
 import StatsCard from "@/components/common/StatsCard";
 import { TrendingUp, Users2, UsersIcon } from "lucide-react";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
