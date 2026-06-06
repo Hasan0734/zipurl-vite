@@ -21,7 +21,6 @@ export const getMe = async () => {
     }
 }
 
-
 export const deleteUserById = async (id: string) => {
     try {
         const res = await api.delete(('/users/' + id))
@@ -66,6 +65,16 @@ export const updateProfile = async (updateDate: UpdateUserOptionalPayload) => {
         return res.data
     } catch (error: any) {
         return error.response.data
+    }
+}
+
+export const changeUserStatus = async (userId: string, status: string) => {
+    try {
+        const res = await api.patch(`/users/${userId}`, { status });
+
+        return res.data
+    } catch (e: any) {
+        return e.response.data;
     }
 }
 
