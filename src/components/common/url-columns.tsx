@@ -33,7 +33,10 @@ export const columns: ColumnDef<UrlType>[] = [
               />
               <AvatarFallback>FA</AvatarFallback>
             </Avatar>
-            {row.getValue("owner_name")}
+            <span className="max-w-28 overflow-hidden truncate">
+              {" "}
+              {row.getValue("owner_name")}
+            </span>
           </button>
         </div>
       );
@@ -162,8 +165,7 @@ export const columns: ColumnDef<UrlType>[] = [
     cell: ({ row }) => {
       const [isPending, startTransition] = useTransition();
       const [isOpen, setIsOpen] = useState(false);
-      const {user} = useAuth();
-      const isUser = user?.role === "user";
+      const { user } = useAuth();
       const queryClient = useQueryClient();
 
       const handleDelete = () => {
@@ -182,7 +184,7 @@ export const columns: ColumnDef<UrlType>[] = [
 
       return (
         <div className="flex gap-2 justify-center">
-          {isUser && (
+          {user?._id === row.original.owner_id && (
             <>
               <EditUrlDialog
                 isOpen={isOpen}
@@ -203,6 +205,7 @@ export const columns: ColumnDef<UrlType>[] = [
           <ConfirmDialog
             isPending={false}
             onConfirm={handleDelete}
+            message={"This action cannot be undone. This will permanently delete your url from our servers."}
             triggerBtn={
               <Button
                 disabled={isPending}

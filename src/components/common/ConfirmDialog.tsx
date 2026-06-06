@@ -17,9 +17,11 @@ interface PropsType {
     isPending: boolean
     onConfirm: () => void;
     triggerBtn: React.ReactNode
+    message: string
 }
 
-const ConfirmDialog = ({isPending, onConfirm, triggerBtn}: PropsType) => {
+const ConfirmDialog = ({isPending, onConfirm, triggerBtn, message}: PropsType) => {
+  console.log(message)
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
@@ -29,8 +31,7 @@ const ConfirmDialog = ({isPending, onConfirm, triggerBtn}: PropsType) => {
         <AlertDialogHeader>
           <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
           <AlertDialogDescription>
-            This action cannot be undone. This will permanently delete your
-            account from our servers.
+              {message}
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter className="bg-transparent">

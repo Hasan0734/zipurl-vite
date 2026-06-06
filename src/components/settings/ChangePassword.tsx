@@ -9,10 +9,12 @@ import {
 
 import { Button } from "../ui/button";
 import ChangePasswordForm from "../forms/ChangePasswordForm";
+import { useState } from "react";
 
 const ChangePassword = () => {
+  const [isOpen, setIsOpen] = useState(false)
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger>
         <Button className="rounded-full px-4" variant={"outline"} size={"lg"}>
           Change
@@ -27,7 +29,7 @@ const ChangePassword = () => {
           <DialogTitle>Change Password</DialogTitle>
           <DialogDescription>Change your current password.</DialogDescription>
         </DialogHeader>
-        <ChangePasswordForm />
+        <ChangePasswordForm setIsOpen={setIsOpen} />
       </DialogContent>
     </Dialog>
   );

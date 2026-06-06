@@ -21,15 +21,15 @@ const AdminStaticsSection = () => {
           title: "Total Urls",
           label: "10% from last month",
           icon: TrendingUp,
-          total: String(data.totalUrls),
+          total: String(data.totalUrls || 0),
         }}
       />
       <StatsCard
         stat={{
           title: "Active Urls",
-          label: `${data.todayCreatedUrls} today created`,
+          label: `${data.todayCreatedUrls || 0} today created`,
           icon: LinkIcon,
-          total: String(data.activeUrls),
+          total: String(data.activeUrls || 0),
         }}
       />
       <StatsCard
@@ -37,7 +37,7 @@ const AdminStaticsSection = () => {
           title: "Total Clicks",
           label: "24% from last month",
           icon: TrendingUp,
-          total: String(data.totalClicks),
+          total: String(data.totalClicks || 0),
         }}
       />
     </section>

@@ -74,3 +74,6 @@ export const ChangePassSchema = z.object({
     error: "Passwords don't match",
     path: ['confirm_password']
 });
+
+
+export type ChangePassSchemaType = z.infer<typeof ChangePassSchema>;

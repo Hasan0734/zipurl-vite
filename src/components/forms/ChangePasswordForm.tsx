@@ -1,4 +1,8 @@
-import React, { useTransition } from "react";
+import React, {
+  useTransition,
+  type Dispatch,
+  type SetStateAction,
+} from "react";
 import { FieldGroup } from "../ui/field";
 import TextInput from "../TextInput";
 import { useForm } from "@tanstack/react-form";
@@ -7,8 +11,14 @@ import { DialogClose } from "../ui/dialog";
 import { Button } from "../ui/button";
 import { Spinner } from "../ui/spinner";
 import { ChangePassSchema } from "@/schema/user.schema";
+import { changePassword } from "@/lib/api-request";
+import { toast } from "sonner";
 
-const ChangePasswordForm = () => {
+interface PropsType {
+  setIsOpen: Dispatch<SetStateAction<boolean>>;
+}
+
+const ChangePasswordForm = ({ setIsOpen }: PropsType) => {
   const [isPending, startTransition] = useTransition();
   const form = useForm({
     defaultValues: {
@@ -17,17 +27,44 @@ const ChangePasswordForm = () => {
       confirm_password: "",
     },
     validators: {
-        onSubmit: ChangePassSchema
+      onSubmit: ChangePassSchema,
     },
     onSubmit: ({ value }) => {
-      startTransition(async () => {});
+      startTransition(async () => {
+        const res = await changePassword(value);
+        if (res?.field === "current_password") {
+          form.setFieldMeta("current_password", (prev) => ({
+            ...prev,
+            errorMap: {
+              ...prev.errorMap,
+              onSubmit: {
+                code: "invalid",
+                message: res.message,
+              },
+            },
+          }));
+          return;
+        }
+
+        if (!res.success) {
+          toast.error(res.message || "Failed to change password");
+          return;
+        }
+        toast.success(res.message);
+        setIsOpen(false);
+        form.reset();
+      });
     },
   });
+
   return (
-    <form onSubmit={(e) => {
-        e.preventDefault()
-        form.handleSubmit()
-    }} className="space-y-3">
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        form.handleSubmit();
+      }}
+      className="space-y-3"
+    >
       <FieldGroup>
         <TextInput
           label="Current Password"

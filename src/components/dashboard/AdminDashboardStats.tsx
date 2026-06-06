@@ -19,15 +19,15 @@ const AdminDashboardStats = () => {
           title: "Total users",
           label: "24% from last month",
           icon: TrendingUp,
-          total: String(data.totalUser),
+          total: String(data.totalUser || 0),
         }}
       />
       <StatsCard
         stat={{
           title: "Total Urls",
-          label: `${data.todayCreatedUrls} created today`,
+          label: `${data.todayCreatedUrls || 0} created today`,
           icon: Link2,
-          total: String(data.totalUrls),
+          total: String(data.totalUrls || 0),
         }}
       />
 
@@ -36,7 +36,7 @@ const AdminDashboardStats = () => {
           title: "Total clicks",
           label: "42% of total traffic",
           icon: TrendingUp,
-          total: String(data.totalClicks),
+          total: String(data.totalClicks || 0),
         }}
       />
       <StatsCard
@@ -44,7 +44,7 @@ const AdminDashboardStats = () => {
           title: "Unique Visitor link",
           label: "42% of total traffic",
           icon: TrendingUp,
-          total: String(data.visitor),
+          total: String(data.visitor || 0),
         }}
       />
     </section>
