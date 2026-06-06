@@ -157,6 +157,18 @@ export const getUrlsByAdmin = async (query: string) => {
     }
 }
 
+export const getClicks = async (query: string) => {
+    try {
+        const res = await api.get("/clicks?" + query);
+        return res.data;
+    } catch (error) {
+        return {
+            clicks: [],
+            total: 0
+        };
+    }
+}
+
 export const getStatSummary = async () => {
     try {
         const res = await api.get("/urls/stats/summary");

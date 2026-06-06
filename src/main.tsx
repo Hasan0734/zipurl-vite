@@ -19,6 +19,7 @@ import ForgotPassword from "./pages/ForgotPassword.tsx";
 import ResetPassword from "./pages/ResetPassword.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import Users from "./pages/Users.tsx";
+import Clicks from "./pages/Clicks.tsx";
 
 const router = createBrowserRouter([
   {
@@ -64,7 +65,10 @@ const router = createBrowserRouter([
           {
             path: "/users",
             Component: Users,
-            
+          },
+          {
+            path: "/clicks",
+            Component: Clicks,
           },
           {
             path: "/analytics",

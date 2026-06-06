@@ -3,6 +3,7 @@ import {
   FolderArchiveIcon,
   LayoutDashboard,
   Link2Icon,
+  MousePointerClick,
   Settings,
   Users2Icon,
 } from "lucide-react";
@@ -18,6 +19,8 @@ const AsideBar = () => {
     { title: "Dashboard", to: "/dashboard", icon: LayoutDashboard },
     { title: "URLs", to: "/urls", icon: Link2Icon },
     { title: "Users", to: "/users", icon: Users2Icon, isAdmin: true },
+    { title: "Clicks", to: "/clicks", icon: MousePointerClick,},
+
     { title: "Analytics", to: "/analytics", icon: ChartNoAxesCombined },
     { title: "Settings", to: "/settings", icon: Settings },
   ];
