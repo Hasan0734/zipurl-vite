@@ -11,6 +11,7 @@ import { SHORT_URL } from "@/lib/utils";
 import CopyButton from "../ui/copy-button";
 import { motion } from "motion/react";
 import { Link } from "react-router";
+import { Demo, QRCode } from "../ui/qr-code";
 const HeroFormSection = () => {
   const [shortCode, setShortCode] = useState("");
   const [customAlias, setCustomAlias] = useState("");
@@ -31,6 +32,8 @@ const HeroFormSection = () => {
           />
         </div>
       </div>
+
+
       {(customAlias || shortCode) && (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -72,24 +75,21 @@ const HeroFormSection = () => {
                   <Share2Icon size={20} />
                   Share
                 </Button>
-               <Link to="/analytics">
-                <Button
-                  variant={"outline"}
-                  size={"lg"}
-                  className="flex h-11! flex-1"
-                >
-                  <ChartNoAxesColumnIcon size={20} />
-                  Analytics
-                </Button></Link>
+                <Link to="/analytics">
+                  <Button
+                    variant={"outline"}
+                    size={"lg"}
+                    className="flex h-11! flex-1"
+                  >
+                    <ChartNoAxesColumnIcon size={20} />
+                    Analytics
+                  </Button>
+                </Link>
               </div>
             </div>
             <div className="relative flex h-48 w-48 shrink-0 flex-col items-center justify-center rounded-lg bg-white/70 p-4">
-              <img
-                alt="QR Code"
-                className="h-full w-full"
-                data-alt="clean black and white digital QR code on a minimalist white background for a sleek branding aesthetic"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZVnXvAKoE7wM2QjnMpAdzH1FpBqQipCsUCkOdgdu_M0z01LJCe5vvSP0_IC_vLGbNZdu4ahEUhFaNacUV07UYBQ1nOOYUdm8kT0YLUSoRw1Nrviq0N5NEl0td7CI2onjF_xA_yDaXogcUQsW5HYtuGcEk6qeLnVgLYZyP8UG4K2BgQAmXZmogqZDdQgL9ig1SAF4aNs_7ZzyzT_y6j3lT6qwExI6j8qI6Q1NpHigAhFlq13XpIfTZPOJY_3VHKn4ku_upVrdI2JE"
-              />
+              <QRCode  foreground="" data={url()} robustness="M" />
+
               <div className="text-on-secondary absolute -top-3 -right-3 flex h-10 w-10 items-center justify-center rounded-full bg-primary shadow-lg shadow-primary/40">
                 <QrCodeIcon />
               </div>
