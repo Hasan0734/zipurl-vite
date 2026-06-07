@@ -12,10 +12,10 @@ interface StatsCardProps {
 const StatsCard = ({ stat}: StatsCardProps) => {
   return (
     <div className="glass-panel rounded-4xl border-l-4 border-primary p-8">
-      <p className=" text-[11px] font-bold tracking-widest text-primary uppercase">
+      <p className=" text-[11px] font-bold tracking-widest text-primary uppercase ">
         {stat.title}
       </p>
-      <p className=" mt-2 text-4xl font-black">{stat.total}</p>
+      <p className=" mt-2 text-4xl font-black capitalize">{stat.total}</p>
       <div className="mt-4 flex items-center gap-2 text-sm font-bold ">
         <stat.icon className="text-primary" />
         {stat.label}

@@ -26,6 +26,7 @@ const UrlAction = ({ url }: { url: UrlType }) => {
       }
       toast.success(res.message);
       queryClient.invalidateQueries({ queryKey: ["urls"] });
+      queryClient.invalidateQueries({queryKey: ["urls-stats"]})
       queryClient.invalidateQueries({ queryKey: ["recentUrl"] });
     });
   };

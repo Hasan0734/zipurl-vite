@@ -13,7 +13,7 @@ const UserAnalytics = () => {
     queryFn: async () => await getStatSummary(),
   });
   const analytics = useQuery({
-    queryKey: ["analytics"],
+    queryKey: ["user-analytics"],
     queryFn: async () => await getAnalytics(),
   });
 

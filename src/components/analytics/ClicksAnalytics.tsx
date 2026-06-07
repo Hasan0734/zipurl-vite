@@ -3,12 +3,12 @@ import MetricsSectionSkeleton from "./MetricsSectionSkeleton";
 import MetricsCard from "./MetricsCard";
 import { Map, MousePointerClick, Users2 } from "lucide-react";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { getAdminUrlStats, getClicksAnalytics } from "@/lib/api-request";
+import {  getClicksAnalytics, getClicksStats } from "@/lib/api-request";
 
 const ClicksAnalytics = () => {
   const stats = useQuery({
-    queryKey: ["urls-stats"],
-    queryFn: async () => await getAdminUrlStats(),
+    queryKey: ["clciks-stats"],
+    queryFn: async () => await getClicksStats(),
     placeholderData: keepPreviousData,
   });
 
@@ -17,6 +17,7 @@ const ClicksAnalytics = () => {
     queryFn: async () => await getClicksAnalytics(),
   });
 
+  console.log(stats.data)
 
   return (
     <div>
@@ -41,7 +42,7 @@ const ClicksAnalytics = () => {
           <MetricsCard
             icon={Map}
             title="Top Region"
-            total={"London"}
+            total={stats.data?.topRegion?.city}
             increment="42% of total traffic"
             isUpper
           />

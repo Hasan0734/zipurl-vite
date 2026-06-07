@@ -13,16 +13,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../ui/select";
-import { Button } from "../ui/button";
 
-export const description = "An interactive bar chart";
+import { Button } from "../ui/button";
 
 type ChartDataType = {
   date: string;
@@ -30,9 +22,9 @@ type ChartDataType = {
 };
 
 type DataType = {
-  last90DaysUsers: ChartDataType[];
-  last30DaysUsers: ChartDataType[];
-  last6DaysUsers: ChartDataType[];
+  last90DaysUrls: ChartDataType[];
+  last30DaysUrls: ChartDataType[];
+  last6DaysUrls: ChartDataType[];
 };
 
 interface PropsType {
@@ -41,40 +33,32 @@ interface PropsType {
 
 const chartConfig = {
   views: {
-    label: "Users",
+    label: "Urls",
   },
 
   users: {
-    label: "Users",
+    label: "Urls",
     color: "var(--secondary)",
   },
 } satisfies ChartConfig;
 
-const UsersBarChart = ({ data }: PropsType) => {
+const UrlsBarChart = ({ data }: PropsType) => {
   const [selectData, setSelectData] =
-    React.useState<keyof DataType>("last90DaysUsers");
+    React.useState<keyof DataType>("last90DaysUrls");
 
   const chartData = data[selectData];
 
-  console.log(chartData);
-  // const total = React.useMemo(
-  //   () => ({
-  //     desktop: chartData.reduce((acc, curr) => acc + curr.desktop, 0),
-  //     mobile: chartData.reduce((acc, curr) => acc + curr.mobile, 0),
-  //   }),
-  //   [],
-  // );
 
   return (
     <Card className="py-0">
-      <CardHeader className="flex flex-col items-stretch border-b sm:flex-row py-3">
+      <CardHeader className="flex flex-col items-stretch border-b py-3 sm:flex-row">
         <div className="flex flex-1 flex-col justify-center gap-1">
           <CardTitle>Sign up over time</CardTitle>
           <CardDescription>
             Showing total sing up user for the last{" "}
-            {selectData === "last30DaysUsers"
+            {selectData === "last30DaysUrls"
               ? 30
-              : selectData === "last6DaysUsers"
+              : selectData === "last6DaysUrls"
                 ? 7
                 : 90}{" "}
             days
@@ -83,23 +67,23 @@ const UsersBarChart = ({ data }: PropsType) => {
         <div className="flex items-center justify-center">
           <div className="bg-secondary/40 rounded-full py-1 px-2 flex gap-2">
             <Button
-              onClick={() => setSelectData("last6DaysUsers")}
+              onClick={() => setSelectData("last6DaysUrls")}
               className="rounded-full font-normal!"
-              variant={selectData === "last6DaysUsers" ? "default" : "outline"}
+              variant={selectData === "last6DaysUrls" ? "default" : "outline"}
             >
               Last 7 days
             </Button>
             <Button
-              onClick={() => setSelectData("last30DaysUsers")}
+              onClick={() => setSelectData("last30DaysUrls")}
               className="rounded-full font-normal!"
-              variant={selectData === "last30DaysUsers" ? "default" : "outline"}
+              variant={selectData === "last30DaysUrls" ? "default" : "outline"}
             >
               Last 30 days
             </Button>
             <Button
-              onClick={() => setSelectData("last90DaysUsers")}
+              onClick={() => setSelectData("last90DaysUrls")}
               className="rounded-full font-normal!"
-              variant={selectData === "last90DaysUsers" ? "default" : "outline"}
+              variant={selectData === "last90DaysUrls" ? "default" : "outline"}
             >
               Last 90 days
             </Button>
@@ -157,4 +141,4 @@ const UsersBarChart = ({ data }: PropsType) => {
   );
 };
 
-export default UsersBarChart;
+export default UrlsBarChart;

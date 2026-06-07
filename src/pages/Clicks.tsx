@@ -2,15 +2,15 @@ import DashboardLayout from "../components/common/DashboardLayout";
 import { useAuth } from "@/hooks/use-auth";
 import { useNavigate } from "react-router";
 import StatsCard from "@/components/common/StatsCard";
-import { TrendingUp, Users2, UsersIcon } from "lucide-react";
+import { MonitorSmartphone, TrendingUp, UsersIcon } from "lucide-react";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { getUsersStats } from "@/lib/api-request";
+import { getClicksStats } from "@/lib/api-request";
 import StatsCardSkeleton from "@/components/common/StatsCardSkeleton";
 import ClicksTable from "@/components/clicks/ClicksTable";
 
 const Clicks = () => {
   const navigate = useNavigate();
-  const {user} = useAuth();
+  const { user } = useAuth();
   const isAdmin = user?.role === "admin";
 
   if (!isAdmin) {
@@ -19,11 +19,12 @@ const Clicks = () => {
   }
 
   const { isLoading, data } = useQuery({
-    queryKey: ["users-stats"],
-    queryFn: async () => await getUsersStats(),
+    queryKey: ["clicks-states"],
+    queryFn: async () => await getClicksStats(),
     placeholderData: keepPreviousData,
   });
 
+  console.log(data);
 
   return (
     <DashboardLayout>
@@ -33,32 +34,31 @@ const Clicks = () => {
         <section className="grid grid-cols-1 gap-8 md:grid-cols-3">
           <StatsCard
             stat={{
-              title: "Total Users",
+              title: "Total Clicks",
               label: "24% from last month",
               icon: TrendingUp,
-              total: String(data.totalUsers),
+              total: String(data.totalClicks || 0),
             }}
           />
           <StatsCard
             stat={{
-              title: "Active Users",
-              label: `${data.todayCreated} Sign up today`,
+              title: "Unique Visitor",
+              label: `${data.todayVisitedCount || 0} today visited`,
               icon: UsersIcon,
-              total: String(data.activeUsers),
+              total: String(data.visitor || 0),
             }}
           />
           <StatsCard
             stat={{
-              title: "Verified Users",
-              label: `${data.notVerified} not verified`,
-              icon: Users2,
-              total: String(data.verified),
+              title: "Top device",
+              label: `${data.topDevice.percentage}% of the visitors`,
+              icon: MonitorSmartphone,
+              total: String(data.topDevice.device),
             }}
           />
         </section>
       )}
-      <ClicksTable/>
-
+      <ClicksTable />
     </DashboardLayout>
   );
 };
