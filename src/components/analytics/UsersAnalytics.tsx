@@ -17,7 +17,6 @@ const UsersAnalytics = () => {
     queryFn: async () => await getUsersAnalytics(),
   });
 
-  console.log(analytics);
 
   return (
     <div className="space-y-6">

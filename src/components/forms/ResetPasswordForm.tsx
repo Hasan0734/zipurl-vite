@@ -8,10 +8,12 @@ import { Spinner } from "../ui/spinner";
 import { resetPassword } from "@/lib/api-request";
 import { toast } from "sonner";
 import { passwordSchema } from "@/schema/user.schema";
+import { useNavigate } from "react-router";
 
 
 const ResetPasswordForm = ({token}: {token:string}) => {
   const [isPending, startTransition] = useTransition();
+  const naviagte = useNavigate()
 
 
   const form = useForm({
@@ -32,6 +34,8 @@ const ResetPasswordForm = ({token}: {token:string}) => {
           toast.error(res.message);
           return;
         }
+        naviagte('/sign-in', { replace: true })
+
         toast.success(res.message);
         form.reset();
       });
@@ -77,7 +81,7 @@ const ResetPasswordForm = ({token}: {token:string}) => {
         className="h-11! w-full"
         type="submit"
       >
-        {isPending && <Spinner />} Request
+        {isPending && <Spinner />} Reset
       </Button>
     </form>
   );

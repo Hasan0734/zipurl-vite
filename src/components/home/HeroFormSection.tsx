@@ -11,7 +11,7 @@ import { SHORT_URL } from "@/lib/utils";
 import CopyButton from "../ui/copy-button";
 import { motion } from "motion/react";
 import { Link } from "react-router";
-import { Demo, QRCode } from "../ui/qr-code";
+import {  QRCode } from "../ui/qr-code";
 const HeroFormSection = () => {
   const [shortCode, setShortCode] = useState("");
   const [customAlias, setCustomAlias] = useState("");

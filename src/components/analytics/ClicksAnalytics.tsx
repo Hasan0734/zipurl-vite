@@ -17,7 +17,6 @@ const ClicksAnalytics = () => {
     queryFn: async () => await getClicksAnalytics(),
   });
 
-  console.log(stats.data)
 
   return (
     <div>

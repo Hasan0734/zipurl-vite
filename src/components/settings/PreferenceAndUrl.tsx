@@ -1,5 +1,5 @@
-import { BadgeCheck, SlidersHorizontal } from "lucide-react"
-import { Button } from "../ui/button"
+import { BadgeCheck, SlidersHorizontal } from "lucide-react";
+import { Button } from "../ui/button";
 
 const PreferenceAndUrl = () => {
   return (
@@ -17,7 +17,7 @@ const PreferenceAndUrl = () => {
             <span className="text-xs font-bold text-primary">30 Days</span>
           </div>
           <input
-           onChange={(e) => console.log(e.target.value)}
+            onChange={(e) => console.log(e.target.value)}
             className="bg-card h-1.5 w-full cursor-pointer appearance-none rounded-lg accent-primary"
             max="365"
             min="1"
@@ -40,10 +40,8 @@ const PreferenceAndUrl = () => {
               type="text"
               value="lnk.lumos.tech"
             />
-            <span
-              className=" absolute top-3 right-3 text-sm text-primary"
-            >
-              <BadgeCheck/>
+            <span className=" absolute top-3 right-3 text-sm text-primary">
+              <BadgeCheck />
             </span>
           </div>
           <p className="text-muted-foreground text-[10px] italic">
@@ -58,13 +56,17 @@ const PreferenceAndUrl = () => {
             Connect your shortening engine to third-party bioluminescent nodes.
           </p>
           <div className="flex gap-2">
-            <Button variant={'outline'} size={'lg'} className="">Generate Key</Button>
-            <Button variant={'outline'} size={'lg'} className="">Docs</Button>
+            <Button variant={"outline"} size={"lg"} className="">
+              Generate Key
+            </Button>
+            <Button variant={"outline"} size={"lg"} className="">
+              Docs
+            </Button>
           </div>
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default PreferenceAndUrl
+export default PreferenceAndUrl;
