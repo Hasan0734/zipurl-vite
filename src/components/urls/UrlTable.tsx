@@ -41,6 +41,7 @@ const UrlTable = () => {
         // analytics: isUser,
         password: isUser,
         owner_id: isAdmin,
+        owner_name:isAdmin
       },
     },
     getCoreRowModel: getCoreRowModel(),

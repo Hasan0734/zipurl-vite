@@ -9,6 +9,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import UrlStatus from "./url-status";
 import UrlAction from "./url-action";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
+import { useAuth } from "@/hooks/use-auth";
+import { Badge } from "../ui/badge";
 
 export const columns: ColumnDef<UrlType>[] = [
   {
@@ -57,7 +59,7 @@ export const columns: ColumnDef<UrlType>[] = [
         <div className="flex items-center gap-1">
           {row.original.is_active ? (
             <Tooltip>
-              <TooltipTrigger  asChild>
+              <TooltipTrigger asChild>
                 <span className="size-2 bg-primary rounded-full"></span>
               </TooltipTrigger>
               <TooltipContent>Url is active</TooltipContent>
@@ -137,9 +139,26 @@ export const columns: ColumnDef<UrlType>[] = [
   {
     accessorKey: "status",
     header: "Status",
-    cell: ({ row }) => (
-      <UrlStatus urlId={row.original._id} status={row.getValue("status")} />
-    ),
+    cell: ({ row }) => {
+      const { user } = useAuth();
+      const isUser = user?.role === "user";
+      return isUser ? (
+        <Badge
+          variant={
+            row.getValue("status") === "approved"
+              ? "default"
+              : row.getValue("status") === "pending"
+                ? "secondary"
+                : "destructive"
+          }
+          className="capitalize"
+        >
+          {row.getValue("status")}
+        </Badge>
+      ) : (
+        <UrlStatus urlId={row.original._id} status={row.getValue("status")} />
+      );
+    },
   },
 
   {

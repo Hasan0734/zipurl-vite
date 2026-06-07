@@ -9,14 +9,6 @@ import StatsCardSkeleton from "@/components/common/StatsCardSkeleton";
 import ClicksTable from "@/components/clicks/ClicksTable";
 
 const Clicks = () => {
-  const navigate = useNavigate();
-  const { user } = useAuth();
-  const isAdmin = user?.role === "admin";
-
-  if (!isAdmin) {
-    navigate("/dashboard");
-    return;
-  }
 
   const { isLoading, data } = useQuery({
     queryKey: ["clicks-states"],
@@ -24,7 +16,6 @@ const Clicks = () => {
     placeholderData: keepPreviousData,
   });
 
-  console.log(data);
 
   return (
     <DashboardLayout>
