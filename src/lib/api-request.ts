@@ -136,15 +136,24 @@ export const deleteUrlById = async (id: string) => {
     }
 }
 
-export const changeUrlStatus = async (userId: string, status: string) => {
+export const changeUrlStatus = async (urlId: string, status: string) => {
     try {
-        const res = await api.patch(`/admin/urls/${userId}`, { status });
+        const res = await api.patch(`/admin/urls/status/${urlId}`, { status });
         return res.data
     } catch (e: any) {
         return e.response.data;
     }
 }
 
+
+export const changeUrlNsfw = async (userId: string, is_nsfw: string) => {
+    try {
+        const res = await api.patch(`/admin/urls/nsfw/${userId}`, { is_nsfw });
+        return res.data
+    } catch (e: any) {
+        return e.response.data;
+    }
+}
 export const addNewUrl = async (data: { original_url: string }) => {
     try {
         const res = await api.post("/urls", data);
@@ -195,7 +204,7 @@ export const getClicksStats = async () => {
                 city: "",
                 count: 0
             },
-            todayVisitedCount:0,
+            todayVisitedCount: 0,
             newVisitorCount: 0,
             topDevice: {
                 deivice: '',
@@ -219,7 +228,11 @@ export const getStatSummary = async () => {
             totalClicks: 0,
             last24HoursClicks: 0,
             visitor: 0,
-            expiredLinks: 0
+            expiredLinks: 0,
+            topRegion: {
+                city: '',
+                count: 0
+            }
         }
     }
 }
@@ -240,8 +253,6 @@ export const getAdminStatSummary = async () => {
         }
     }
 }
-
-
 
 export const getAnalytics = async () => {
     try {

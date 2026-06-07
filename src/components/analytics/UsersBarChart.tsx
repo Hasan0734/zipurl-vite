@@ -13,13 +13,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../ui/select";
+
 import { Button } from "../ui/button";
 
 export const description = "An interactive bar chart";
@@ -55,16 +49,6 @@ const UsersBarChart = ({ data }: PropsType) => {
     React.useState<keyof DataType>("last90DaysUsers");
 
   const chartData = data[selectData];
-
-  console.log(chartData);
-  // const total = React.useMemo(
-  //   () => ({
-  //     desktop: chartData.reduce((acc, curr) => acc + curr.desktop, 0),
-  //     mobile: chartData.reduce((acc, curr) => acc + curr.mobile, 0),
-  //   }),
-  //   [],
-  // );
-
   return (
     <Card className="py-0">
       <CardHeader className="flex flex-col items-stretch border-b sm:flex-row py-3">

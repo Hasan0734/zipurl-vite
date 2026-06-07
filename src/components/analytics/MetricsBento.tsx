@@ -1,4 +1,4 @@
-import { CircleGauge, MousePointerClick, Users } from "lucide-react";
+import { Map, MousePointerClick, Users } from "lucide-react";
 import MetricsCard from "./MetricsCard";
 import type { UseQueryResult } from "@tanstack/react-query";
 import MetricsCardSkeleton from "./MetricsCardSkeleton";
@@ -27,11 +27,11 @@ const MetricsBento = ({ stats }: MetricsBentoProps) => {
             isUpper
           />
           <MetricsCard
-            icon={CircleGauge}
-            title="Conversion Rate"
-            total="4.6%"
-            increment="-2.1%"
-            isDown
+            icon={Map}
+            title="Top Region"
+            total={stats.data?.topRegion.city}
+            increment={stats.data?.topRegion.count}
+            isUpper
           />
         </div>
       )}

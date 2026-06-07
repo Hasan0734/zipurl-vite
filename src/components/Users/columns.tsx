@@ -1,6 +1,6 @@
 import { type ColumnDef } from "@tanstack/react-table";
 import { Button } from "../ui/button";
-import { ChevronDown, Trash2 } from "lucide-react";
+import {  Trash2 } from "lucide-react";
 import { format } from "date-fns";
 import type { User } from "@/lib/types";
 import { Badge } from "../ui/badge";
@@ -9,10 +9,9 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import CopyButton from "../ui/copy-button";
 import ConfirmDialog from "@/components/common/ConfirmDialog.tsx";
 import { Spinner } from "@/components/ui/spinner.tsx";
-import { changeUserStatus, deleteUserById } from "@/lib/api-request.ts";
+import {  deleteUserById } from "@/lib/api-request.ts";
 import { toast } from "sonner";
 
-import { useQueryClient } from "@tanstack/react-query";
 import UserStatus from "./user-status";
 
 export const columns: ColumnDef<User>[] = [

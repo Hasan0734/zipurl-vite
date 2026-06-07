@@ -47,7 +47,7 @@ const UrlStatus = ({ status, urlId }: { status: string; urlId: string }) => {
           {isPending && <Spinner />} {status} <ChevronDown />
         </Badge>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-40" align="start">
+      <DropdownMenuContent className="w-28" align="start">
         <DropdownMenuGroup>
           <DropdownMenuRadioGroup value={status} onValueChange={handleStatus}>
             <DropdownMenuRadioItem value="approved">

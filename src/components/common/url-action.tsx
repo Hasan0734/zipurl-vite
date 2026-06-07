@@ -1,4 +1,4 @@
-import React, { useState, useTransition } from "react";
+import { useState, useTransition } from "react";
 import EditUrlDialog from "./EditUrlDialog";
 import { Button } from "../ui/button";
 import { Edit2, Trash2 } from "lucide-react";

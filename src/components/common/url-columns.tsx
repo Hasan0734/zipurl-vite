@@ -11,6 +11,7 @@ import UrlAction from "./url-action";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 import { useAuth } from "@/hooks/use-auth";
 import { Badge } from "../ui/badge";
+import UrlNSFW from "./url-nsfw";
 
 export const columns: ColumnDef<UrlType>[] = [
   {
@@ -157,6 +158,19 @@ export const columns: ColumnDef<UrlType>[] = [
         </Badge>
       ) : (
         <UrlStatus urlId={row.original._id} status={row.getValue("status")} />
+      );
+    },
+  },
+  {
+    accessorKey: "is_nsfw",
+    header: "NSFW",
+    cell: ({ row }) => {
+      const { user } = useAuth();
+      const isUser = user?.role === "user";
+      return isUser ? (
+        <div className="">{String(row.getValue("is_nsfw"))}</div>
+      ) : (
+        <UrlNSFW value={row.getValue("is_nsfw")} urlId={row.original._id} />
       );
     },
   },
