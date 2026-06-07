@@ -48,14 +48,14 @@ const HeroFormSection = () => {
           <div className="flex flex-col items-center gap-8 md:flex-row">
             <div className="w-full flex-1">
               <div className="mb-4 flex items-center gap-2">
-                <div className="flex h-6 w-6 items-center justify-center rounded-full bg-secondary/20 text-secondary">
+                <div className="flex h-6 w-6 items-center justify-center rounded-full bg-secondary/20 text-primary">
                   <CheckCircleIcon size={16} />
                 </div>
-                <span className="text-sm font-semibold tracking-widest text-primary/50 ">
+                <span className="text-sm font-semibold tracking-widest text-primary ">
                   Link Created Successfully
                 </span>
               </div>
-              <div className="group mb-6 flex items-center justify-between rounded-full bg-black px-4 py-2">
+              <div className="group mb-6 flex items-center justify-between rounded-full bg-card px-4 py-2">
                 <span className="text-md font-medium tracking-tight text-primary/70">
                   {url() ? url() : "example"}
                 </span>
